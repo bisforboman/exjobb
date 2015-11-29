@@ -12,6 +12,10 @@ Tanken att ha kommunikation mellan svävare som flyger automatiskt för att för
 
 Utvinna / automatiskt dela information mellan enheter, där systemet kan hållas upp trots att en enhet går ned.
 
+### Länkar
+
+* http://blog.bittorrent.com/2014/07/30/building-an-engine-for-decentralized-communications/
+
 ## IOT
 
 För öppen kommunikation i t.ex. bilar som sprids ut allt för lätt. TOO MUCH INFORMATION.
