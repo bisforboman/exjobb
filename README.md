@@ -54,3 +54,21 @@ Har ingen kontaktperson, men om vi vill kan vi ju kontakta Ted Henriksson där s
 
 Smegtob/Hillbom kan peka oss rätt, vi borde nog höra av oss dit snart då inte så många hade gjort det än och de har redan hållt i två intervjuer.
 
+
+## Början på mail
+
+Vi är två stycken datateknologer i slutskedet av vår utbildning. Anders som läser en master med inriktning mot säkerhet och distriberade system medans Jakob mer inriktar sig på algoritmer och logik.
+Vi är intresserade av att göra exjobb hos er och har brainstormat fram några idéer som vi hoppas ni kan finna intresse för och kanske hjälpa oss utveckla till ett exjobb som vi kan få göra med erat företag.
+
+Förslag 1:
+
+
+Förslag 2:
+
+
+Förslag 3:
+
+
+Vi är väldigt flexibla och absolut öppna för andra förslag som bygger helt, delvis eller inte alls på de förslag vi beskriver ovan. Är det så att det låter intressant eller om det är något som behöver utvecklas eller om ni helt enkelt vill ta er en pratstund är ni välkomna att höra av er via exempelvis mail eller telefon.
+
+
