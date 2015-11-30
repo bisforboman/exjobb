@@ -24,6 +24,12 @@ Utvinna / automatiskt dela information mellan enheter, där systemet kan hållas
 
 För öppen kommunikation i t.ex. bilar som sprids ut allt för lätt. TOO MUCH INFORMATION.
 
+### Länkar
+
+* http://www.toptal.com/it/are-we-creating-an-insecure-internet-of-things
+* http://techcrunch.com/2015/10/24/why-iot-security-is-so-critical/
+* https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project
+
 # Kontakta
 
 Lista på företag/företagstjommar vi kan kontakta. Skriver upp dem som rubriker med nån tillgänglig kontaktinfo undertill.
