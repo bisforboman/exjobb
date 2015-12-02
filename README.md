@@ -14,7 +14,7 @@ Tanken att ha kommunikation mellan svävare som flyger automatiskt för att för
 
 ## BitTorrent-kommunikation mellan enheter
 
-Utvinna / automatiskt dela information mellan enheter, där systemet kan hållas upp trots att en enhet går ned.
+Ett system av egna enheter under ett nätverk som kan kommunicera och dela vidare information till samtliga inblandade enheter. 
 
 ### Länkar
 
