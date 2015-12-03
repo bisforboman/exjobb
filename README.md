@@ -80,4 +80,8 @@ Förslag 3:
 
 Vi är väldigt flexibla och absolut öppna för andra förslag som bygger helt, delvis eller inte alls på de förslag vi beskriver ovan. Är det så att det låter intressant eller om det är något som behöver utvecklas eller om ni helt enkelt vill ta er en pratstund är ni välkomna att höra av er via exempelvis mail eller telefon.
 
+--
 
+Hej,
+
+Vi är två stycken Datateknologer från Chalmers Tekniska Högskola som söker examensarbete nu till vårterminen. Vi träffade pratade med er när ni var på på DatE-IT och blev intresserade av att jobba hos er. Vi har tagit fram några idéer på vad vi skulle kunna göra för er, som vi hoppas kan utveckla tillsammans med er till något som är intressant för oss båda. 
