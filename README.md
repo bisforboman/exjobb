@@ -2,15 +2,13 @@
 
 Under så står lite förslag vad vi kan förgrena oss i, tänker att om vi djupdyker i några förslag kan dom få egna undermappar.
 
-## Autonoma Flygare
+## Säkerhetsaspekter hos uppkopplade bilar
 
-Tanken att ha kommunikation mellan svävare som flyger automatiskt för att förhindra krockar för dem.
-
-* Kan bli för svårt, Dijkstra's i 3D-rum är ev. skitjobbigt. 
+Undersöka säkerheten hos uppkopplade bilar, ev utveckla någon form av verktyg för mer automatiserade tester
 
 ### Länkar
 
-* http://www.cs.cornell.edu/~asaxena/helicopter/autonomousindoorhelicopter_iros.pdf (typ komplett länk till ett sånt projekt)
+https://www.chalmers.se/sv/institutioner/cse/nyheter/Sidor/uppkoppladbil.aspx
 
 ## BitTorrent-kommunikation mellan enheter
 
@@ -29,6 +27,17 @@ För öppen kommunikation i t.ex. bilar som sprids ut allt för lätt. TOO MUCH 
 * http://www.toptal.com/it/are-we-creating-an-insecure-internet-of-things
 * http://techcrunch.com/2015/10/24/why-iot-security-is-so-critical/
 * https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project
+ 
+## Backup idéer
+## Autonoma Flygare
+
+Tanken att ha kommunikation mellan svävare som flyger automatiskt för att förhindra krockar för dem.
+
+* Kan bli för svårt, Dijkstra's i 3D-rum är ev. skitjobbigt. 
+
+### Länkar
+
+* http://www.cs.cornell.edu/~asaxena/helicopter/autonomousindoorhelicopter_iros.pdf (typ komplett länk till ett sånt projekt)
 
 # Kontakta
 
