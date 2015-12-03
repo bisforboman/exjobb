@@ -26,6 +26,7 @@ För öppen kommunikation i t.ex. bilar som sprids ut allt för lätt. TOO MUCH 
 
 * http://www.toptal.com/it/are-we-creating-an-insecure-internet-of-things
 * http://techcrunch.com/2015/10/24/why-iot-security-is-so-critical/
+* https://nakedsecurity.sophos.com/2015/11/30/millions-of-internet-things-are-secured-by-the-same-private-keys/
 * https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project
  
 ## Backup idéer
