@@ -1,88 +1,47 @@
-# Examensarbete (förslag)
+# Data Minimization for more privacy in the Internet of Things
 
-Under så står lite förslag vad vi kan förgrena oss i, tänker att om vi djupdyker i några förslag kan dom få egna undermappar.
+## Introduction
 
-## Säkerhetsaspekter hos uppkopplade bilar
+-- this is non-revised
 
-Undersöka säkerheten hos uppkopplade bilar, ev utveckla någon form av verktyg för mer automatiserade tester
+With the increasing trend of connected devices, the network of these devices are often called Internet of Things or IoT for short, where everything from lightbulbs to thermostats can be controlled by an app.  The exposure of these devices to the internet makes a lot of that data available to the end user but also to malicious users due to the devices leaking more data than intended or by bad design. This puts the end user at risk, violating its privacy and leaking sensitive data the malicious users who can siphon the data. One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce once it is defined what is actually needed to provide a service. 
 
-### Länkar
+## Context 
 
-https://www.chalmers.se/sv/institutioner/cse/nyheter/Sidor/uppkoppladbil.aspx
+-- this is non-revised
 
-## BitTorrent-kommunikation mellan enheter
+This master thesis will include an extensive literature study. It will investigate current business models and IoT development to help determine some relevant key areas that utilizes data harvesting and to which extent. According to Miorandi et al. [1] “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ 
 
-Ett system av egna enheter under ett nätverk som kan kommunicera och dela vidare information till samtliga inblandade enheter. 
+At the same time, there are areas that by simple usage of IoT can benefit greatly from the connectivity of these devices [2], “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.”. The usage of IoT raises questions regarding privacy; who decides when a device should be turned on/off, how will the decider know that a device should be turned on/off and how will this decision be communicated?
 
-### Länkar
-
-* http://blog.bittorrent.com/2014/07/30/building-an-engine-for-decentralized-communications/
-
-## IOT
-
-För öppen kommunikation i t.ex. bilar som sprids ut allt för lätt. TOO MUCH INFORMATION.
-
-### Länkar
-
-* http://www.toptal.com/it/are-we-creating-an-insecure-internet-of-things
-* http://techcrunch.com/2015/10/24/why-iot-security-is-so-critical/
-* https://nakedsecurity.sophos.com/2015/11/30/millions-of-internet-things-are-secured-by-the-same-private-keys/
-* https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project
- 
-## Backup idéer
-## Autonoma Flygare
-
-Tanken att ha kommunikation mellan svävare som flyger automatiskt för att förhindra krockar för dem.
-
-* Kan bli för svårt, Dijkstra's i 3D-rum är ev. skitjobbigt. 
-
-### Länkar
-
-* http://www.cs.cornell.edu/~asaxena/helicopter/autonomousindoorhelicopter_iros.pdf (typ komplett länk till ett sånt projekt)
-
-# Kontakta
-
-Lista på företag/företagstjommar vi kan kontakta. Skriver upp dem som rubriker med nån tillgänglig kontaktinfo undertill.
-
-## 3Bits
-
-Kontaktperson: Mattias Philip
-
-Tror dom inriktade sig mer på mjukvara, tänk C# typ.
-
-## Scionova
-
-Kontaktperson: Johannes.jansson@scionova.com
-
-Tror dom inriktade sig på trådlös kommunikation? Inbyggda system som pratade med varandra? Dotterbolag till Volvo? Ingen aning, men nått sånt.
-
-## Delphi
-
-Har ingen kontaktperson, men om vi vill kan vi ju kontakta Ted Henriksson där så kanske han pekar oss vidare.
-
-## OmegaPoint
-
-Smegtob/Hillbom kan peka oss rätt, vi borde nog höra av oss dit snart då inte så många hade gjort det än och de har redan hållt i två intervjuer.
+The lack of privacy in these devices makes this subject an important one especially with the increasing number of IoT devices. Miorandi et al. [1] thinks it is one of the key issues, along with security, with IoT devices makes the subject of this thesis a relevant one.  
 
 
-## Början på mail
+## Goals & Challenges
 
-Vi är två stycken datateknologer i slutskedet av vår utbildning. Anders som läser en master med inriktning mot säkerhet och distriberade system medans Jakob mer inriktar sig på algoritmer och logik.
-Vi är intresserade av att göra exjobb hos er och har brainstormat fram några idéer som vi hoppas ni kan finna intresse för och kanske hjälpa oss utveckla till ett exjobb som vi kan få göra med erat företag.
+The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in observed networks by limiting the amount of data being communicated. 
 
-Förslag 1:
+The project will seek to formalize communication protocols, varying for different privacy levels in different WSNs, to help developers reach a sufficient privacy level within their applications. With different applications the different requirements will vary and this will be reflected in the different protocols. 
+
+If time allows, the project will seek to develop an analyzing tool to help the privacy concerns in WSN development even further. 
+
+With the broad usage of different IoT devices, each having different levels of sensitive data, defining a general formalization of data minimizing that can be applied to all applications is the greatest challenge.
+
+## Approach
+
+As a first step the of the thesis will be to conduct literature studies on current IoT applications. This will include both literature studies and practical studies into modern development and current standards within WSNs. The practical studies will include testing security on existing applications for the sake of finding real world examples with weaknesses to reference due the course of the project. 
+
+With enough information, the project will seek to formalize the sought protocols. This is estimated to be a big component of the project and where most of the time will be spent. If a more general solution would prove to complicated, the project will limit itself to some applications.
+
+## Ethics
+
+We are aware that our thesis will include some ethical questions since we investigate the possibility to implement better privacy for the end user. We believe that making IoT devices collect less data makes the end user more inclined to use it. Thereby helping both the customers and the manufacturers. We also understand that this would make sensitive data more difficult to be leaked which should be the interest for all parties involved. 
+
+Finally we understand that it also disrupts current business models, that uses data mining to better refine their products, but we are confident that helping to increase the privacy of IoT devices is for the benefit of everyone. 
 
 
-Förslag 2:
+## References
 
+[1] Miorandi, Daniele, et al. "Internet of things: Vision, applications and research challenges." Ad Hoc Networks 10.7 (2012): 1497-1516.
 
-Förslag 3:
-
-
-Vi är väldigt flexibla och absolut öppna för andra förslag som bygger helt, delvis eller inte alls på de förslag vi beskriver ovan. Är det så att det låter intressant eller om det är något som behöver utvecklas eller om ni helt enkelt vill ta er en pratstund är ni välkomna att höra av er via exempelvis mail eller telefon.
-
---
-
-Hej,
-
-Vi är två stycken Datateknologer från Chalmers Tekniska Högskola som söker examensarbete nu till vårterminen. Vi träffade pratade med er när ni var på på DatE-IT och blev intresserade av att jobba hos er. Vi har tagit fram några idéer på vad vi skulle kunna göra för er, som vi hoppas kan utveckla tillsammans med er till något som är intressant för oss båda. 
+[2] Medaglia, Carlo Maria, and Alexandru Serbanati. "An overview of privacy and security issues in the internet of things." The Internet of Things. Springer New York, 2010. 389-395.
