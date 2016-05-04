@@ -1,4 +1,4 @@
-# Data Minimization for more privacy in the Internet of Things
+# Data Minimization in distributed applications for more privacy 
 
 ## Introduction
 
@@ -23,15 +23,15 @@ The main goal of the master thesis is to investigate ways to improve privacy of 
 
 The project will seek to formalize communication protocols, varying for different privacy levels in different WSNs, to help developers reach a sufficient privacy level within their applications. With different applications the different requirements will vary and this will be reflected in the different protocols. 
 
-If time allows, the project will seek to develop an analyzing tool to help the privacy concerns in WSN development even further. 
-
 With the broad usage of different IoT devices, each having different levels of sensitive data, defining a general formalization of data minimizing that can be applied to all applications is the greatest challenge.
 
 ## Approach
 
 As a first step the of the thesis will be to conduct literature studies on current IoT applications. This will include both literature studies and practical studies into modern development and current standards within WSNs. The practical studies will include testing security on existing applications for the sake of finding real world examples with weaknesses to reference due the course of the project. 
 
-With enough information, the project will seek to formalize the sought protocols. This is estimated to be a big component of the project and where most of the time will be spent. If a more general solution would prove to complicated, the project will limit itself to some applications.
+With enough information, the project will seek to formalize the sought protocols. This is estimated to be a big component of the project and where most of the time will be spent. The chosen applications for the sought protocols will be decided in agreement with the supervisor.
+
+If time allows, the project would seek to develop an analyzing tool to help the privacy concerns in WSN development even further. 
 
 ## Ethics
 
