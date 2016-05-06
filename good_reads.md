@@ -32,19 +32,20 @@ link: http://www.sciencedirect.com/science/article/pii/S0167739X13000241
 
 Discusses WSNs and how to approach development to meet future needs, not as focused on privacy/security though, so keeping it here for now.
 
-### Public Key Based Cryptoschemes for Data
-Concealment in Wireless Sensor Networks
+### Public Key Based Cryptoschemes for Data Concealment in Wireless Sensor Networks
 
 link: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4024506
 
 TBR.
 
-### Preserving Source Location Privacy in
-Monitoring-Based Wireless Sensor Networks
+### Preserving Source Location Privacy in Monitoring-Based Wireless Sensor Networks
 
 link: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1639682
 
 TBR.
 
+### Wireless Sensor Networks for Healthcare
 
-### 
+link: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5570866
+
+Might be very area-specific but at first glance seems good.
