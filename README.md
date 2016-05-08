@@ -19,19 +19,21 @@ The lack of privacy in these devices makes this subject an important one especia
 
 ## Goals & Challenges
 
-The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in observed networks by limiting the amount of data being communicated. 
+The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of data being communicated. 
 
-The project will seek to formalize communication protocols, varying for different privacy levels in different WSNs, to help developers reach a sufficient privacy level within their applications. With different applications the different requirements will vary and this will be reflected in the different protocols. 
+The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users with the help of WSNs. 
 
-With the broad usage of different IoT devices, each having different levels of sensitive data, defining a general formalization of data minimizing that can be applied to all applications is the greatest challenge.
+Should this prove to cumbersome, the project will instead seek to formalize communication protocols, varying for different privacy levels in different WSNs, to concretize a sufficient privacy level within WSN applications. With different applications the different requirements will vary and this will be reflected in the different protocols. 
+
+With the broad usage of different IoT devices, each having different levels of sensitive data, finding a good limit for each application that ensures sufficient privacy for it's users will be the greatest challenge.
 
 ## Approach
 
 As a first step the of the thesis will be to conduct literature studies on current IoT applications. This will include both literature studies and practical studies into modern development and current standards within WSNs. The practical studies will include testing security on existing applications for the sake of finding real world examples with weaknesses to reference due the course of the project. 
 
-With enough information, the project will seek to formalize the sought protocols. This is estimated to be a big component of the project and where most of the time will be spent. The chosen applications for the sought protocols will be decided in agreement with the supervisor.
+With enough information, the project will begin development on a simple network - without too many components - and create an improved "smart" version. Then the project will continue with real-world examples, doing the same thing in a larger example. Here the progress will be discussed with my supervisor and should too many difficulties occur, the project will here instead seek to structure protocols to show how to improve the privacy. 
 
-If time allows, the project would seek to develop an analyzing tool to help the privacy concerns in WSN development even further. 
+Further development will be managed in agreement with the supervisor and if time allows and all goes well, the project would seek to develop an analyzing tool to help privacy concerns in WSN development even further. 
 
 ## Ethics
 
