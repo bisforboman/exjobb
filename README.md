@@ -8,14 +8,11 @@ With the increasing trend of connected devices, the network of these devices are
 
 ## Context 
 
--- this is non-revised
+Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons [1], “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ Where if these problems would be solved the area could expand even further. 
 
-This master thesis will include an extensive literature study. It will investigate current business models and IoT development to help determine some relevant key areas that utilizes data harvesting and to which extent. According to Miorandi et al. [1] “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ 
-
-At the same time, there are areas that by simple usage of IoT can benefit greatly from the connectivity of these devices [2], “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.”. The usage of IoT raises questions regarding privacy; who decides when a device should be turned on/off, how will the decider know that a device should be turned on/off and how will this decision be communicated?
+In a report from Medaglia et al., they list some examples on solutions for IoT development [2], “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.”. But also raises interesting questions regarding privacy; who decides when a device should be turned on/off, how will the decider know that a device should be turned on/off and how will this decision be communicated?
 
 The lack of privacy in these devices makes this subject an important one especially with the increasing number of IoT devices. Miorandi et al. [1] thinks it is one of the key issues, along with security, with IoT devices makes the subject of this thesis a relevant one.  
-
 
 ## Goals & Challenges
 
