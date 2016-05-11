@@ -18,9 +18,9 @@ The lack of privacy in these devices makes this subject an important one especia
 
 ## Goals & Challenges
 
-The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of data being communicated. 
+The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of **personal** data being **processed <del>communicated</del>**. 
 
-The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users with the help of WSNs. 
+The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users with the help of WSNs. **Is it going to use WSN to improve privqcy? Or is it going to improve privqcy in WSNs?**
 
 Should this prove to cumbersome, the project will instead seek to formalize communication protocols, varying for different privacy levels in different WSNs, to concretize a sufficient privacy level within WSN applications. With different applications the different requirements will vary and this will be reflected in the different protocols. 
 
@@ -28,11 +28,20 @@ With the broad usage of different IoT devices, each having different levels of s
 
 ## Approach
 
-As a first step the of the thesis will be to conduct literature studies on current IoT applications. This will include both literature studies and practical studies into modern development and current standards within WSNs. The practical studies will include testing security on existing applications for the sake of finding real world examples with weaknesses to reference due the course of the project. 
+As a first step the of the thesis will be to conduct literature studies on current IoT applications. This will include both literature studies and practical studies into modern development and current standards within WSNs. The practical studies will include testing security **Which security properties? What is expected to be found?** on existing applications for the sake of finding real world examples with weaknesses to reference due the course of the project. **The case study shoul come later. Classical outline is: (i) clear statement of the problem, (ii) existing solutions adressing similar problems and demonstration there is nothing adressing or solving satisfactorily the exact problem and introduction of the new approach, (iii) in-depth development and study of the new approach, (iv) case study on an application, (v) conclusion and perspectives**
 
 With enough information, the project will begin development on a simple network - without too many components - and create an improved "smart" version. Then the project will continue with real-world examples, doing the same thing in a larger example. Here the progress will be discussed with my supervisor and should too many difficulties occur, the project will here instead seek to structure protocols to show how to improve the privacy. 
 
 Further development will be managed in agreement with the supervisor and if time allows and all goes well, the project would seek to develop an analyzing tool to help privacy concerns in WSN development even further. 
+
+**Limiting the processing on personal data is a complex issue that can be tackled from many different perspectives. Many techniques exist to weaken data quality (k-anonymisation REF, l-diverity REF, t-closeness REF, epsilon-differential privacy REF) used to reduce the utility and improve the privacy of data subjects. However, we will take a simplified approach: either the data is processed, either it is not. To this aim, we plan to adopt an incremental approach by considering different steps of the personal data lifecyle. First we will consider data collection by sensors which are centrally managed. In this case, the decision to collect or not is taken by the central server and the decision has to be propagated in the WSN until reaching the sensor. We will then consider data storage and, finally data disclosure.
+
+Once the problem is characterized and addressed in the centralized architecture, we are going to distribute the decision in the WSNs by adding distributed computation capabilities in the network. This may be by adding aggregators which may be considered as partially centralized architectures or even by equipping all sensors with computation units to allow maximally decentralised decisions.
+
+To be able to decide whether or not the data needs to be processed, the decision point needs to have a knowledge of what has to be computed, what is needed to compute it, and the current state of what has been processed to decide whether or not further processing is needed. The decision itself may be distributed among several components in the network to reduce its impact in terms of privacy.**
+
+At first, we will consider related works in the energy management in WSNs litterature as data minimisation is also used towards achieving better energy savings. This kindof work often targets lower levels (cf. http://ieeexplore.ieee.org.proxy.lib.chalmers.se/stamp/stamp.jsp?tp=&arnumber=1632657) than the application level we target here.
+**
 
 ## Ethics
 
