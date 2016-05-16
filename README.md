@@ -40,6 +40,8 @@ A preliminary plan for the project is as follows:
 
 Writing of the final report is interleaved with the other work throughout the entire project.
 
+--- previous comments kept below
+
 **Limiting the processing on personal data is a complex issue that can be tackled from many different perspectives. Many techniques exist to weaken data quality (k-anonymisation REF, l-diverity REF, t-closeness REF, epsilon-differential privacy REF) used to reduce the utility and improve the privacy of data subjects. However, we will take a simplified approach: either the data is processed, either it is not. To this aim, we plan to adopt an incremental approach by considering different steps of the personal data lifecyle. First we will consider data collection by sensors which are centrally managed. In this case, the decision to collect or not is taken by the central server and the decision has to be propagated in the WSN until reaching the sensor. We will then consider data storage and, finally data disclosure.**
 
 **Once the problem is characterized and addressed in the centralized architecture, we are going to distribute the decision in the WSNs by adding distributed computation capabilities in the network. This may be by adding aggregators which may be considered as partially centralized architectures or even by equipping all sensors with computation units to allow maximally decentralised decisions.**
