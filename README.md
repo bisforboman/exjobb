@@ -28,7 +28,7 @@ With the broad usage of different IoT devices, each having different levels of s
 
 Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users.
 
-
+In a paper from Dai et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. 
 
 A preliminary plan for the project is as follows:
 
