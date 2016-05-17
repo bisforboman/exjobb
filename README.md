@@ -28,19 +28,23 @@ With the broad usage of different IoT devices, each having different levels of s
 
 Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users.
 
-In a paper from Dai et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. 
+In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. 
+
+As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions.
+
+As a basis for decisions, I will look at related work in energy management for WSNs, where decisions are used to improve energy savings. (_reference to a paper on energy savings can be added here._)
 
 A preliminary plan for the project is as follows:
 
 1. Installing and set-up of the Arduino components and development environments. Then familiarise myself with it. (3 weeks)
 2. Plan a specification of the algorithms. (5 weeks)
 3. Development of the algorithms according to the specification. (5 weeks)
-4. Testing of algorithms to ensure correctness. (5 weeks)
+4. Testing of algorithms. (5 weeks)
 5. Polishing the implementation and finalising the report. (2 weeks)
 
 Writing of the final report is interleaved with the other work throughout the entire project.
 
---- previous comments kept below
+--- previous comments you made are kept below for now
 
 **Limiting the processing on personal data is a complex issue that can be tackled from many different perspectives. Many techniques exist to weaken data quality (k-anonymisation REF, l-diverity REF, t-closeness REF, epsilon-differential privacy REF) used to reduce the utility and improve the privacy of data subjects. However, we will take a simplified approach: either the data is processed, either it is not. To this aim, we plan to adopt an incremental approach by considering different steps of the personal data lifecyle. First we will consider data collection by sensors which are centrally managed. In this case, the decision to collect or not is taken by the central server and the decision has to be propagated in the WSN until reaching the sensor. We will then consider data storage and, finally data disclosure.**
 
