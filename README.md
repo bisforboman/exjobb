@@ -20,19 +20,19 @@ The lack of privacy in these devices makes this subject an important one especia
 
 The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of personal data being processed. 
 
-The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users in WSNs. 
+The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users in WSNs. TA: I don't really understand this sentence, or rather, I am not sure of what it means.
 
 With the broad usage of different IoT devices, each having different levels of sensitive data, finding a good limit for each application that ensures sufficient privacy for it's users will be the greatest challenge.
 
 ## Approach
 
-Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users.
+Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users. TA: Implementation and testing come in second part of the project and should be seen as a validation of what you did first, which should be the core of the work (except if the impplementation in itself is extremely complicated). What are the kinds of test you plan to do? Side question: do you have access to Arduino hardware?
 
-In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. 
+In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. TA: The last sentence (Which ... require.) does not seem to ba a proper sentence.
 
-As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions.
+As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. TA: Maybe you should develop what the decision is about.
 
-As a basis for decisions, I will look at related work in energy management for WSNs, where decisions are used to improve energy savings. (_reference to a paper on energy savings can be added here._)
+As a basis for decisions, I will look at related work in energy management for WSNs, where such decisions are used to improve energy savings. (_reference to a paper on energy savings can be added here._) TA: Here is a paper on the topic: http://nslab.kaist.ac.kr/courses/2006/cs710/paperlist/network/sensor/23.pdf
 
 A preliminary plan for the project is as follows:
 
@@ -41,6 +41,8 @@ A preliminary plan for the project is as follows:
 3. Development of the algorithms according to the specification. (5 weeks)
 4. Testing of algorithms. (5 weeks)
 5. Polishing the implementation and finalising the report. (2 weeks)
+
+TA: 3 weeks for point 1 seems very long to me. What exactly do you think would take so much time? For point 4, would it be possible to proove some properties instead of testing them? I am not sure about the output of your project though. I remember you spoke about a tool to help developer previously, is it still present or has it changed? All in all, it improved and I think we are close to a complete proposal now. Tell me if you have other questions.
 
 Writing of the final report is interleaved with the other work throughout the entire project.
 
