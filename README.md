@@ -18,11 +18,11 @@ The lack of privacy in these devices makes this subject an important one especia
 
 ## Goals & Challenges
 
-The main goal of the master thesis is to investigate ways to improve privacy of IoT applications, more specifically Wireless Sensor Network (WSN) applications, using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of personal data being processed. 
+The aim of the master thesis is to investigate ways to improve privacy of Wireless Sensor Network (WSN) applications using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of personal data being processed. 
 
-The project will seek to create smart algorithms for privacy with WSN applications, meaning it will seek to create automitized algorithms that improves privacy for users in WSNs. TA: I don't really understand this sentence, or rather, I am not sure of what it means.
+The main goal for the project will be to define how a decision should be reached, meaning to have an application analyze its' collected data and reach a conclusion that a decision should be taken. 
 
-With the broad usage of different IoT devices, each having different levels of sensitive data, finding a good limit for each application that ensures sufficient privacy for it's users will be the greatest challenge.
+With the broad usage of different applications, each having different levels of sensitive data, finding a good limit that ensures sufficient privacy for it's users will be the greatest challenge.
 
 ## Approach
 
