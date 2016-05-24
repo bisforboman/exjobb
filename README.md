@@ -40,12 +40,12 @@ A preliminary plan for the project is as follows:
 
 2. Installing and setup of the development environment. (1 week) 
 
-3.0 Begin development on the core features of the algorithm by the following steps. (8 weeks)
-3.1 Specification
-3.2 Development
-3.3 Validation
+3. Begin development on the core features of the algorithm by the following steps. (8 weeks)
+    3.1 Specification
+    3.2 Development
+    3.3 Validation
 
-4. When the algorithm works for the core features I'll add more features and follow the same workflow as in 3. (7 weeks)
+4. When the algorithm works for the core features, I'll add more features and follow the same workflow as in 3. (7 weeks)
 
 5. Polishing the implementation and finalising the report. (2 weeks)
 
