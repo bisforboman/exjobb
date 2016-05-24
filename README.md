@@ -26,13 +26,13 @@ With the broad usage of different IoT devices, each having different levels of s
 
 ## Approach
 
-Implementation and validation will be done on simulated Wireless Sensor Networks, using e.g. SPIN, prototypes will be used to simulate applications collecting data and development will focused on finding algorithms to limit the amount of data processed. Validation will then seek to ensure that decisions are communicated and the sought outcome is achieved, meaning the decision isn't ignored.
+Implementation and validation will be done on simulated Wireless Sensor Networks, using e.g. SPIN, prototypes will then be used to simulate applications collecting data and development will focused on finding algorithms to limit the amount of data processed. Validation will then seek to ensure that decisions are communicated and the sought outcome is achieved, meaning the decisions aren't ignored.
 
 In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. This proposes a permission-based solution, whereas this project instead will seek to make the application limit itself from collecting more than it would require. 
 
 As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To make a decision, a computation unit would need to know the following; what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further processing is needed. 
 
-As a basis for decisions, I will look at related work in energy management for WSNs, where similiar decisions are used to improve energy savings. For example the paper by Keshavarzian et al [5].
+As a basis for decisions, I will look at related work in energy management for WSNs, where similiar decisions are used to improve energy savings e.g. Keshavarzian et al [5]. 
 
 A preliminary plan for the project is as follows:
 
