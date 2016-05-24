@@ -28,34 +28,28 @@ With the broad usage of different IoT devices, each having different levels of s
 
 Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users. TA: Implementation and testing come in second part of the project and should be seen as a validation of what you did first, which should be the core of the work (except if the impplementation in itself is extremely complicated). What are the kinds of test you plan to do? Side question: do you have access to Arduino hardware?
 
-In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. Which proposes a permission-based solution, whereas this project instead will seek to limit the application itself from wanting to collect more than it would require. TA: The last sentence (Which ... require.) does not seem to ba a proper sentence.
+In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. This proposes a permission-based solution, whereas this project instead will seek to make the application limit itself from collecting more than it would require. 
 
-As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. TA: Maybe you should develop what the decision is about.
+As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To make a decision, a computation unit would need to know the following; what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further processing is needed. 
 
-As a basis for decisions, I will look at related work in energy management for WSNs, where such decisions are used to improve energy savings. (_reference to a paper on energy savings can be added here._) TA: Here is a paper on the topic: http://nslab.kaist.ac.kr/courses/2006/cs710/paperlist/network/sensor/23.pdf
+As a basis for decisions, I will look at related work in energy management for WSNs, where similiar decisions are used to improve energy savings. For example the paper by Keshavarzian et al [5].
 
 A preliminary plan for the project is as follows:
 
-1. Installing and set-up of the Arduino components and development environments. Then familiarise myself with it. (3 weeks)
-2. Plan a specification of the algorithms. (5 weeks)
-3. Development of the algorithms according to the specification. (5 weeks)
-4. Testing of algorithms. (5 weeks)
+1. Formalise the constraints and guarantees in the simulated WSN. (2 weeks)
+
+2. Installing and setup of the development environment. (1 week) 
+
+3. Begin development on the core features of the algorithm by the following steps. (8 weeks)
+ 3.1 Specification
+ 3.2 Development
+ 3.3 Validation
+
+4. When the algorithm works for the core features I'll add more features and follow the same workflow as in 3. (7 weeks)
+
 5. Polishing the implementation and finalising the report. (2 weeks)
 
-TA: 3 weeks for point 1 seems very long to me. What exactly do you think would take so much time? For point 4, would it be possible to proove some properties instead of testing them? I am not sure about the output of your project though. I remember you spoke about a tool to help developer previously, is it still present or has it changed? All in all, it improved and I think we are close to a complete proposal now. Tell me if you have other questions.
-
 Writing of the final report is interleaved with the other work throughout the entire project.
-
---- previous comments you made are kept below for now
-
-**Limiting the processing on personal data is a complex issue that can be tackled from many different perspectives. Many techniques exist to weaken data quality (k-anonymisation REF, l-diverity REF, t-closeness REF, epsilon-differential privacy REF) used to reduce the utility and improve the privacy of data subjects. However, we will take a simplified approach: either the data is processed, either it is not. To this aim, we plan to adopt an incremental approach by considering different steps of the personal data lifecyle. First we will consider data collection by sensors which are centrally managed. In this case, the decision to collect or not is taken by the central server and the decision has to be propagated in the WSN until reaching the sensor. We will then consider data storage and, finally data disclosure.**
-
-**Once the problem is characterized and addressed in the centralized architecture, we are going to distribute the decision in the WSNs by adding distributed computation capabilities in the network. This may be by adding aggregators which may be considered as partially centralized architectures or even by equipping all sensors with computation units to allow maximally decentralised decisions.**
-
-**To be able to decide whether or not the data needs to be processed, the decision point needs to have a knowledge of what has to be computed, what is needed to compute it, and the current state of what has been processed to decide whether or not further processing is needed. The decision itself may be distributed among several components in the network to reduce its impact in terms of privacy.**
-
-**At first, we will consider related works in the energy management in WSNs litterature as data minimisation is also used towards achieving better energy savings. This kindof work often targets lower levels (cf. http://ieeexplore.ieee.org.proxy.lib.chalmers.se/stamp/stamp.jsp?tp=&arnumber=1632657) than the application level we target here.**
-
 
 ## Ethics
 
