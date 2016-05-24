@@ -26,7 +26,7 @@ With the broad usage of different IoT devices, each having different levels of s
 
 ## Approach
 
-Implementation and testing will be done using Arduino hardware with modules allowing wi-fi communication. Open Source applications (_some examples of applications will be referenced here_) will be used as prototypes to simulate applications collecting data and development will focus on finding algorithms to limit the amount of data collected to improve privacy for the users. TA: Implementation and testing come in second part of the project and should be seen as a validation of what you did first, which should be the core of the work (except if the impplementation in itself is extremely complicated). What are the kinds of test you plan to do? Side question: do you have access to Arduino hardware?
+Implementation and validation will be done on simulated Wireless Sensor Networks, using e.g. SPIN, prototypes will be used to simulate applications collecting data and development will focused on finding algorithms to limit the amount of data processed. Validation will then seek to ensure that decisions are communicated and the sought outcome is achieved, meaning the decision isn't ignored.
 
 In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. This proposes a permission-based solution, whereas this project instead will seek to make the application limit itself from collecting more than it would require. 
 
