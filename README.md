@@ -36,7 +36,7 @@ As a basis for decisions, I will look at related work in energy management for W
 
 A preliminary plan for the project is as follows:
 
-1. Formalise the constraints and guarantees in the simulated WSN. (2 weeks)
+1. Formalise the properties of the simulated WSNs, with constraints I make and guarantees I expect. (2 weeks)
 
 2. Installing and setup of the development environment. (1 week) 
 
