@@ -41,12 +41,13 @@ Finally we understand that it also disrupts current business models, that uses d
 
 ## References
 
-[1] Miorandi, Daniele, et al. "Internet of things: Vision, applications and research challenges." Ad Hoc Networks 10.7 (2012): 1497-1516.
+[1] Miorandi, D., Sicari, S., De Pellegrini, F. and Chlamtac, I., 2012. Internet of things: Vision, applications and research challenges. Ad Hoc Networks, 10(7), pp.1497-1516.
 
-[2] Medaglia, Carlo Maria, and Alexandru Serbanati. "An overview of privacy and security issues in the internet of things." The Internet of Things. Springer New York, 2010. 389-395.
+[2] Medaglia, C.M. and Serbanati, A., 2010. An overview of privacy and security issues in the internet of things. In The Internet of Things (pp. 389-395). Springer New York.
 
-[3] Weber, Rolf H. "Internet of Things–New security and privacy challenges." Computer Law & Security Review 26.1 (2010): 23-30. 
+[3] Weber, R.H., 2010. Internet of Things–New security and privacy challenges. Computer Law & Security Review, 26(1), pp.23-30.
 
-[4] Li, Yibin, et al. "Privacy protection for preventing data over-collection in smart city." (2015).
+[4] Li, Y., Dai, W., Ming, Z. and Qiu, M., 2015. Privacy protection for preventing data over-collection in smart city.
 
-[5] Keshavarzian, Abtin, Huang Lee, and Lakshmi Venkatraman. "Wakeup scheduling in wireless sensor networks." Proceedings of the 7th ACM international symposium on Mobile ad hoc networking and computing. ACM, 2006.
+[5] Keshavarzian, A., Lee, H. and Venkatraman, L., 2006, May. Wakeup scheduling in wireless sensor networks. In Proceedings of the 7th ACM international symposium on Mobile ad hoc networking and computing (pp. 322-333). ACM.
+
