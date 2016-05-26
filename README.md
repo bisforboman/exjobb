@@ -2,61 +2,46 @@
 
 ## Introduction
 
-With the increasing trend of connected devices, the network of these devices are often called Internet of Things or IoT for short, where everything from lightbulbs to thermostats can be controlled by an app.  The exposure of these devices to the internet makes a lot of that data available to the end user but also to malicious users due to the devices leaking more data than intended or by bad design. This puts the end user at risk, violating its privacy and leaking sensitive data the malicious users who can siphon the data. One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce once it is defined what is actually needed to provide a service. 
+The presence of connected devices in our environment is increasing. These devices form a network often called Internet of Things (or IoT for short), where everything from lightbulbs to thermostats can be controlled by an app or by another device. These services make a lot of that data available to the end user but also to malicious parties due to the devices leaking more data than intended or by bad design. This puts the end user at risk, violating its privacy and leaking sensitive data. One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data, a principle known as data minimisation. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce it once it is defined what is actually needed to provide a service. 
 
 ## Context 
 
-Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons [1], “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ Where if these problems would be solved the area could expand even further. 
+Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons [1]: “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ Adressing this issue is thus particularly important for this area to expand further. 
 
-In a report from Medaglia et al., they list some examples on solutions for IoT development [2], “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.”. But also raises interesting questions regarding privacy; who decides when a device should be turned on/off, how will the decider know that a device should be turned on/off and how will this decision be communicated?
+In a report from Medaglia et al., they list some examples on solutions for IoT development [2]: “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.” This also raises interesting questions regarding privacy: who decides when a device should be turned on or off? How will the decider know that a device should be turned on or off and how will this decision be communicated and enforced in the network?
 
-Also in a paper from Weber [3], he examplified situations concerning privacy, "The attribution of tags to objects may not be known to users, and there may not be an acoustic or visual signal to draw the attention of the object’s user. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Further aggravating the problem, it is not anymore only the state that is interested in collecting the respective data, but also private actors such as marketing enterprises." Which clearly explains the problems with weak privacy. 
+Also in a paper from Weber [3], he examplified situations concerning privacy, "The attribution of tags to objects may not be known to users, and there may not be an acoustic or visual signal to draw the attention of the object’s user. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Further aggravating the problem, it is not anymore only the state that is interested in collecting the respective data, but also private actors such as marketing enterprises." This clearly explains the problems occurring when privacy concerns are weakly taken into account.
 
-The lack of privacy in these devices makes this subject an important one especially with the increasing number of IoT devices. Miorandi et al. [1] thinks it is one of the key issues, along with security, with IoT devices makes the subject of this thesis a relevant one.  
+The lack of privacy due to these devices makes this topic an important one especially with the increasing number of IoT devices. Miorandi et al. [1] think it is one of the key issues, along with security. As such, studying and improving privacy in IoT devices makes the subject of this thesis a current and relevant one.  
 
 ## Goals & Challenges
 
-The aim of the master thesis is to investigate ways to improve privacy of Wireless Sensor Network (WSN) applications using data minimization. Meaning the project will seek to improve privacy in distributed networks by limiting the amount of personal data being processed. 
+The aim of the master thesis is to investigate ways to improve privacy of a specific kind of IoT devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimisation. This means the project will seek to improve privacy in distributed networks by limiting the amount of personal data processed. 
 
-The main goal for the project will be to define how a decision should be reached, meaning to have an application analyze its' collected data and reach a conclusion that a decision should be taken. 
+The main goal for the project will be to define how a decision about data collection should be made, meaning to have an application (potentially distributed) analyzing the collected data and reaching a conclusion which has to be enforced by the devices. 
 
-With the broad usage of different applications, each having different levels of sensitive data, finding a good limit that ensures sufficient privacy for it's users will be the greatest challenge.
+With the broad usage of different applications, each having different levels of sensitive data, finding a good limit that ensures sufficient privacy for its users while satisfying the expected functionality at the same time will be the greatest challenge.
 
 ## Approach
 
-Implementation and validation will be done on simulated Wireless Sensor Networks, using e.g. SPIN, prototypes will then be used to simulate applications collecting data and development will focused on finding algorithms to limit the amount of data processed. Validation will then seek to ensure that decisions are communicated and the sought outcome is achieved, meaning the decisions aren't ignored.
+In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. The focus resides in not allowing applications to gain access to more data then they require for its purpose. They propose a permission-based solution, whereas this project instead will seek to make the application limit itself the access to the data from the very first step of the data lifecycle which is the collection. The restriction is thus ensured depending on the service to deliver, and not based on an access rights model.
 
-In a paper from Li et al. [4], they discuss an active approach to avoid overcollection of data. Where the focus resides in not allowing applications to gain access to more data then they require for it's purpose. This proposes a permission-based solution, whereas this project instead will seek to make the application limit itself from collecting more than it would require. 
+As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. Once the features of the decision procedure is characterized in this simple setting, I will then look at introducing more distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To this aim, a computation unit would need to know what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further collection is needed. 
 
-As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. When the features of the decisions is characterized, I would then look at introducing distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To make a decision, a computation unit would need to know the following; what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further processing is needed. 
+The properties of the decision procedure will be formally verified and examplified through an implementation. The validation may rely on different techniques such as proofs on the algorithms of model checking. The implementation will propose a prototype simulating a WSN at work. Validation will then seek to ensure that decisions are communicated and the sought outcome is achieved, meaning the decisions are enforced.
 
-As a basis for decisions, I will look at related work in energy management for WSNs, where similiar decisions are used to improve energy savings e.g. Keshavarzian et al [5]. 
-
-A preliminary plan for the project is as follows:
-
-1. Formalise the properties of the simulated WSNs, with constraints I make and guarantees I expect. (2 weeks)
-
-2. Installing and setup of the development environment. (1 week) 
-
-3. Begin development on the core features of the algorithm by the following steps. (8 weeks)
-    1. Specification
-    2. Development
-    3. Validation
-
-4. When the algorithm works for the core features, I'll add more features and follow the same workflow as in 3. (7 weeks)
-
-5. Polishing the implementation and finalising the report. (2 weeks)
-
-Writing of the final report is interleaved with the other work throughout the entire project.
+As a basis for decision procedures, a good starting point in terms of related work may be in energy management for WSNs, where similiar decisions are used to improve energy savings as is shown in Keshavarzian et al [5]. 
 
 ## Ethics
 
-We are aware that our thesis will include some ethical questions since we investigate the possibility to implement better privacy for the end user. We believe that making IoT devices collect less data makes the end user more inclined to use it. Thereby helping both the customers and the manufacturers. We also understand that this would make sensitive data more difficult to be leaked which should be the interest for all parties involved. 
+We are aware that our thesis will include some ethical questions since we investigate the possibility to implement better privacy for the end user. We believe that making IoT devices collect less data makes the end user more inclined to use it, thereby helping both the customers and the manufacturers. We also understand that this would make sensitive data more difficult to be leaked which should be of interest for all the parties involved. 
 
 Finally we understand that it also disrupts current business models, that uses data mining to better refine their products, but we are confident that helping to increase the privacy of IoT devices is for the benefit of everyone. 
 
 
 ## References
+
+TA: Add reference 5 and make the references consistent.
 
 [1] Miorandi, Daniele, et al. "Internet of things: Vision, applications and research challenges." Ad Hoc Networks 10.7 (2012): 1497-1516.
 
