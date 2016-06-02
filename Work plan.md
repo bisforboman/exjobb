@@ -42,9 +42,6 @@ _Will be similar to the previous approach section except it will be rewritten to
 
 _Will consist of a gant-schedule and explanation of the different sections in it._
 
-# Previous 
-_Previous planning report, will mainly be used in the timetable._
-
 1. Formalise the properties of the simulated WSNs, with constraints I make and guarantees I expect. (2 weeks)
 
 2. Installing and setup of the development environment. (1 week) 
