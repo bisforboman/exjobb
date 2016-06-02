@@ -1,11 +1,38 @@
 
 # Introduction
 
-_Simply an introduction to the project._
+_Simply an introduction to the project. The headers below might be redudant..._
+
+## Background
+
+## Purpose
+
+## Limitations
+
+_What stuff do I disregard?_
 
 # Problem Definition
-
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
+
+The master thesis will aim to answer the following questions throughout the project:
+
+* Will better privacy be achieved?
+* Does the changes demand new mechanisms to sustain the same level of security? 
+  * What new attacks does the new implementations make possible?
+  * What other demands does this place on the network?
+* What is a decision?
+* How should a decision be formulated?
+
+### Privacy/Security
+
+_A general description of the two and the differences between them. Then explain how I view them in my project._
+
+### Decisions 
+
+_Explain what a decision is and it's importance to my project._
+
+### ? 
+_I probably need more headers..._
 
 # Approach
 
