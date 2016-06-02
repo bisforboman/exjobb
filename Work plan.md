@@ -11,6 +11,10 @@ _Simply an introduction to the project. The headers below might be redudant..._
 
 _What stuff do I disregard?_
 
+In wireless networks there are several issues that could occur, I analyse different issues and discuss their repercussions but the model will not be built to withstand them. Such issues could be:
+
+_List some various troubles with WSNs here._
+
 # Problem Definition
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
 
