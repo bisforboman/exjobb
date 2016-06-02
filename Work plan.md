@@ -31,12 +31,13 @@ The master thesis will aim to answer the following questions throughout the proj
 
 _A general description of the two and the differences between them. Then explain how I view them in my project._
 
+
+### Over-collection
+_Explain what it means in this setting._
+
 ### Decisions 
 
 _Explain what a decision is and it's importance to my project._
-
-### ? 
-_I probably need more headers..._
 
 # Approach
 
