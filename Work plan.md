@@ -1,4 +1,22 @@
-A preliminary plan for the project is as follows:
+
+# Introduction
+
+_Simply an introduction to the project._
+
+# Problem Definition
+
+_Here the problems/questions that should be answered or dealt with throughout the project be formulated._
+
+# Approach
+
+_Will be similar to the previous approach section except it will be rewritten to match the problem definition._
+
+# Timetable
+
+_Will consist of a gant-schedule and explanation of the different sections in it._
+
+
+--- Previous planning report, will mainly be used in the timetable.
 
 1. Formalise the properties of the simulated WSNs, with constraints I make and guarantees I expect. (2 weeks)
 
