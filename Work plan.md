@@ -35,6 +35,8 @@ _A general description of the two and the differences between them. Then explain
 ### Over-collection
 _Explain what it means in this setting._
 
+When an application collects more data than would be required for it to function as intended. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the program state.
+
 ### Decisions 
 
 _Explain what a decision is and it's importance to my project._
