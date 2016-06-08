@@ -31,7 +31,11 @@ The master thesis will aim to answer the following questions throughout the proj
 #### Security
 _What is security? How much will I care?_ 
 
-The observed networks will be considered secure before modifications are applied. So the focus will reside only on the changes done by the project and how they effect the system. After that the project will seek to ensure that the new changes doesn't introduce weaknesses. 
+Security is the ...........
+
+The observed networks will be considered secure before modifications are applied. So the focus will reside only on the changes done by the project and how they effect the system. 
+
+After that the project will seek to ensure that the new changes doesn't introduce weaknesses. 
 
 #### Privacy
 _What is privacy? How will it be handled in the project?_
