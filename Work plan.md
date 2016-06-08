@@ -1,13 +1,14 @@
+# Work Plan for the Project
 
-# Introduction
+## Introduction
 
 _Simply an introduction to the project. The headers below might be redudant..._
 
-## Background
+### Background
 
-## Purpose
+### Purpose
 
-## Limitations
+### Limitations
 
 _What stuff do I disregard?_
 
@@ -15,7 +16,7 @@ In wireless networks there are several issues that could occur, I analyse differ
 
 _List some various troubles with WSNs here._
 
-# Problem Definition
+## Problem Definition
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
 
 The master thesis will aim to answer the following questions throughout the project:
@@ -27,25 +28,30 @@ The master thesis will aim to answer the following questions throughout the proj
 * What is a decision?
 * How should a decision be formulated?
 
-### Privacy/Security
+#### Security
+_What is security? How much will I care?_ 
 
-_A general description of the two and the differences between them. Then explain how I view them in my project._
+The observed networks will be considered secure before modifications are applied. So the focus will reside only on the changes done by the project and how they effect the system. After that the project will seek to ensure that the new changes doesn't introduce weaknesses. 
 
+#### Privacy
+_What is privacy? How will it be handled in the project?_
 
-### Over-collection
+Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. In the sense of this project we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. 
+
+#### Over-collection
 _Explain what it means in this setting._
 
-When an application collects more data than would be required for it to function as intended. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the program state.
+When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
 
-### Decisions 
+#### Decisions 
 
 _Explain what a decision is and it's importance to my project._
 
-# Approach
+## Approach
 
 _Will be similar to the previous approach section except it will be rewritten to match the problem definition._
 
-# Timetable
+## Timetable
 
 _Will consist of a gant-schedule and explanation of the different sections in it._
 
