@@ -19,23 +19,16 @@ _List some various troubles with WSNs here._
 ## Problem Definition
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
 
+The focus of the master thesis is to attempt to increase privacy by making Wireless Sensor Networks collect less data (prevent over-collection). The way I expect to do so is by using 'Decisions'. The idea is to make a node stop collecting data for periods of time and the order to do so would be a 'Decision'. With this vague definition, I will also have to spend time to define the attributes of a decision and how they should be handled to properly be able to analyze the results in the network.
+
 The master thesis will aim to answer the following questions throughout the project:
 
 * Will better privacy be achieved?
 * Does the changes demand new mechanisms to sustain the same level of security? 
   * What new attacks does the new implementations make possible?
   * What other demands does this place on the network?
-* What is a decision?
-* How should a decision be formulated?
-
-#### Security
-_What is security? How much will I care?_ 
-
-Security is the ...........
-
-The observed networks will be considered secure before modifications are applied. So the focus will reside only on the changes done by the project and how they effect the system. 
-
-After that the project will seek to ensure that the new changes doesn't introduce weaknesses. 
+* What is a 'Decision'?
+* How should it be formalized? 
 
 #### Privacy
 _What is privacy? How will it be handled in the project?_
@@ -46,10 +39,6 @@ Privacy in the sense of communication means that sensitive information between t
 _Explain what it means in this setting._
 
 When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
-
-#### Decisions 
-
-_Explain what a decision is and it's importance to my project._
 
 ## Approach
 
