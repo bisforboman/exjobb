@@ -35,6 +35,8 @@ _What is privacy? How will it be handled in the project?_
 
 Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. In the sense of this project we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. 
 
+_discuss what privacy gives/its importance_
+
 #### Over-collection
 _Explain what it means in this setting._
 
