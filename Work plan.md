@@ -46,6 +46,9 @@ When an application collects more data than would be required for it to function
 
 _Will be similar to the previous approach section except it will be rewritten to match the problem definition._
 
+The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. 
+
+
 ## Timetable
 
 
