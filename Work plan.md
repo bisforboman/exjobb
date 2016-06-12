@@ -14,13 +14,13 @@ The presence of connected devices in our environment is increasing. These device
 
 ### Purpose
 
+The goal will be to present a working WSN example using decisions, meaning if a program reaches a state where it's considered over-collecting, a decision will be communicated and acknowledged by the network so the proceedure leaves the unwanted state.  
+
 ### Limitations
 
 _What stuff do I disregard?_
 
-In wireless networks there are several issues that could occur, I analyse different issues and discuss their repercussions but the model will not be built to withstand them. 
-
-_List some various troubles with WSNs here._
+In wireless networks there are several issues that could occur, such as packet-losses or malfunctioning nodes. I will analyse different issues and discuss their repercussions but the model will not be built to withstand them. Also, performance will not be an area of focus.
 
 ## Problem Definition
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
