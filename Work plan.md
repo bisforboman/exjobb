@@ -4,7 +4,13 @@
 
 _Simply an introduction to the project. The headers below might be redudant..._
 
+
+
 ### Background
+
+_pasted from proposal_
+
+The presence of connected devices in our environment is increasing. These devices form a network often called Internet of Things (or IoT for short), where everything from lightbulbs to thermostats can be controlled by an app or by another device. These services make a lot of that data available to the end user but also to malicious parties due to the devices leaking more data than intended or by bad design. This puts the end user at risk, violating its privacy and leaking sensitive data. One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data, a principle known as data minimisation. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce it once it is defined what is actually needed to provide a service.
 
 ### Purpose
 
@@ -12,7 +18,7 @@ _Simply an introduction to the project. The headers below might be redudant..._
 
 _What stuff do I disregard?_
 
-In wireless networks there are several issues that could occur, I analyse different issues and discuss their repercussions but the model will not be built to withstand them. Such issues could be:
+In wireless networks there are several issues that could occur, I analyse different issues and discuss their repercussions but the model will not be built to withstand them. 
 
 _List some various troubles with WSNs here._
 
