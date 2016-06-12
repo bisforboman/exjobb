@@ -63,7 +63,7 @@ The work is first planned out and described in this planning report and the mand
 
 This section covers the formalizing and planning on how the theoretical networks will look. Also the decisions will be intially formalized here to have a starting point to work with when implementing them. This definition will likely be revised later on in the project. 
 
-Also when the core features are implemented, I will look at adding possible extensions which are also covered here. 
+Also when the core features are implemented, I will look at adding possible extensions which are also covered in this section. 
 
 ### Implementation
 
