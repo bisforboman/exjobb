@@ -19,16 +19,15 @@ _List some various troubles with WSNs here._
 ## Problem Definition
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
 
-The focus of the master thesis is to attempt to increase privacy by making Wireless Sensor Networks collect less data (prevent over-collection). The way I expect to do so is by using 'Decisions'. The idea is to make a node stop collecting data for periods of time and the order to do so would be a 'Decision'. With this vague definition, I will also have to spend time to define the attributes of a decision and how they should be handled to properly be able to analyze the results in the network.
+The focus of the master thesis is to attempt to increase privacy by making Wireless Sensor Networks collect less data (prevent over-collection). The way I expect to do so is by using 'Decisions'. The idea is to make a node stop collecting data for periods of time, to minimize the communication needed in the network. With decisions being vaguely defined, some effort will be required to define them and how they should be handled to properly be able to analyze the results in the network. 
 
 The master thesis will aim to answer the following questions throughout the project:
 
 * Will better privacy be achieved?
+* What is a 'Decision'?
 * Does the changes demand new mechanisms to sustain the same level of security? 
   * What new attacks does the new implementations make possible?
   * What other demands does this place on the network?
-* What is a 'Decision'?
-* How should it be formalized? 
 
 #### Privacy
 _What is privacy? How will it be handled in the project?_
@@ -42,6 +41,10 @@ _Explain what it means in this setting._
 
 When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
 
+#### Decisions
+
+A decision is one of the core elements of the project. The idea of a decision is to let the processing unit analyze a stream of data and realize that currently enough data is collected and it can let the collection pause for a while. In a small example with only one processing unit this is would be communication from the central unit (the server) to the collection units (the nodes). For instance, if the server sees that the incoming data is not yielding more information of the observed state, could be that the data is following a linear pattern, an outgoing message could be that the nodes should stop sending more data until they observe data outside a certain threshold.
+
 ## Approach
 
 _Will be similar to the previous approach section except it will be rewritten to match the problem definition._
@@ -50,10 +53,7 @@ The first step will be to conduct some theoretical studies to help properly defi
 
 ## Timetable
 
-_The Gant Schedule can be viewed in an attachment to this document._
-
-First of, some administration 
-
+The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described.
 
 ### Administration
 
