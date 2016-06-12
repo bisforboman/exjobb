@@ -46,14 +46,14 @@ When an application collects more data than would be required for it to function
 
 _Will be similar to the previous approach section except it will be rewritten to match the problem definition._
 
-The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. 
-
+The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to me using a agile workflow, to help me quickly achieve a working example. Hence the additional features will be added when I have an working alpha version. 
 
 ## Timetable
 
+_The Gant Schedule can be viewed in an attachment to this document._
 
-The gant scheduled is a separate attachment to this work plan, below is the elements described.
-_describe the schedule_
+First of, some administration 
+
 
 ### Administration
 
