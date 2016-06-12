@@ -45,13 +45,7 @@ A decision is one of the core elements of the project. The idea of a decision is
 
 The focus of the master thesis is to attempt to increase privacy by making Wireless Sensor Networks collect less data (prevent over-collection). The way I expect to do so is by using 'Decisions'. The idea is to make a node stop collecting data for periods of time, to minimize the communication needed in the network. With decisions being vaguely defined, some effort will be required to define them and how they should be handled to properly be able to analyze the results in the network. 
 
-The master thesis will aim to answer the following questions throughout the project:
-
-* Will better privacy be achieved?
-* What is a 'Decision'?
-* Does the changes demand new mechanisms to sustain the same level of security? 
-  * What new attacks does the new implementations make possible?
-  * What other demands does this place on the network?
+At the end of the project there are several questions that I will seek to have answered. Firstly, how can a decision be formulated and what uses can it have? This will be a wide and very important question for the project, since this will yield the impact of the project. Secondly, what impacts will the changes have on the existing system? I will consider an already stable network and when introducing new functionality one can always expect that new security risks can occur. So basically what new security measures that needs to be introduced. Lastly, will better privacy be achieved? This is the core idea of the project and will be the climax of thesis.
 
 ## Approach
 
