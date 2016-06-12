@@ -1,29 +1,47 @@
-# Work Plan for the Project
+# Work Plan
 
 ## Introduction
 
 _Simply an introduction to the project. The headers below might be redudant..._
 
-
+This is the planning report for the master thesis "Data Minimisation for Better Privacy in Wireless Sensor Networks" conducted at the department of Computer Science and Engineering at the Chalmers University of Technology. This report will explain the difficulties at hand and how they will be solved. 
 
 ### Background
-
-_pasted from proposal_
 
 The presence of connected devices in our environment is increasing. These devices form a network often called Internet of Things (or IoT for short), where everything from lightbulbs to thermostats can be controlled by an app or by another device. These services make a lot of that data available to the end user but also to malicious parties due to the devices leaking more data than intended or by bad design. This puts the end user at risk, violating its privacy and leaking sensitive data. One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data, a principle known as data minimisation. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce it once it is defined what is actually needed to provide a service.
 
 ### Purpose
 
-The goal will be to present a working WSN example using decisions, meaning if a program reaches a state where it's considered over-collecting, a decision will be communicated and acknowledged by the network so the proceedure leaves the unwanted state.  
+The aim of the master thesis is to investigate ways to improve privacy of a specific kind of IoT devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimisation. This means the project will seek to improve privacy in distributed networks by limiting the amount of personal data processed.
+
+The main goal for the project will be to define how a decision about data collection should be made, meaning to have an application (potentially distributed) analyzing the collected data and reaching a conclusion which has to be enforced by the devices. 
 
 ### Limitations
 
-_What stuff do I disregard?_
-
 In wireless networks there are several issues that could occur, such as packet-losses or malfunctioning nodes. I will analyse different issues and discuss their repercussions but the model will not be built to withstand them. Also, performance will not be an area of focus.
 
-## Problem Definition
+## Problem Definitions
 _Here the problems/questions that should be answered or dealt with throughout the project be formulated._
+
+Below are some definitions that are relevant for formulating the problem.
+
+### Privacy
+_What is privacy? How will it be handled in the project?_
+
+Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. In the sense of this project we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. 
+
+_discuss what privacy gives/its importance_
+
+### Over-collection
+_Explain what it means in this setting._
+
+When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
+
+### Decisions
+
+A decision is one of the core elements of the project. The idea of a decision is to let the processing unit analyze a stream of data and realize that currently enough data is collected and it can let the collection pause for a while. In a small example with only one processing unit this is would be communication from the central unit (the server) to the collection units (the nodes). For instance, if the server sees that the incoming data is not yielding more information of the observed state, could be that the data is following a linear pattern, an outgoing message could be that the nodes should stop sending more data until they observe data outside a certain threshold.
+
+### Problem Statement
 
 The focus of the master thesis is to attempt to increase privacy by making Wireless Sensor Networks collect less data (prevent over-collection). The way I expect to do so is by using 'Decisions'. The idea is to make a node stop collecting data for periods of time, to minimize the communication needed in the network. With decisions being vaguely defined, some effort will be required to define them and how they should be handled to properly be able to analyze the results in the network. 
 
@@ -34,22 +52,6 @@ The master thesis will aim to answer the following questions throughout the proj
 * Does the changes demand new mechanisms to sustain the same level of security? 
   * What new attacks does the new implementations make possible?
   * What other demands does this place on the network?
-
-#### Privacy
-_What is privacy? How will it be handled in the project?_
-
-Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. In the sense of this project we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. 
-
-_discuss what privacy gives/its importance_
-
-#### Over-collection
-_Explain what it means in this setting._
-
-When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
-
-#### Decisions
-
-A decision is one of the core elements of the project. The idea of a decision is to let the processing unit analyze a stream of data and realize that currently enough data is collected and it can let the collection pause for a while. In a small example with only one processing unit this is would be communication from the central unit (the server) to the collection units (the nodes). For instance, if the server sees that the incoming data is not yielding more information of the observed state, could be that the data is following a linear pattern, an outgoing message could be that the nodes should stop sending more data until they observe data outside a certain threshold.
 
 ## Approach
 
