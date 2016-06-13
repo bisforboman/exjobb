@@ -16,7 +16,7 @@ The main goal for the project will be to define how a decision about data collec
 
 ### Limitations
 
-In wireless networks there are several issues that could occur, such as packet-losses or malfunctioning nodes. I will analyse different issues and discuss their repercussions but the model will not be built to withstand them. Also, performance will not be an area of focus.
+In wireless networks there are several issues that could occur, such as packet-losses or malfunctioning nodes. I will analyse different issues and discuss their repercussions but the model will not be built to withstand them. Also, performance or battery-preservation will not be an area of focus.
 
 ## Problem Definitions
 
