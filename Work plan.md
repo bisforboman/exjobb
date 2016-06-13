@@ -42,7 +42,9 @@ At the end of the project there are several questions that I will seek to have a
 
 ## Approach
 
-The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to me using a agile workflow, to help me quickly achieve a working example. Furthermore, additional features will be added when I have an working alpha version. 
+The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. Secondly, I will start sketching on how decisions should be formulated. As a starting point I will look at research regarding energy management in WSNs, where similar decisions are used. _insert ref?_
+
+With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to me using a agile workflow, to help me quickly achieve a working example. Furthermore, additional features will be added when I have an working alpha version. 
 
 ## Timetable
 
