@@ -2,8 +2,6 @@
 
 ## Introduction
 
-_Simply an introduction to the project. The headers below might be redudant..._
-
 This is the planning report for the master thesis "Data Minimisation for Better Privacy in Wireless Sensor Networks" conducted at the department of Computer Science and Engineering at the Chalmers University of Technology. This report will explain the difficulties at hand and how they will be solved. 
 
 ### Background
@@ -21,19 +19,14 @@ The main goal for the project will be to define how a decision about data collec
 In wireless networks there are several issues that could occur, such as packet-losses or malfunctioning nodes. I will analyse different issues and discuss their repercussions but the model will not be built to withstand them. Also, performance will not be an area of focus.
 
 ## Problem Definitions
-_Here the problems/questions that should be answered or dealt with throughout the project be formulated._
 
 Below are some definitions that are relevant for formulating the problem.
 
 ### Privacy
-_What is privacy? How will it be handled in the project?_
 
-Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. In the sense of this project we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. 
-
-_discuss what privacy gives/its importance_
+Privacy in the sense of communication means that sensitive information between to two parties shouldn't be accessible by a third party. As a starting point of this project, we will regard all communication as sensitive and seek to achieve better privacy by reducing the amount of communication in the network. This will intuitively make less communication a more privacy-oriented approach. 
 
 ### Over-collection
-_Explain what it means in this setting._
 
 When an application collects more data than would be required for it to function as intended, it's considered to over-collect. For instance, when an application collects data outside it's original scope to use for other purposes or when it collects data that doesn't yield the process more information of the observed state. 
 
@@ -49,9 +42,7 @@ At the end of the project there are several questions that I will seek to have a
 
 ## Approach
 
-_Will be similar to the previous approach section except it will be rewritten to match the problem definition._
-
-The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to me using a agile workflow, to help me quickly achieve a working example. Hence the additional features will be added when I have an working alpha version. 
+The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to me using a agile workflow, to help me quickly achieve a working example. Furthermore, additional features will be added when I have an working alpha version. 
 
 ## Timetable
 
