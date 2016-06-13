@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the planning report for the master thesis "Data Minimisation for Better Privacy in Wireless Sensor Networks" conducted at the department of Computer Science and Engineering at the Chalmers University of Technology. This report will explain the difficulties at hand and how they will be solved. 
+This is the planning report for the master thesis "Data Minimization in distributed applications for more privacy" conducted at the department of Computer Science and Engineering at the Chalmers University of Technology. This report will explain the difficulties at hand and how they will be solved. 
 
 ### Background
 
