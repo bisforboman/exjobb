@@ -23,17 +23,15 @@ _write some more_
 
 This is where most of the project's time will be spent. The schedules roughly describes the order which the steps will be carried out but iterative processes are expected for some parts. When the problem is specified I estimate some time will be spent chosing and setting up the development environment, but no more than a week. I am letting the choice of program open until this week, to allow some research into this. At this stage I'm leaning towards using SPIN, since from my experiences it suits my needs, but to not get to narrow-sighted I'll look into alternatives. 
 
-The Next steps are to start designing the algorithms and then proving certain properties. This is one of the aforementioned iterative processes where if the models are proven faulty, the work will be retracted to the design step. Therefore in the gant schedule, these steps are partially overlapping. When a working model is achieved, some work will be put into analysing its performance. This is due to the code is supposed to run in a wireless sensor network where costly implementations could prove unusable. 
+Next up is to start designing the algorithms and then proving certain properties. This is one of the aforementioned iterative processes where if the models are proven faulty, the work will be retracted to the design step. Therefore in the gant schedule, these steps are partially overlapping. When a working model is achieved, some work will be put into analysing its performance. This is due to the code is supposed to run in a wireless sensor network where costly implementations could prove unusable. 
 
 Finally comes the time for implementation of the algorithm and with both the model and the design at hand, it's estimated to take one week of my time. After implementing the algorithm I've also designated one week for validation to make sure it's working as intended. 
 
-These steps describe the entire process, once I've reached this stage. I'll reformulate the problem with more features and repeat the same steps as before to reach the final result. 
+These steps describe the entire process, once I've reached this stage. I'll reformulate the problem with more features and then repeat the steps described here in this section once again to reach the final result. 
 
 ### Documentation
 
-Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as an item for basically every week. 
-
-_write some more_
+Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as an item for basically every week. For this to work smoothly I aim to devote one day of the week to just writing the report.
 
 ### Presentations
 
