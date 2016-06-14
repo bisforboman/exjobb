@@ -45,31 +45,3 @@ At the end of the project there are several questions that I will seek to have a
 The first step will be to conduct some theoretical studies to help properly define the WSNs I will be working with. This is to make sure nothing crucial will be missed when the implementation begins. Secondly, I will start sketching on how decisions should be formulated. As a starting point I will look at research regarding energy management in WSNs, where similar decisions are used. _insert ref?_
 
 With this in mind, I will define the features of the algorithms I will be developing. Some features will then be regarded as core features and some features will be put on hold for later. This is due to the use of an agile workflow, to help me quickly achieve a working example. Furthermore, additional features will be added when I have an working alpha version. With each features added, validation will be performed to make sure they are working as intended. 
-
-## Timetable
-
-The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described.
-
-### Administration
-
-The work is first planned out and described in this planning report and the mandatory lectures are estimated. Also some lectures will be attended after the span of the gant schedule. 
-
-### Theoretical Study
-
-This section covers the formalizing and planning on how the theoretical networks will look. Also the decisions will be intially formalized here to have a starting point to work with when implementing them. This definition will likely be revised later on in the project. 
-
-Also when the core features are implemented, I will look at adding possible extensions which are also covered in this section. 
-
-### Implementation
-
-This is the core of the project, where the workflow will first be to construct a code skeleton to work from. The skeleton will define the procedures required for handling the decisions and also contain the other features of the WSN. When this is done, the development will begin. Finally I will validate the work so it works as intended. 
-
-### Documentation
-
-Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as item for basically every week. 
-
-### Presentation
-
-When half the project is completed - hopefully when a working example is completed - a mid presentation is planned for presenting the work. 
-
-At the end of the work, a final presentation is also planned for presenting the master thesis.
