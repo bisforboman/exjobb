@@ -1,28 +1,28 @@
 
 ## Timetable
 
-The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described.
+The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described. The schedule describes an interative agile process, where I'll start by developing a version with only some core features and once that's done I will seek to add additional features. 
 
 ### Administration
 
-The work is first planned out and described in this planning report and the mandatory lectures are estimated. Also some lectures will be attended after the span of the gant schedule. 
+The work is first planned out and described in this planning report and the mandatory lectures are estimated, since I'm not sure of their dates yet. 
 
 ### Theoretical Study
 
-This section covers the formalizing and planning on how the theoretical networks will look. Also the decisions will be intially formalized here to have a starting point to work with when implementing them. This definition will likely be revised later on in the project. 
+This section covers the formulation of the problem and planning on how the networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use for the design-process. 
 
-Also when the core features are implemented, I will look at adding possible extensions which are also covered in this section. 
+One week is also expected for this when adding additional features. 
 
-### Implementation
+### Practical Study
 
-This is the core of the project, where the workflow will first be to construct a code skeleton to work from. The skeleton will define the procedures required for handling the decisions and also contain the other features of the WSN. When this is done, the development will begin. Finally I will validate the work so it works as intended. 
+This is where most of the project's time will be spent. The schedules roughly describes the order which the steps will be carried out but an iterative process is expected for some parts. When the problem is specified I estimate some time will be spent chosing and setting up the development environment, but no more than a week. I will most likely use SPIN for this since I have used it before and it should suit my needs. 
 
 ### Documentation
 
-Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as item for basically every week. 
+Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as an item for basically every week. 
 
-### Presentation
+### Presentations
 
-When half the project is completed - hopefully when a working example is completed - a mid presentation is planned for presenting the work. 
+When half the project is completed - hopefully when a working example is completed - a mid presentation is planned for presenting the work. If a smaller mid-presentation is preferred I will devote more time to the practical studies. 
 
 At the end of the work, a final presentation is also planned for presenting the master thesis.
