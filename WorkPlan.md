@@ -9,7 +9,7 @@ The work is first planned out and described in this planning report and the mand
 
 ### Theoretical Study
 
-This section covers the formulation of the problem and planning on how the networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use for the design-process. Also at this step I'll decide which programming language I will implement my solution in. One week is also expected for preparing to add additional features. 
+This section covers the formulation of the problem and planning on how the networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use for the design-process. Also at this step I'll decide which programming language I will implement my solution in. One week is also expected for preparation of adding additional features. 
 
 ### Practical Study
 
