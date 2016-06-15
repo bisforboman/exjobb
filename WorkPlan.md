@@ -1,7 +1,7 @@
 
 ## Timetable
 
-The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described. The schedule describes an interative agile process, where I'll start by developing a version with only some core features and once that's done I will seek to add additional features. 
+The Gant Schedule can be viewed in an attachment to this document. Below the individual topics are described. The schedule describes an iterative agile process, where I'll start by developing a version with only some core features and once that's done I will seek to add additional features. 
 
 ### Administration
 
