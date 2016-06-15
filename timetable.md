@@ -9,15 +9,7 @@ The work is first planned out and described in this planning report and the mand
 
 ### Theoretical Study
 
-This section covers the formulation of the problem and planning on how the networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use for the design-process. 
-
-_mention that the choice of language is chosen here._
-
-_write some more_
-
-One week is also expected for this when adding additional features. 
-
-_write some more_
+This section covers the formulation of the problem and planning on how the networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use for the design-process. Also at this step I'll decide which programming language I will implement my solution in. One week is also expected for preparing to add additional features. 
 
 ### Practical Study
 
@@ -31,7 +23,7 @@ These steps describe the entire process, once I've reached this stage. I'll refo
 
 ### Documentation
 
-Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as an item for basically every week. For this to work smoothly I aim to devote one day of the week to just writing the report.
+Writing of the final report is interleaved with the other work throughout the entire project. Therefore it's shown in the gant schedule as an item for basically every week. For this to work smoothly I aim to devote one day of the week to just documentation and writing the report.
 
 ### Presentations
 
