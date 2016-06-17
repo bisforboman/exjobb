@@ -11,6 +11,8 @@ The work is first planned out and described in this planning report and the mand
 
 This section covers the time spent for formulating of the problem and planning on how the wireless sensor networks will look. I estimate I will need three initial weeks of specificing this and understanding how I wish to go about to solve it. The goal here would be to define a mathematical model I can use later for the design-process. Here I also aim to decide which programming language I will implement my solution in. 
 
+Proving correctness is also covered in this section. It's discussed more in the second paragraph of the Practical Study since the work is interleaved with the design-process, as shown in the gant schedule with the overlapping weeks.
+
 Also one week is noted here, later in the project, which is the expected time for re-specifying the model for the additional features.
 
 ### Practical Study
