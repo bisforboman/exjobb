@@ -34,3 +34,7 @@ Writing of the final report is interleaved with the other work throughout the en
 When half the project is completed - hopefully when a working example is completed - a mid presentation is planned for presenting the work. If a smaller mid-presentation is preferred I will devote more time to the practical studies. 
 
 At the end of the work, a final presentation is also planned for presenting the master thesis.
+
+### Out of Office
+
+Two weeks in August are noted in the gant schedule as re-exam, those weeks will be spent studying for it.
