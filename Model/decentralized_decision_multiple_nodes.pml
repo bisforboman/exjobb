@@ -8,7 +8,13 @@ bool dC = false; // doneCollecting
 bool msgSent = false; // stopcollection message sent. 
 
 // ltl formula
-ltl toNotCollect { msgSent implies eventually dC } // correctness property
+/* 
+  The correctness property 'toNotCollect' is currently modeled as:
+   * If the message is sent (the server is notified), 
+       the decision is taken and the system should eventually
+       stop collecting.
+*/
+ltl toNotCollect { msgSent implies eventually dC } 
 
 // channel inits.
 chan ntoS = [N] of {int, mtype, int}; 

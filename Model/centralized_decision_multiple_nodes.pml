@@ -13,6 +13,12 @@ bool dC = false; // doneCollecting
 bool msgSent = false; // stopcollection message sent. 
 
 // ltl formula
+/* 
+  The correctness property 'toNotCollect' is currently modeled as:
+   * If the message is sent (the server is notified), 
+       the decision is taken and the system should eventually
+       stop collecting.
+*/
 ltl toNotCollect { msgSent implies eventually dC }
 
 proctype Environment(chan in, out) {
