@@ -14,7 +14,7 @@ The project used a formal development process using SPIN - a model checking tool
 
 ### Problem Definition 
 
-What is the problem we're trying to solve?
+**What is the problem we're trying to solve?**
 
 #### Overcollection
 
