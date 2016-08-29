@@ -6,9 +6,9 @@ The presence of connected devices in our environment is increasing. These device
 
 ## Introduction
 
-In this thesis I investigated ways to improve privacy in a special kind of IoT devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimisation. This means the project will seek to improve privacy in distributed networks by limiting the amount of personal data processed. 
+In this thesis I investigated ways to improve privacy in a special kind of IoT devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimisation. This means the project sought to improve privacy in distributed networks by limiting the amount of personal data being processed. 
+The project used a formal development process using SPIN - a model checking tool - to specify models which was then generated ...
 
-First, in this report I will define some characteristics of the problem. Then with these definitions I will proceed to explaining the development process. Finally I will discuss the validation of the development in a conclusion of the thesis. 
 
 ## Background
 
