@@ -54,10 +54,13 @@ The setting for the example was that if the server received a value that was con
 
 This example gave some context to some abstractions, as formulated in a functional setting could be defined as:
 
-Service :: data\
-State :: data\
-Decision :: (data x data) -> data\
-Collection :: IO data\
+Service :: data
+
+State :: data
+
+Decision :: (data x data) -> data
+
+Collection :: IO data
 
 Where the Decision is the conjugation of the Service and the State and the Collection is the process of interpreting raw data. 
 
