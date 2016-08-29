@@ -3,11 +3,21 @@
 mtype = {ack, stop, collect, send};
 int nodesDone=0;
 
+// watchers
+bool dC = false; // doneCollecting
+bool msgSent = false; // stopcollection message sent. 
+
+// ltl formula
+ltl toNotCollect { msgSent implies eventually dC } // correctness property
+
+// channel inits.
 chan ntoS = [N] of {int, mtype, int}; 
 chan stoN = [N] of {int, mtype}; 
 chan etoN = [N] of {int, mtype, int};
 chan ntoE = [N] of {int, mtype};
 
+
+// from where data is collected
 proctype Environment(chan in, out) {
   int r=0; // r is the data from the environment
   int id;  
@@ -38,14 +48,18 @@ proctype Environment(chan in, out) {
   printf("E: Done, shutting down.\n");
 }
 
-/* inS = stoN
+/* 
+   The characteristics of a collection node. Below are 
+   translations of the parameters from the initialization.
+
+   inS = stoN
    outS = ntoS
    inE = etoN
    outE = ntoE
 */
 proctype Node(chan inS, outS, inE, outE) {
+  int id=_pid; // give the node an identifier
   int data;
-  int id=_pid;
   mtype msg;
   int c = 1;
 
@@ -57,6 +71,7 @@ proctype Node(chan inS, outS, inE, outE) {
      if 
      :: (data > 9) -> 
          outS ! id, stop, data;
+         msgSent = true;
          break;
      :: else ->
          outS ! id, send, data;
@@ -72,7 +87,7 @@ proctype Node(chan inS, outS, inE, outE) {
   printf("N%d: Done, shutting down.\n", id); // Some nodes are showing the wrong ID when shutting down. Dynamically updated? 
 }
 
-
+// The server storing the data.
 proctype Server(chan in, out) {
   int data;
   int id;
@@ -80,17 +95,21 @@ proctype Server(chan in, out) {
   mtype msg;
   printf("S: Starting up.\n");
   do 
-    :: (nodesDone == N) -> // There can be messages still in the buffer. If all nodes are dead there's no point.
+    :: (nodesDone == N) && (!dC) -> // There can be messages still in the buffer. If all nodes are dead there's no point.
+        dC = true;
         break;
     :: (nodesDone < N) && (nempty(in)) -> 
         in ? id, msg, data; 
         printf("S: Collected %d from Node %d.\n", data, id);
         if 
-        :: msg == stop -> defmsg = stop;
+        :: msg == stop -> 
+            defmsg = stop; 
+            dC = true;
         :: else 
         fi;
         out ! id, defmsg;
   od;
+  assert(dC);
   printf("S: Done, shutting down.\n");
 } 
 

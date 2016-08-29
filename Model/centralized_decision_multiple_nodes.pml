@@ -8,6 +8,13 @@ chan stoN = [2] of {mtype, int};
 chan etoN = [2] of {mtype, int, int};
 chan ntoE = [2] of {mtype, int};
 
+// watchers
+bool dC = false; // doneCollecting
+bool msgSent = false; // stopcollection message sent. 
+
+// ltl formula
+ltl toNotCollect { msgSent implies eventually dC }
+
 proctype Environment(chan in, out) {
   int r=0; // r is the data from the environment
   int id;  
