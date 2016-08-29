@@ -54,13 +54,10 @@ The setting for the example was that if the server received a value that was con
 
 This example gave some context to some abstractions, as formulated in a functional setting could be defined as:
 
-Service :: data
-
-State :: data
-
-Decision :: (data x data) -> data
-
-Collection :: IO data
+* Service :: data
+* State :: data
+* Decision :: (data x data) -> data
+* Collection :: IO data
 
 Where the Decision is the conjugation of the Service and the State and the Collection is the process of interpreting raw data. 
 
@@ -68,11 +65,9 @@ Where the Decision is the conjugation of the Service and the State and the Colle
 
 This gave the idea to characterize different networks, to generalize the decisions. The following binary properties were considered: 
 
-**Centralized or Decentralized:** If the network had a centralized source of computations or if f.e. each collection node had their own computating unit.
-
-**One or multiple nodes:** If the network had the trivial case of one collection node or if it had several.
-
-**Conjuctive or Disjunctive decision:** If the decision was based on data from several different sources or if a decision could be taken on just a single data-set.
+* Centralized or Decentralized: If the network had a centralized source of computations or if f.e. each collection node had their own computating unit.
+* One or multiple nodes: If the network had the trivial case of one collection node or if it had several.
+* Conjuctive or Disjunctive decision: If the decision was based on data from several different sources or if a decision could be taken on just a single data-set.
 
 *could be more on this*
 
