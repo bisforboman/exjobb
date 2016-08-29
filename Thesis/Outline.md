@@ -8,9 +8,17 @@ The presence of connected devices in our environment is increasing. These device
 
 In this thesis I investigated ways to improve privacy in a special kind of IoT devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimisation. This means the project sought to improve privacy in distributed networks by limiting the amount of personal data being processed.  
 
-
+*should perhaps contain some more text*
 
 ## Background
+
+Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons [1]: “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ Adressing this issue is thus particularly important for this area to expand further.
+
+In a report from Medaglia et al., they list some examples on solutions for IoT development [2]: “For example, mobile devices could adopt silent mode when entering a meeting room if this is the request of the meeting moderator, alert the user and turn off the radio before entering sensitive medical areas or detect when the user enters the car and connect to its sound system.” This also raises interesting questions regarding privacy: who decides when a device should be turned on or off? How will the decider know that a device should be turned on or off and how will this decision be communicated and enforced in the network?
+
+Also in a paper from Weber [3], he examplified situations concerning privacy, "The attribution of tags to objects may not be known to users, and there may not be an acoustic or visual signal to draw the attention of the object’s user. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Thereby, individuals can be followed without them even knowing about it and would leave their data or at least traces thereof in cyberspace. Further aggravating the problem, it is not anymore only the state that is interested in collecting the respective data, but also private actors such as marketing enterprises." This clearly explains the problems occurring when privacy concerns are weakly taken into account.
+
+The lack of privacy due to these devices makes this topic an important one especially with the increasing number of IoT devices. Miorandi et al. [1] think it is one of the key issues, along with security. As such, studying and improving privacy in IoT devices makes the subject of this thesis a current and relevant one.
 
 ### Problem Definition 
 
