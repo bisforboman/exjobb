@@ -24,6 +24,8 @@ I'm not satisfied with the Outline, the one I have now I would call a scratch. I
 
 * I'd like a discussion on a logical order on an outline, I which order I can present things (to make it easier for the reader to follow a flow). 
 
+* I'd like to discuss other properties that I can include in the model for the following week.
+
 ## Work plan for the following week
 
 ### Tasks
