@@ -30,6 +30,12 @@
 
 *The section containing how the work progressed.*
 
+### Agile development
+
+#### Basic models
+
+#### Extended models
+
 ### Theory
 
 *How did you start your work? What theoretical work did you do at first?*
@@ -45,14 +51,14 @@
 #### Defining the models
 
 *What kind models did I look at and why?*
+* Centralized Model
+* Decentralized Model
 
-##### Centralized Models
-
-##### Decentralized Models
-
-##### Models in Promela/SPIN
+##### Modeling in Promela
 
 #### LTL Properties
+
+*State the different properties in the models*
 
 ### Algorithm design
 
