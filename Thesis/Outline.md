@@ -40,7 +40,7 @@ Over-collection is the event when a process collects more data than it requires 
 
 *What is a decision? How are they communicated?*
 
-A decision is the message sent through the network stating which action should be taken when over-collection is occuring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
+A decision is a control message sent through the network forcing an action to be taken, in this report that's mainly when over-collection is occuring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
 
 ### Motivation
 
@@ -67,7 +67,7 @@ This example gave some context to some abstractions, as formulated in a function
 * Decision :: (data x data) -> data
 * Collection :: IO data
 
-Where the Decision is the conjugation of the Service and the State and the Collection is the process of interpreting raw data. 
+Where the Decision is the kartesian product of the Service and the State and the Collection is the process of interpreting raw data. 
 
 *was this relevant to mention?*
 
