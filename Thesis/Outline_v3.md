@@ -12,7 +12,8 @@
 
 ## Specification
 ### Defining the models
-#### Modeling in promela
+#### Modeling in Promela
+#### Code Generation
 ### LTL Properties
 ### Decisions
 
