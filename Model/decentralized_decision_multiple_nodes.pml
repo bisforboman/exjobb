@@ -101,8 +101,7 @@ proctype Server(chan in, out) {
   mtype msg;
   printf("S: Starting up.\n");
   do 
-    :: (nodesDone == N) && (!dC) -> // There can be messages still in the buffer. If all nodes are dead there's no point.
-        dC = true;
+    :: (nodesDone == N)-> // There can be messages still in the buffer. If all nodes are dead there's no point.
         break;
     :: (nodesDone < N) && (nempty(in)) -> 
         in ? id, msg, data; 
