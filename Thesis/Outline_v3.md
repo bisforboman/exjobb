@@ -11,8 +11,17 @@ The presence of connected devices in our environment is increasing. These device
 Over-collection is the event when a process collects more data than it requires to function properly. The event is very example-specific and will depend heavily upon collection-process but some basic examples of over-collection can be: 
 
 #### Data Minimization
+
+As defined by the EDPS (European Data Protection Supervisor); "The principle of “data minimization” means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose. They should also retain the data only for as long as is necessary to fulfil that purpose. In other words, data controllers should collect only the personal data they really need, and should keep it only for as long as they need it." 
+
 #### Promela
+
+Promela stands for *PR*ocess *ME*ta *LA*nguage.
+
 #### SPIN
+
+SPIN stands for *S*imple *P*romela *IN*terpreter. 
+
 ### Related Work
 #### Smart City
 
