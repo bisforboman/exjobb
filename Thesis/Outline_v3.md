@@ -16,11 +16,11 @@ As defined by the EDPS (European Data Protection Supervisor); "The principle of 
 
 #### Promela
 
-Promela stands for *PR*ocess *ME*ta *LA*nguage.
+Promela stands for **PR**ocess **ME**ta **LA**nguage.
 
 #### SPIN
 
-SPIN stands for *S*imple *P*romela *IN*terpreter. 
+SPIN stands for **S**imple **P**romela **IN**terpreter. 
 
 ### Related Work
 #### Smart City
