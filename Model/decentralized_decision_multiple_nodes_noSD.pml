@@ -1,5 +1,7 @@
 #define N   3
 
+/* There's still some flow in this file that isn't correct. Needs some rework. */
+
 mtype = {ack, stop, collect, send};
 int nodesDone=0;
 
@@ -9,8 +11,6 @@ bool msgSent = false; // stopcollection message sent.
 
 // ltl formula
 ltl toNotCollect { msgSent implies eventually dC }
-//ltl ::= [] nodesDone <= N
-//ltl ::= <> shutDown == true
 
 // channel inits.
 chan ntoS = [N] of {int, mtype, int}; 
@@ -74,7 +74,7 @@ proctype Node(chan inS, outS, inE, outE) {
      :: (data > 9) -> 
          outS ! id, stop, data;
          msgSent = true;
-         break;
+         nodesDone=nodesDone+1;
      :: else ->
          outS ! id, send, data;
      fi;
@@ -85,8 +85,7 @@ proctype Node(chan inS, outS, inE, outE) {
      :: else 
      fi;
   od;
-  nodesDone=nodesDone+1;
-  printf("N%d: Done, shutting down.\n", id); // Some nodes are showing the wrong ID when shutting down. Dynamically updated? 
+  printf("N%d: Done, shutting down.\n", id); 
 }
 
 // The server storing the data.
@@ -97,16 +96,14 @@ proctype Server(chan in, out) {
   mtype msg;
   printf("S: Starting up.\n");
   do 
-    :: (nodesDone == N) && (dC) -> // There can be messages still in the buffer. If all nodes are dead there's no point.
+    :: (nodesDone == N) -> // There can be messages still in the buffer. If all nodes are dead there's no point.
         dC = true;
-        break;
     :: (nodesDone < N) && (nempty(in)) -> 
         in ? id, msg, data; 
         printf("S: Collected %d from Node %d.\n", data, id);
         if 
         :: msg == stop -> 
             defmsg = stop; 
-            dC = true;
         :: else 
         fi;
         out ! id, defmsg;

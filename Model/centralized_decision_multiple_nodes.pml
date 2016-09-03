@@ -85,6 +85,7 @@ proctype Server(chan in, out) {
   printf("Server starting up.\n");
   do 
     :: (nodesDone == N) -> 
+        dC = true;
         break;
     :: (nodesDone<N) && (nempty(in)) -> 
         in ? send(id, data); 
