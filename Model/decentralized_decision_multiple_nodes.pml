@@ -3,9 +3,10 @@
 mtype = {ack, stop, collect, send};
 int nodesDone=0;
 
-// watchers
+// witnessess
 bool dC = false; // doneCollecting
 bool msgSent = false; // stopcollection message sent. 
+bool kC = true; // keepCollecting 
 
 // ltl formula
 /* 
@@ -14,7 +15,17 @@ bool msgSent = false; // stopcollection message sent.
        the decision is taken and the system should eventually
        stop collecting.
 */
-ltl toNotCollect { msgSent implies eventually dC } 
+//ltl toNotCollect { msgSent implies eventually dC } 
+
+/* 
+
+  Liveness property 
+
+  * States the program should keep collecting until the decision is sent.
+
+  */
+ltl keepCollecting { kC W msgSent }
+
 
 // channel inits.
 chan ntoS = [N] of {int, mtype, int}; 
@@ -90,6 +101,7 @@ proctype Node(chan inS, outS, inE, outE) {
      fi;
   od;
   nodesDone=nodesDone+1;
+  kC = false; // sets the keepCollecting to false. Means the program doesn't need to keep collecting.
   printf("N%d: Done, shutting down.\n", id); // Some nodes are showing the wrong ID when shutting down. Dynamically updated? 
 }
 
