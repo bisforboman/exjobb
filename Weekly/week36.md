@@ -1,6 +1,6 @@
 # Week 35
 
-Next week's objectives are prioritized in ascending order.
+Next week's objectives are prioritized in ascending order. The writing task has been crossed out since we said it wasn't as important but should'd written some on the Specification instead.
 
 ## Last week's objectives
 
