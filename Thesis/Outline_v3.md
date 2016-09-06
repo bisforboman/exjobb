@@ -16,11 +16,11 @@ As defined by the EDPS (European Data Protection Supervisor); "The principle of 
 
 #### Promela
 
-Promela stands for **PR**ocess **ME**ta **LA**nguage.
+Promela stands for **PR**ocess **ME**ta **LA**nguage. It was used for the development of this project since it allows for formal verification and I had previous experience in it.
 
 #### SPIN
 
-SPIN stands for **S**imple **P**romela **IN**terpreter. 
+SPIN stands for **S**imple **P**romela **IN**terpreter. It's the verification program that was used for this course since it's explicitly built for verifying promela code. 
 
 ### Related Work
 #### Smart City
