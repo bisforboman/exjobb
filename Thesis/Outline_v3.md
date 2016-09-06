@@ -76,6 +76,8 @@ A decision is a control message sent through the network forcing an action to be
 
 ## Verification 
 ### LTL Properties
+*explain how the ltl properties defined in the specification were verified.*
+### Satisfaction
 *explain the satisfaction! hawhaw*
 
 ## Discussion 
