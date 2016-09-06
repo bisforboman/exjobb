@@ -24,6 +24,9 @@ In this thesis I investigated ways to improve privacy in a special kind of IoT d
 
 ## Background
 
+### Wireless Sensor Network (WSN)
+
+*explain WSNs and their usage* 
 
 ### Over-collection
 
