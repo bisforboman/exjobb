@@ -57,22 +57,34 @@ SPIN stands for **S**imple **P**romela **IN**terpreter. It's the verification pr
 A decision is a control message sent through the network forcing an action to be taken, in this report that's mainly when over-collection is occuring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
 
 ### Defining the models
-#### Modeling in Promela
-#### Code Generation
+#### Formal Development
+*explain how the models were formulated*
 ### LTL Properties
-### Decisions
+*explain how the LTL properties were defined*
+#### Initial Model
+*explain the scope of the initial model*
+#### Extended Model
+*explain the extended model's scope*
+#### Code Generation
+*explain the process of the code-generation that was used*
 
 ## Design
+*section for the design generated*
 ### Algorithm design
 ### Decisions
 
+
 ## Verification 
 ### LTL Properties
+*explain the satisfaction! hawhaw*
 
 ## Discussion 
+*discuss the thesis work*
 
 ## Conclusion
+*conclude the results*
 
 ## Ethics
+*discuss the/some ethics involved*
 
 ## Table of References
