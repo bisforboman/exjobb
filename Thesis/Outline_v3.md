@@ -1,4 +1,4 @@
-# outline_v3
+# Master Thesis
 
 ## Abstract
 
@@ -58,6 +58,35 @@ A decision is a control message sent through the network forcing an action to be
 
 ### Defining the models
 #### Formal Development
+
+As suggested when developing formally, I started out with a simple model as possible. So the model expects that each actor acts as intended, without malicious users or failing proceedures, and that all messages gets through, e.g. no lossy channels. 
+
+The basic features of the system is a set of collection nodes, a server and an environment.
+
+![Img_1](img_1.jpg)
+
+**Image 1:** *As seen in the image the messages that continues the flow are noted 'ack'. The picture describes a centralized system.*
+
+The environment is a simple procedure, it starts off by generating random data and servering it to a requesting node. This is a modelling simplification, since the node should rather extract the data from the environment rather then be waiting for a response. But this was made to simplify the system and made the environment easier to manage as a shared resource for the nodes. 
+
+The collection nodes follows the same proceedure, where they start by 'requesting' data from the environment. Then the model was split into two different choices depending on the structure of the system. If the system was decentralized, the decision could be taken by a node. Meaning that then the node would first check if the data requested from the environment was below a certain threshold. Then it would send the data along to the server with either a message 'go', meaning that all was fine, or a message 'stop' meaning that over-collection was occuring and it was going to stop collecting and the other nodes should do the same. 
+
+If the system was a centralized one, the node would simply pass the data forward to the server. Then it would wait for a response to see if it should continue collecting or if it should stop. This describes a typical scenario for the system, so from this a behaviour model for each actor can be defined.
+
+![Img_2](img_2.jpg)
+
+**Image 2:** *The behaviour of the environment and the server.*
+
+![Img_3](img_3.jpg)
+
+**Image 2:** *The behaviour of the nodes.*
+
+
+
+This can be summarized to a behaviour model for the entire system, as follows:
+
+*inserting new picture*
+
 *explain how the models were formulated*
 ### LTL Properties
 *explain how the LTL properties were defined*
