@@ -73,19 +73,16 @@ The collection nodes follows the same proceedure, where they start by 'requestin
 
 If the system was a centralized one, the node would simply pass the data forward to the server. Then it would wait for a response to see if it should continue collecting or if it should stop. This describes a typical scenario for the system, so from this a behaviour model for each actor can be defined.
 
-![Img_2](img_2.jpg)
+![Img_2](img_2.jpg) ![Img_3](img_3.jpg)
 
 **Image 2:** *The behaviour of the environment and the server.*
 
-![Img_3](img_3.jpg)
+
 
 **Image 2:** *The behaviour of the nodes.*
 
+The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. 
 
-
-This can be summarized to a behaviour model for the entire system, as follows:
-
-*inserting new picture*
 
 *explain how the models were formulated*
 ### LTL Properties
