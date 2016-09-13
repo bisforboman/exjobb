@@ -75,13 +75,9 @@ If the system was a centralized one, the node would simply pass the data forward
 
 ![Img_2](img_2.jpg) ![Img_3](img_3.jpg)
 
-**Image 2:** *The behaviour of the environment and the server.*
+**Image 2 & 3:** *The behaviour model of the environment and the server is to the left and the one for the nodes are to the right.*
 
-
-
-**Image 2:** *The behaviour of the nodes.*
-
-The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. 
+The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. What distinguises the decentralized system and the centralized can be noticed in the behaviour model for the nodes, in the state marked 'data retrieved'. Here the node would check the data on it's own and notify the server of the action being taken, but the behaviour model still works for both cases.
 
 
 *explain how the models were formulated*
