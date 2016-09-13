@@ -79,8 +79,8 @@ If the system was a centralized one, the node would simply pass the data forward
 
 The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. What distinguises the decentralized system and the centralized can be noticed in the behaviour model for the nodes, in the state marked 'data retrieved'. Here the node would check the data on it's own and notify the server of the action being taken, but the behaviour model still works for both cases.
 
+*explain what this model doesn't consider and possible variations for the decisions.*
 
-*explain how the models were formulated*
 ### LTL Properties
 *explain how the LTL properties were defined*
 
@@ -95,6 +95,7 @@ Over-collection and the decision were rather interleaved in this system, the dec
 
 *The system should collect until over-collection has occured.*
 
+*explain the looks of it in promela code.*
 
 #### Extended Model
 *explain the extended model's scope*
