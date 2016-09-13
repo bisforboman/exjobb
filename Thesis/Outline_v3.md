@@ -90,8 +90,19 @@ This can be summarized to a behaviour model for the entire system, as follows:
 *explain how the models were formulated*
 ### LTL Properties
 *explain how the LTL properties were defined*
+
 #### Initial Model
 *explain the scope of the initial model*
+
+The first model had properties for **correctness** and **liveness**. Due to the simplicity of the model, made both of them also rather simple to manage. The correctness property was stated as follows: 
+
+*When over-collection has occured (the decision is taken), the system should stop collecting.*
+
+Over-collection and the decision were rather interleaved in this system, the decision was taken at the same time the data was checked, therefore the brackets. The liveness property was stated as:
+
+*The system should collect until over-collection has occured.*
+
+
 #### Extended Model
 *explain the extended model's scope*
 #### Code Generation
