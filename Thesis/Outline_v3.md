@@ -73,21 +73,14 @@ The collection nodes follows the same proceedure, where they start by 'requestin
 
 If the system was a centralized one, the node would simply pass the data forward to the server. Then it would wait for a response to see if it should continue collecting or if it should stop. This describes a typical scenario for the system, so from this a behaviour model for each actor can be defined.
 
-![Img_2](img_2.jpg)
+![Img_2](img_2.jpg) ![Img_3](img_3.jpg)
 
-**Image 2:** *The behaviour of the environment and the server.*
+**Image 2 & 3:** *The behaviour model of the environment and the server is to the left and the one for the nodes are to the right.*
 
-![Img_3](img_3.jpg)
+The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. What distinguises the decentralized system and the centralized can be noticed in the behaviour model for the nodes, in the state marked 'data retrieved'. Here the node would check the data on it's own and notify the server of the action being taken, but the behaviour model still works for both cases.
 
-**Image 2:** *The behaviour of the nodes.*
+*explain what this model doesn't consider and possible variations for the decisions.*
 
-
-
-This can be summarized to a behaviour model for the entire system, as follows:
-
-*inserting new picture*
-
-*explain how the models were formulated*
 ### LTL Properties
 *explain how the LTL properties were defined*
 
@@ -102,6 +95,7 @@ Over-collection and the decision were rather interleaved in this system, the dec
 
 *The system should collect until over-collection has occured.*
 
+*explain the looks of it in promela code.*
 
 #### Extended Model
 *explain the extended model's scope*
