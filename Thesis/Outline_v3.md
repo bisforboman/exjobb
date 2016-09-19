@@ -99,14 +99,19 @@ Over-collection and the decision were rather interleaved in this system, the dec
 
 #### Extended Model
 *explain the extended model's scope*
-#### Code Generation
-*explain the process of the code-generation that was used*
 
 ## Design
 *section for the design generated*
 ### Algorithm design
 ### Decisions
 
+## Implementation
+*explain the implementation process*
+
+### Code Generation
+*explain the process of the code-generation that was used*
+
+### Analysis
 
 ## Verification 
 ### LTL Properties
