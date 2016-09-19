@@ -6,13 +6,10 @@ The presence of connected devices in our environment is increasing. These device
 
 ## Acknowledgements
 
-*of course I will acknowledge everyone that helped me finish the MT.*
 
 ## Introduction
 
 ### Motivation
-
-*motivation, might be obsolete*
 
 ### Aim
 
@@ -20,18 +17,12 @@ In this thesis I investigated ways to improve privacy in a special kind of IoT d
 
 ### Scope and Limitations
 
-*explain what I didnt consider*
 
 ### Thesis Structure
-
-*explain the order that things are presented of the thesis*
 
 ## Background
 
 ### Wireless Sensor Network (WSN)
-
-*explain WSNs and their usage* 
-
 ### Over-collection
 
 Over-collection is the event when a process collects more data than it requires to function properly. The event is very example-specific and will depend heavily upon collection-process but some basic examples of over-collection can be: 
@@ -95,30 +86,19 @@ Over-collection and the decision were rather interleaved in this system, the dec
 
 *The system should collect until over-collection has occured.*
 
-*explain the looks of it in promela code.*
-
 #### Extended Model
-*explain the extended model's scope*
 
 ## Design
-*section for the design generated*
 ### Algorithm design
 ### Decisions
 
 ## Implementation
-*explain the implementation process*
-
 ### Code Generation
-*explain the process of the code-generation that was used*
-
 ### Analysis
-*analyze the results of the code-generation*
 
 ## Verification 
 ### LTL Properties
-*explain how the ltl properties defined in the specification were verified.*
 ### Satisfaction
-*explain the satisfaction! hawhaw*
 
 ## Discussion 
 *discuss the thesis work*
