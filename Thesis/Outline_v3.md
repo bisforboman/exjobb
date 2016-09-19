@@ -112,6 +112,7 @@ Over-collection and the decision were rather interleaved in this system, the dec
 *explain the process of the code-generation that was used*
 
 ### Analysis
+*analyze the results of the code-generation*
 
 ## Verification 
 ### LTL Properties
