@@ -12,7 +12,7 @@ I think the overall progress is fine, I fell behind the weeks around my re-exams
 
 Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. 
 
-## Report
+## Relate to the work plan
 
 ### Theoretical Study
 
