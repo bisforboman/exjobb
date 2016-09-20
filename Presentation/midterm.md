@@ -6,17 +6,17 @@ This document is just some notes to help present the part of the work leading up
 * What's next in the scope
 * Some relation to the work plan
  
-So here's a very structured document for that purpose.
+So here's a document, structured for that purpose.
 
 ## Progress
 
 I think the overall progress is fine, I fell behind the weeks around my re-exams but I have progressed good since then and I think I'm where I expected to be during the midterm. *Maybe just say I think I am where I expected to be?*
 
-
+I have a set of models now that I form a good basis for simple examples and a decent understanding how my process should look moving forward. 
 
 ## Coming up
 
-Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. 
+Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. When this is done I will continue with validating my code. Then I will reiterate the process with an extended model. I will have to read up some more on distributed algorithms, since I haven't taken a course in it, which I believe will be the first step in when the work on the extended model begins.
 
 ## Relate to the work plan
 
@@ -24,11 +24,13 @@ Next part will be the implementation, where I will use a code-generation tool to
 
 #### Study the problem
 
-Most this week was spent looking at related articles for the work to see if I could find any other approaches to this problem. The best one I found was on 'Smart City'.
+Most this week was spent looking at related articles for the work to see if I could find any other approaches to this problem. The best one I found was on 'Smart City'. 
+
+*Is there any point for me to dive further into this?*
 
 #### Formulatation of the problem
 
-This part was more time-consuming than expected,
+This part was more time-consuming than expected, *is this useful to mention?*
 
 To help formulating the problem I approached the problem from another angle, perhaps not the best one but it helped me atleast. I started by formulating a simple dummy example where I wanted the 
 
