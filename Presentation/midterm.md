@@ -1,6 +1,12 @@
 # Midterm Presentation
 
-This document is just some notes to help present the part of the work leading up to the midterm presentation in the master thesis.
+This document is just some notes to help present the part of the work leading up to the midterm presentation in the master thesis. Wolfgang asked for:
+
+* Current progress
+* What's next in the scope
+* Some relation to the work plan
+ 
+So here's a very structured document for that purpose.
 
 ## Progress
 
