@@ -32,7 +32,19 @@ Most this week was spent looking at related articles for the work to see if I co
 
 This part was more time-consuming than expected, *is this useful to mention?*
 
-To help formulating the problem I approached the problem from another angle, perhaps not the best one but it helped me atleast. I started by formulating a simple dummy example where I wanted the 
+To help formulating the problem I approached the problem from another angle, perhaps not the best one but it helped me atleast. I started by formulating a simple dummy example, to understand how a decision could be used in a context. This would help me come up with different usages for the decisions. So the variations of systems that I came up with were: 
+
+* Single node / Multiple nodes
+* Decentralized / Centralized 
+* Conjunctive decision / Disjunctive decision
+
+With this in mind, I choosed to focus on networks consisting of:
+
+* A server (a central unit)
+* An environment from where the data was collected
+* One or multiple nodes
+
+Where for the inital model I focused on systems with disjunctive and centralized / decentralized decisions. With this I mean systems where the decision could be taken by data from a single collection node and the system either took the decision on a central level (from the server) or a decentralized level (e.g. a node). 
 
 #### Prove correctness
 
