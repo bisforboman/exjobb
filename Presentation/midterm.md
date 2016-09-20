@@ -28,7 +28,7 @@ Most this week was spent looking at related articles for the work to see if I co
 
 *Is there any point for me to dive further into this?*
 
-#### Formulatation of the problem
+#### Formulation of the problem
 
 This part was more time-consuming than expected, *is this useful to mention?*
 
