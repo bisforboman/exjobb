@@ -58,8 +58,12 @@ Also liveness was added as a formula, this wasn't planned to be included in the 
 
 *The program shall collect until overcollection has occured.*
 
+note: mention some properties that will likely be added in the extended
+
 ### Practical Study
 
 #### Design
+
+note: discuss / show a picture of the current _simplest_ model
 
 #### Analyse and rework
