@@ -70,13 +70,13 @@ If the system was a centralized one, the node would simply pass the data forward
 
 The behaviour model of the nodes can explain the behaviour of the entire centralized system, since the node 'communicates' with all the involved parts and is the one taking (being effected of) all the actions. What distinguises the decentralized system and the centralized can be noticed in the behaviour model for the nodes, in the state marked 'data retrieved'. Here the node would check the data on it's own and notify the server of the action being taken, but the behaviour model still works for both cases.
 
+This model expects a perfect behaviour from all actors involved, since it doesn't take into account bad behaviour (e.g. message-loss or malicious usage) which is not unlikely to occur in a WSN. But this isn't meant to be captured by the model either at this stage, but will be considered when later extending the model.  
+
 *explain what this model doesn't consider and possible variations for the decisions.*
 
 ### LTL Properties
-*explain how the LTL properties were defined*
 
 #### Initial Model
-*explain the scope of the initial model*
 
 The first model had properties for **correctness** and **liveness**. Due to the simplicity of the model, made both of them also rather simple to manage. The correctness property was stated as follows: 
 
@@ -95,6 +95,8 @@ Which became:
 > always (not D until M)
 
 Where **D** and **M** are the same events as described previously.
+
+
 
 #### Extended Model
 
