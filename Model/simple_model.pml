@@ -13,7 +13,7 @@ bool msgSent = false; // stopcollection message sent.
        the decision is taken and the system should eventually
        stop collecting.
 */
-ltl toNotCollect { msgSent implies eventually dC } 
+ltl toNotCollect { always msgSent implies eventually dC } 
 
 /* 
 
@@ -24,23 +24,58 @@ ltl toNotCollect { msgSent implies eventually dC }
   */
 //ltl keepCollecting { !dC W msgSent }
 
-chan msg = [0] of {mtype};
+chan envChan = [0] of {mtype};
+chan servChan = [1] of {mtype};
 
-active proctype Process() {
-Idle: msg ! request;
-      do
-      :: msg ? request -> 
-          do 
-          :: msg ! smallData; break;
-          :: msg ! bigData; break;
+active proctype Env() {
+    printf("E: starting up.\n");
+Idle: if
+      :: envChan ? request -> 
+          do // random outcome 
+          :: envChan ! smallData; break;
+          :: envChan ! bigData; break;
           od;
-      :: msg ? smallData -> msg ! continue;
-      :: msg ? bigData -> msg ! stop; 
-                          msgSent = true;
-      :: msg ? continue -> msg ! request;
-      :: msg ? stop -> break;
+          goto Idle;
+      :: dC -> 
+      fi
+      printf("E: My work is never over.\n");
+}
+
+active proctype Node() {
+      printf("N: starting up.\n");
+Idle: 
+      envChan ! request;
+      if
+      :: envChan ? bigData -> 
+          servChan ! bigData; 
+          printf("N: Collected bigData from E.\n");
+          goto Waiting;
+      :: envChan ? smallData -> 
+          servChan ! smallData; 
+          printf("N: Collected smallData from E.\n");
+          goto Waiting;
+      fi;
+
+Waiting:
+      do
+      :: servChan ? continue -> goto Idle;
+      :: servChan ? stop -> break;
       od;
+      printf("N: Ok, done collecting.\n");
       dC = true;
+}
+
+active proctype Server() {
+      printf("S: starting up.\n");
+Idle: if
+      :: servChan ? smallData -> 
+          servChan ! continue; 
+          goto Idle;
+      :: servChan ? bigData -> 
+          servChan ! stop; 
+          msgSent = true; 
+          printf("S: msgSent. Shutting down.\n");
+      fi
 }
 
 
