@@ -52,15 +52,15 @@ I had several attempts at the correctness proving, I believe my idea of the form
 
 The correctness, as described in the report was formulated:
 
-*When the decision is sent, the collection will eventually stop.*
+> "When the decision is sent, the collection will eventually stop.*
 
-Which was formulated as:
-
-> 1: [] (m -> (<> d)) 
+Which was translated into: [] (m -> (<> d)) 
 
 Also liveness was added as a formula, this wasn't planned to be included in the first model but we decided it was a good idea to add it now. It was formulated as:
 
-*The program shall collect until overcollection has occured.*
+> The program shall collect until overcollection has occured.
+
+
 
 Properties to be included in the extended model: Fairness.
 
