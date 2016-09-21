@@ -10,13 +10,15 @@ So here's a document, structured for that purpose.
 
 ## Progress
 
-I think the overall progress is fine, I fell behind the weeks around my re-exams but I have progressed good since then and I think I'm where I expected to be during the midterm. *Maybe just say I think I am where I expected to be?*
+Mainly I think my documentation (the report) has fallen behind more than I expected. It's been hard properly documenting what I've done. 
 
-I have a set of models now that I form a good basis for simple examples and a decent understanding how my process should look moving forward. 
+
 
 ## Coming up
 
-Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. When this is done I will continue with validating my code. Then I will reiterate the process with an extended model. I will have to read up some more on distributed algorithms, since I haven't taken a course in it, which I believe will be the first step in when the work on the extended model begins.
+Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. When this is done I will continue with validating my code. Then I will reiterate the process with an extended model. 
+
+I will have to read up some more on distributed algorithms, since I haven't taken a course in it, which I believe will be the first step in when the work on the extended model begins.
 
 ## Relate to the work plan
 
@@ -29,8 +31,6 @@ Most this week was spent looking at related articles for the work to see if I co
 *Is there any point for me to dive further into this?*
 
 #### Formulation of the problem
-
-This part was more time-consuming than expected, *is this useful to mention?*
 
 To help formulating the problem I approached the problem from another angle, perhaps not the best one but it helped me atleast. I started by formulating a simple dummy example, to understand how a decision could be used in a context. This would help me come up with different usages for the decisions. So the variations of systems that I came up with were: 
 
@@ -53,6 +53,10 @@ I had several attempts at the correctness proving, I believe my idea of the form
 The correctness, as described in the report was formulated:
 
 *When the decision is sent, the collection will eventually stop.*
+
+Which was formulated as:
+
+´´´ [] (m -> (<> d)) ´´´
 
 Also liveness was added as a formula, this wasn't planned to be included in the first model but we decided it was a good idea to add it now. It was formulated as:
 
