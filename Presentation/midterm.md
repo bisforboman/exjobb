@@ -10,19 +10,19 @@ So here's a document, structured for that purpose.
 
 ## Progress
 
-Mainly I think my documentation (the report) has fallen behind more than I expected. It's been hard properly documenting what I've done. 
-
-
+Mainly I think my documentation (the report) has fallen behind more than I expected. It's been hard properly documenting what I've done and I've had to spend considerable time lately catching up on it. But I think my current model is at a good state and I think my properties are valid.
 
 ## Coming up
 
-Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. When this is done I will continue with validating my code. Then I will reiterate the process with an extended model. 
+Next part will be the implementation, where I will use a code-generation tool to generate C-code from my promela code on the different models. When this is done I will continue with validating my code. 
+
+Then I will reiterate the process with an extended model. 
 
 I will have to read up some more on distributed algorithms, since I haven't taken a course in it, which I believe will be the first step in when the work on the extended model begins.
 
 ## Relate to the work plan
 
-### Theoretical Study
+### Theoretical Study & Practical Study
 
 #### Study the problem
 
@@ -64,14 +64,8 @@ Also liveness was added as a formula, this wasn't planned to be included in the 
 
 > The program shall collect until overcollection has occured.
 
+Which became:
 
+> always (not D until M)
 
 Properties to be included in the extended model: Fairness.
-
-### Practical Study
-
-#### Design
-
-note: discuss / show a picture of the current _simplest_ model
-
-#### Analyse and rework
