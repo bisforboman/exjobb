@@ -46,6 +46,17 @@ With this in mind, I choosed to focus on networks consisting of:
 
 Where for the inital model I focused on systems with disjunctive and centralized / decentralized decisions. With this I mean systems where the decision could be taken by data from a single collection node and the system either took the decision on a central level (from the server) or a decentralized level (e.g. a node). 
 
+With this I created a promela model which was, as described above, a model with one node, one server and one environment. The promela syntaxing and limitations took a lot of time to get used to. With this code shell I created a total of 4 models, with the different variations: 
+
+* One or multiple nodes
+* Decentralized / centralized decision
+
+Which I used to test my LTL properties on. Later on I also added a version where the program didn't terminate, to model a more realistic version of the system (since WSNs aren't expected to stop). 
+
+Recently we realized that my model could evolve into a simpler version by removing a lot of non-relevant parts. So currently my model looks like: *image on paper*
+
+
+
 #### Prove correctness
 
 I had several attempts at the correctness proving, I believe my idea of the formula was correct but was poorly formulated the first times so the completion of it took longer than expected. Once I got the correct idea though it was applied to the model and it seems to work.
