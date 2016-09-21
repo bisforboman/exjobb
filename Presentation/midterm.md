@@ -56,7 +56,7 @@ The correctness, as described in the report was formulated:
 
 Which was formulated as:
 
-> [] (m -> (<> d)) 
+> 1: [] (m -> (<> d)) 
 
 Also liveness was added as a formula, this wasn't planned to be included in the first model but we decided it was a good idea to add it now. It was formulated as:
 
