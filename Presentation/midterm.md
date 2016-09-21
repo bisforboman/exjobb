@@ -50,11 +50,15 @@ Where for the inital model I focused on systems with disjunctive and centralized
 
 I had several attempts at the correctness proving, I believe my idea of the formula was correct but was poorly formulated the first times so the completion of it took longer than expected. Once I got the correct idea though it was applied to the model and it seems to work.
 
-The correctness, as described in the report was formulated:
+The correctness, as described in the report was formulated: 
 
-> "When the decision is sent, the collection will eventually stop.*
+> When the decision is sent, the collection will eventually stop.
 
-Which was translated into: [] (m -> (<> d)) 
+Which was translated into: 
+
+> always (M implies (eventually D))
+
+Where **M** and **D** corresponds to the event that the message is sent and the collection is stopped respectively. 
 
 Also liveness was added as a formula, this wasn't planned to be included in the first model but we decided it was a good idea to add it now. It was formulated as:
 
