@@ -6,14 +6,12 @@ mtype = {request, bigData, smallData, continue, stop};
 bool dC = false;      // doneCollecting
 bool msgSent = false; // stopcollection message sent. 
 
-// ltl formula
 /* 
-  The correctness property 'toNotCollect' is currently modeled as:
    * If the message is sent (the server is notified), 
        the decision is taken and the system should eventually
        stop collecting.
 */
-ltl toNotCollect { always msgSent implies eventually dC } 
+//ltl correctness { always (msgSent implies eventually dC) } 
 
 /* 
 
@@ -22,7 +20,7 @@ ltl toNotCollect { always msgSent implies eventually dC }
   * States the program should keep collecting until the decision is sent.
 
   */
-//ltl keepCollecting { !dC W msgSent }
+ltl liveness { always (!dC until msgSent) }
 
 chan envChan = [0] of {mtype};
 chan servChan = [1] of {mtype};
