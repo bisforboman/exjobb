@@ -80,11 +80,21 @@ The behaviour model of the nodes can explain the behaviour of the entire central
 
 The first model had properties for **correctness** and **liveness**. Due to the simplicity of the model, made both of them also rather simple to manage. The correctness property was stated as follows: 
 
-*When over-collection has occured (the decision is taken), the system should stop collecting.*
+> When over-collection has occured (the decision is taken), the system should stop collecting.
 
-Over-collection and the decision were rather interleaved in this system, the decision was taken at the same time the data was checked, therefore the brackets. The liveness property was stated as:
+Which was translated into: 
 
-*The system should collect until over-collection has occured.*
+> always (M implies (eventually D))
+
+Where **M** and **D** corresponds to the event that the message is sent and the collection is stopped respectively. Over-collection and the decision were rather interleaved in this system, the decision was taken at the same time the data was checked, therefore the brackets. The liveness property was stated as:
+
+> The program shall collect until overcollection has occured.
+
+Which became:
+
+> always (not D until M)
+
+Where **D** and **M** are the same events as described previously.
 
 #### Extended Model
 
