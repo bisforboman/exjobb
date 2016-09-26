@@ -2,6 +2,14 @@
 
 This document will contain other good reads that could be useful in the report/proposal of onwards in the project. Only listed the ones I found useful in some sense that I haven't added yet.
 
+## Book
+
+### Decision Procedures
+
+link: http://link.springer.com/book/10.1007%2F978-3-540-74105-3
+
+Regarding first-order Decision Procedures.
+
 ## Surveys
 
 ### Wireless Sensor networks: a survey
