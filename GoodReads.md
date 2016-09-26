@@ -49,3 +49,9 @@ TBR.
 link: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5570866
 
 Might be very area-specific but at first glance seems good.
+
+### Why Are Formal Methods Not Used More Widely?
+
+link: http://www.cs.virginia.edu/~jck/publications/lfm.97.pdf
+
+TBR. Use for argumenting formal development.
