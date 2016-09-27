@@ -34,6 +34,12 @@ Short read on arguments on collecting Big Data. Could be useful but kinda narrow
 
 ## Papers
 
+### What is formal verification?
+
+link: http://dl.acm.org/citation.cfm?id=1113794
+
+Explains Formal Verification in a good manner.
+
 ### Sensing as a Service and Big Data
 
 link: http://www.sciencedirect.com/science/article/pii/S0167739X13000241
