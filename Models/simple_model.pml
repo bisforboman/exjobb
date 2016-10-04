@@ -11,7 +11,7 @@ bool msgSent = false; // stopcollection message sent.
        the decision is taken and the system should eventually
        stop collecting.
 */
-//ltl correctness { always (msgSent implies eventually dC) } 
+//ltl correctness { (always (msgSent implies (X (eventually dC)))) && (eventually dC) } 
 
 /* 
 
@@ -20,7 +20,7 @@ bool msgSent = false; // stopcollection message sent.
   * States the program should keep collecting until the decision is sent.
 
   */
-ltl liveness { always (!dC until msgSent) }
+ltl liveness { (!dC until msgSent) }
 
 chan envChan = [0] of {mtype};
 chan servChan = [1] of {mtype};
@@ -32,17 +32,17 @@ Idle: if
           do // random outcome 
           :: envChan ! smallData; break;
           :: envChan ! bigData; break;
-          od;
-          goto Idle;
-      :: dC -> 
+          od; 
+         goto Idle;
+      :: dC ->    
       fi
-      printf("E: My work is never over.\n");
+      printf("E: No one collecting. Shutting down.\n");
 }
 
 active proctype Node() {
       printf("N: starting up.\n");
 Idle: 
-      envChan ! request;
+      envChan ! request; 
       if
       :: envChan ? bigData -> 
           servChan ! bigData; 
@@ -53,7 +53,6 @@ Idle:
           printf("N: Collected smallData from E.\n");
           goto Waiting;
       fi;
-
 Waiting:
       do
       :: servChan ? continue -> goto Idle;
@@ -70,10 +69,10 @@ Idle: if
           servChan ! continue; 
           goto Idle;
       :: servChan ? bigData -> 
-          servChan ! stop; 
+          servChan ! stop;
           msgSent = true; 
-          printf("S: msgSent. Shutting down.\n");
-      fi
+      fi;
+      printf("S: msgSent. Shutting down.\n");
 }
 
 
