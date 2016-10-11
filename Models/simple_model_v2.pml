@@ -1,17 +1,24 @@
 #define NUM_NODES   3
+#define dC          (cN == 0) 
+// dC: doneCollecting, referring to the nodes.
+// cN: collectionNodes, ...
 
 mtype = {request, bigData, smallData, continue, stop};
 
 // witnessess
-bool dC = false;      // doneCollecting
-bool msgSent = false; // stopcollection message sent. 
+//bool dC = false; // means that no nodes are collecting
+bool oC = false; // over-collection occured
+
+int cN = 0;
 
 /* 
    * If the message is sent (the server is notified), 
        the decision is taken and the system should eventually
        stop collecting.
 */
-ltl correctness { (always (msgSent implies (X (eventually dC)))) && (eventually dC) } 
+//ltl correctness { (always (msgSent implies (X (eventually dC)))) && (eventually dC) } 
+ltl correctness { always (oC implies (X (eventually dC))) && (eventually dC) }
+
 
 /* 
 
@@ -20,7 +27,7 @@ ltl correctness { (always (msgSent implies (X (eventually dC)))) && (eventually 
   * States the program should keep collecting until the decision is sent.
 
   */
-//ltl liveness { (!dC until msgSent) }
+//ltl liveness { eventually (!dC && msgSent) }
 
 // Defined by the number of nodes(N).
 chan envChan = [NUM_NODES] of {int, mtype};
@@ -28,7 +35,8 @@ chan servChan = [NUM_NODES] of {int, mtype};
 
 
 init {
-    
+
+  cN = NUM_NODES;
   run Environment(envChan);    
   run Server(servChan);  
 
@@ -38,6 +46,7 @@ init {
   :: i >= NUM_NODES -> break
   :: else -> run Node(i); i++
   od
+
   printf("Initially created %d nodes!\n", i)
 }
 
@@ -64,8 +73,9 @@ Idle: if
           ch ! id, continue; 
           goto Idle;
       :: ch ? id, bigData -> // receiving bigData from node (OC cause!)
+          oC = true;
           ch ! id, stop;
-          msgSent = true; 
+//          msgSent = true; 
       fi;
       printf("S: msgSent. Shutting down.\n");
 }
@@ -90,7 +100,7 @@ Waiting:
       :: servChan ? id,stop -> break;
       od;
       printf("N%d: Ok, done collecting.\n",id);
-      dC = true;
+      cN--;
 }
 
 
