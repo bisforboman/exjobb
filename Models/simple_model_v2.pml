@@ -1,4 +1,4 @@
-#define NUM_NODES   2
+#define NUM_NODES   3
 
 mtype = {request, bigData, smallData, continue, stop};
 
@@ -45,7 +45,7 @@ proctype Environment(chan ch) {
     int id;
     printf("E: starting up.\n");
 Idle: if
-      :: ch ? request -> 
+      :: ch ? id,request -> 
           do // random outcome 
           :: ch ! id,smallData; break;
           :: ch ! id,bigData; break;
