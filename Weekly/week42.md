@@ -24,7 +24,7 @@ _(Setback)_ I have barely worked on my thesis since models are most prioritized 
 
 ## Specific questions
 
-I'd like to discuss the iSpin configuration, since partially my problem was I had used the wrong settings. I'd like to make sure so further verifying will go easier.
+I'd like to discuss the iSpin configuration, since partially my problem was I had used the wrong settings. I'd like to make sure so further verifying will go easier. Otherwise I don't have any specific questions so I don't expect a long meeting, I just need to work out a draft for a proof (I can send one by mail to you when I have one ready).
 
 ## Work plan for the following week
 
