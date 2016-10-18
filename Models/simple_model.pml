@@ -1,10 +1,24 @@
-#define N   3
+#define NUM_NODES   1
+#define dC          (cN == 0) 
+// dC: doneCollecting, referring to the nodes.
+// cN: collectionNodes, ...
 
 mtype = {request, bigData, smallData, continue, stop};
 
 // witnessess
-bool dC = false;      // doneCollecting
-bool msgSent = false; // stopcollection message sent. 
+//bool dC = false; // means that no nodes are collecting
+bool oC = false; // over-collection occured
+
+int cN = NUM_NODES;
+
+/* 
+   * If the message is sent (the server is notified), 
+       the decision is taken and the system should eventually
+       stop collecting.
+*/
+//ltl correctness { (always (msgSent implies (X (eventually dC)))) && (eventually dC) } 
+ltl correctness { always (oC implies (X (eventually dC))) && (eventually dC) }
+
 
 /* 
    * If the message is sent (the server is notified), 
@@ -20,10 +34,10 @@ bool msgSent = false; // stopcollection message sent.
   * States the program should keep collecting until the decision is sent.
 
   */
-ltl liveness { (!dC until msgSent) }
+//ltl liveness { (!dC until msgSent) }
 
 chan envChan = [0] of {mtype};
-chan servChan = [1] of {mtype};
+chan servChan = [0] of {mtype};
 
 active proctype Env() {
     printf("E: starting up.\n");
@@ -39,7 +53,25 @@ Idle: if
       printf("E: No one collecting. Shutting down.\n");
 }
 
-active proctype Node() {
+active proctype Server() {
+      mtype defAns = continue;
+      printf("S: starting up.\n");
+Idle: if
+      :: servChan ? smallData -> 
+          servChan ! defAns; 
+          goto Idle;
+      :: servChan ? bigData -> 
+          oC = true;
+          defAns = stop;
+          servChan ! stop;
+          goto Idle;
+      :: dC ->
+      fi;
+      printf("S: msgSent. Shutting down.\n");
+}
+
+active [NUM_NODES] proctype Node() {
+      mtype ans;
       printf("N: starting up.\n");
 Idle: 
       envChan ! request; 
@@ -54,25 +86,12 @@ Idle:
           goto Waiting;
       fi;
 Waiting:
-      do
-      :: servChan ? continue -> goto Idle;
-      :: servChan ? stop -> break;
-      od;
-      printf("N: Ok, done collecting.\n");
-      dC = true;
-}
-
-active proctype Server() {
-      printf("S: starting up.\n");
-Idle: if
-      :: servChan ? smallData -> 
-          servChan ! continue; 
-          goto Idle;
-      :: servChan ? bigData -> 
-          servChan ! stop;
-          msgSent = true; 
+      servChan ? ans;
+      if
+      :: ans == continue -> goto Idle;
+      :: ans == stop -> 
       fi;
-      printf("S: msgSent. Shutting down.\n");
+      printf("N: Ok, done collecting.\n");
+      cN--;
 }
-
 
