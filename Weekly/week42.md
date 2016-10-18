@@ -12,7 +12,7 @@ Last week went poorly, when I finish this week's items I'll continue with what I
 
 ### Thesis
 
-* ~~Write the known parts of the design-chapter (first two sections). Comparing SPIN to UPPAAL, if more are required they could be added later. ~~
+* ~~Write the known parts of the design-chapter (first two sections). Comparing SPIN to UPPAAL, if more are required they could be added later.~~
 
 * ~~Write on 'Scope & Limitations'~~
 
