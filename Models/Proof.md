@@ -38,5 +38,7 @@ Contradiction.
 Explained in words:
 
 s64: The system is overcollecting but will never stop collecting.
+
 s65: If bigData is retrieved in the server then it's overcollecting and server will start responding accordingly.
+
 n93: If defAns is true then the node sending will stop collecting upon hearing back from the server.
