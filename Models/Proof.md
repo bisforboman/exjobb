@@ -25,16 +25,18 @@ _Proof by contradiction_
 
 ~~~~
 Assert { oC -> ([] (- dC)) } 
-_the system is overcollecting but will never stop collecting_
-
-n93: defAns -> <> dC
-_if defAns is true then the node sending will stop collecting upon hearing back from the server. _
 
 s64: bigData -> oC
 s65: bigData -> defAns
-_if bigData is retrieved in the server then it's overcollecting and server will start responding accordingly._
+n93: defAns -> <> dC
 
-n93 ^ s64 ^ s65 gives: bigData -> oC ^ defAns -> <> dC
+n93 ^ s64 ^ s65 gives: bigData -> oC -> <> dC
 
-Which is a contradiction.
+Contradiction.
 ~~~~
+
+Explained in words:
+
+s64: The system is overcollecting but will never stop collecting.
+s65: If bigData is retrieved in the server then it's overcollecting and server will start responding accordingly.
+n93: If defAns is true then the node sending will stop collecting upon hearing back from the server.
