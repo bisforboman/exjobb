@@ -3,13 +3,13 @@
 This document will present the proofs for the models, current model being verified is: simple_model.pml
 
 Meanings:
-[]: always \\
-<>: eventually \\
-->: implies
-^: and
-v: or
-X: next 
--: not
+* []: always 
+* <>: eventually \\
+* ->: implies
+* ^: and
+* v: or
+* X: next 
+* -: not
 
 *Correctness proof(draft):*
 
