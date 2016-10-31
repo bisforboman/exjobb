@@ -34,8 +34,9 @@ active proctype Env() {
         environment without interleaving actions, meaning a node can do this 
         "instantly". 
         d_step didn't allow goto's which is why atomic was used instead. */
+end:  skip 
 Idle: if
-end:  :: atomic { 
+      :: atomic { 
           envChan ? meter -> 
            do // random outcome 
            :: envChan ! smallData; break;
@@ -50,8 +51,9 @@ end:  :: atomic {
 active proctype Server() {
       mtype defAns = continue;
 //      printf("S: starting up.\n");
+end_1:  skip
 Idle:   if
-end_1:  :: servChan ? smallData -> 
+        :: servChan ? smallData -> 
 //          printf("S: smallData.\n");
             servChan ! defAns; 
             goto Idle;
@@ -60,8 +62,9 @@ end_1:  :: servChan ? smallData ->
             servChan ! stop;
             goto OverC;
         fi;
-OverC:  if
-end_2:  :: servChan ? smallData -> 
+OverC:  skip
+end_2:  if
+        :: servChan ? smallData -> 
             servChan ! stop; 
             goto OverC;
         :: servChan ? bigData -> 
