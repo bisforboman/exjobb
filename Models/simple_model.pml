@@ -14,7 +14,7 @@ int cN = 0; // cN: collectingNodes, ...
        stop collecting.
 */
 //ltl correctness { always (oC implies (X (eventually dC))) && (eventually dC) }
-ltl correctness { always (oC implies (eventually dC)) }
+ltl correctness { always (oC implies (eventually dC))  }
 
 /* 
 
@@ -29,45 +29,44 @@ chan envChan = [0] of {mtype};
 chan servChan = [NUM_NODES] of {mtype};
 
 active proctype Env() {
-      //printf("E: starting up.\n");
+//      printf("E: starting up.\n");
     /* atomic here is used to simulate that the data is gathered from the 
         environment without interleaving actions, meaning a node can do this 
         "instantly". 
         d_step didn't allow goto's which is why atomic was used instead. */
-end:  skip 
+
 Idle: if
       :: atomic { 
-          envChan ? meter -> 
+          envChan ? meter ->  
            do // random outcome 
-           :: envChan ! smallData; break;
            :: envChan ! bigData; break;
+           :: envChan ! smallData; break;
            od; 
-           goto Idle;
+end:       goto Idle;
         }
-       fi
-       //printf("E: No one collecting. Shutting down.\n"); 
+      fi;
+//       printf("E: No one collecting. Shutting down.\n"); 
 }
 
 active proctype Server() {
-      mtype defAns = continue;
 //      printf("S: starting up.\n");
-end_1:  skip
 Idle:   if
         :: servChan ? smallData -> 
-//          printf("S: smallData.\n");
-            servChan ! defAns; 
+//            printf("S: smallData. Go... \n");
+            servChan ! continue; 
             goto Idle;
         :: servChan ? bigData -> 
-//          printf("S: Overcollection!\n");
+//            printf("S: bigData. no more ... \n");
             servChan ! stop;
             goto OverC;
         fi;
-OverC:  skip
-end_2:  if
+OverC:  if
         :: servChan ? smallData -> 
+//            printf("S: smallData. Stop! \n");
             servChan ! stop; 
             goto OverC;
         :: servChan ? bigData -> 
+//            printf("S: Overcollection!\n");
             oC = true;
             servChan ! stop;
             goto OverC;
@@ -77,9 +76,8 @@ end_2:  if
 
 active [NUM_NODES] proctype Node() {
        cN++;
-//      printf("N: starting up.\n");
-Idle: 
-end:   envChan ! meter; 
+//       printf("N: starting up.\n");
+Idle:  envChan ! meter; 
        if
        :: envChan ? bigData -> 
 //          printf("N: Collected bigData from E.\n");
@@ -97,6 +95,6 @@ Waiting:
          :: servChan ? stop -> cN--; 
          fi;
        }
+end:  
 //      printf("N: Ok, done collecting.\n"); 
- 
 }
