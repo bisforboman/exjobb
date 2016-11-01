@@ -1,0 +1,1077 @@
+Fname	simple_model.pml
+===start Model Spec===
+1	#define NUM_NODES   2
+2	#define dC          (cN == 0) 
+3	// dC: doneCollecting, referring to the nodes.
+4	
+5	mtype = {meter, bigData, smallData, continue, stop};
+6	
+7	// witnessess
+8	bool sC = false; // stopCollecting
+9	bool oC = false; // over-collection occured
+10	int cN = 0; // cN: collectingNodes, ...
+11	
+12	/* 
+13	   * If the message is sent (the server is notified), 
+14	       the decision is taken and the system should eventually
+15	       stop collecting.
+16	*/
+17	//ltl correctness { always (oC implies (eventually dC))  }
+18	
+19	/* 
+20	
+21	  Liveness property 
+22	
+23	  * States the program should keep collecting until overcollection
+24	
+25	  */
+26	ltl liveness { (!dC until sC) }
+27	
+28	chan envChan = [0] of {mtype};
+29	chan servChan = [NUM_NODES] of {mtype};
+30	
+31	active proctype Env() {
+32	//      printf("E: starting up.\n");
+33	    /* atomic here is used to simulate that the data is gathered from the 
+34	        environment without interleaving actions, meaning a node can do this 
+35	        "instantly". 
+36	        d_step didn't allow goto's which is why atomic was used instead. */
+37	
+38	Idle: if
+39	      :: atomic { 
+40	          envChan ? meter ->  
+41	           do // random outcome 
+42	           :: envChan ! bigData; break;
+43	           :: envChan ! smallData; break;
+44	           od; 
+45	          goto Idle;
+46	        }
+47	      fi;
+48	//       printf("E: No one collecting. Shutting down.\n"); 
+49	}
+50	
+51	active proctype Server() {
+52	//      printf("S: starting up.\n");
+53	Idle:   if
+54	        :: servChan ? smallData -> 
+55	//            printf("S: smallData. Go... \n");
+56	            servChan ! continue; 
+57	            goto Idle;
+58	        :: servChan ? bigData -> 
+59	//            printf("S: bigData. no more ... \n");
+60	            sC = true;
+61	            servChan ! stop;
+62	            goto OverC;
+63	        fi;
+64	OverC:  if
+65	        :: servChan ? smallData -> 
+66	//            printf("S: smallData. Stop! \n");
+67	            servChan ! stop; 
+68	            goto OverC;
+69	        :: servChan ? bigData -> 
+70	//            printf("S: Overcollection!\n");
+71	            oC = true;
+72	            servChan ! stop;
+73	            goto OverC;
+74	        fi;
+75	//      printf("S: Shutting down.\n");
+76	}
+77	
+78	active [NUM_NODES] proctype Node() {
+79	       cN++;
+80	//       printf("N: starting up.\n");
+81	Idle:  envChan ! meter; 
+82	       if
+83	       :: envChan ? bigData -> 
+84	//          printf("N: Collected bigData from E.\n");
+85	          servChan ! bigData; 
+86	          goto Waiting;
+87	       :: envChan ? smallData -> 
+88	//          printf("N: Collected smallData from E.\n");
+89	          servChan ! smallData; 
+90	          goto Waiting;
+91	       fi;
+92	Waiting:
+93	       atomic {
+94	         if
+95	         :: servChan ? continue -> goto Idle;
+96	         :: servChan ? stop -> cN--; 
+97	         fi;
+98	       }
+99	//      printf("N: Ok, done collecting.\n"); 
+100	}
+
+
+===end Model Spec===
+===start Model Log===
+Spin Version 6.4.5 -- 1 January 2016
+iSpin Version 1.1.4 -- 27 November 2014
+TclTk Version 8.6/8.6
+1 simple_model.pml:1
+2 verification
+3 simulate/replay
+4 verification
+5 simulate/replay
+6 verification
+7 simulate/replay
+
+
+===end Model Log===
+Seed	123
+Trail	simple_model.pml.trail
+SkipStep	0
+MaxStep	10000
+VarVals	1
+FullQ	0
+MSC_Full	0
+MaxText	20
+Delay	25
+Pids	
+Qids	
+Vars	
+Track	
+Scale	
+===start Data===
+[variable values, step 598]
+
+ cN  =  3
+ oC  =  0
+ sC  =  0
+
+
+===end Data===
+===start Sim===
+ltl liveness: (! ((cN==0))) U (sC)
+spin: simple_model.pml:0, warning, global, 'bit   oC' variable is never used (other than in print stmnts)
+starting claim 3
+using statement merging
+MSC: ~G line 4
+  1:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+Never claim moves to line 4	[(!(sC))]
+  2:	proc  4 (Node:1) simple_model.pml:79 (state 1)	[cN = (cN+1)]
+  3:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+  4:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+  5:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+  6:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+  7:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+  8:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+  9:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 10:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 11:	proc  3 (Node:1) simple_model.pml:79 (state 1)	[cN = (cN+1)]
+ 12:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 13:	proc  2 (Node:1) simple_model.pml:79 (state 1)	[cN = (cN+1)]
+ 14:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 15:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 16:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 17:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+ 18:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 19:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+ 20:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 21:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 22:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+<<<<<START OF CYCLE>>>>>
+ 23:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 24:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+ 25:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+ 26:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+ 27:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+ 28:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 29:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 30:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 31:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 32:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 33:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+ 34:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 35:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 36:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+ 37:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 38:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+ 39:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 40:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+ 41:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+ 42:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+ 43:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+ 44:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 45:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 46:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 47:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 48:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 49:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+ 50:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 51:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 52:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+ 53:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 54:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+ 55:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+ 56:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+ 57:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+ 58:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 59:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 60:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 61:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+ 62:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 63:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 64:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 65:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 66:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+ 67:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 68:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+ 69:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+ 70:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+ 71:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+ 72:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 73:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 74:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 75:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+ 76:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 77:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 78:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 79:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+ 80:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 81:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 82:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+ 83:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 84:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+ 85:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+ 86:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+ 87:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+ 88:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 89:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+ 90:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 91:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+ 92:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 93:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+ 94:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 95:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+ 96:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+ 97:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+ 98:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+ 99:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+100:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+101:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+102:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+103:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+104:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+105:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+106:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+107:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+108:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+109:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+110:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+111:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+112:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+113:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+114:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+115:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+116:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+117:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+118:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+119:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+120:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+121:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+122:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+123:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+124:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+125:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+126:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+127:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+128:	proc  2 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+129:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+130:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+131:	proc  2 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+132:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+133:	proc  2 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+134:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+135:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+136:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+137:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+138:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+139:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+140:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+141:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+142:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+143:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+144:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+145:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+146:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+147:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+148:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+149:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+150:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+151:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+152:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+153:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+154:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+155:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+156:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+157:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+158:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+159:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+160:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+161:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+162:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+163:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+164:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+165:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+166:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+167:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+168:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+169:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+170:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+171:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+172:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+173:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+174:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+175:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+176:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+177:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+178:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+179:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+180:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+181:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+182:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+183:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+184:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+185:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+186:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+187:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+188:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+189:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+190:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+191:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+192:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+193:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+194:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+195:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+196:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+197:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+198:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+199:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+200:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+201:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+202:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+203:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+204:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+205:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+206:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+207:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+208:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+209:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+210:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+211:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+212:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+213:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+214:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+215:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+216:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+217:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+218:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+219:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+220:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+221:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+222:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+223:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+224:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+225:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+226:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+227:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+228:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+229:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+230:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+231:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+232:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+233:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+234:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+235:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+236:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+237:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+238:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+239:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+240:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+241:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+242:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+243:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+244:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+245:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+246:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+247:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+248:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+249:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+250:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+251:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+252:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+253:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+254:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+255:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+256:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+257:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+258:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+259:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+260:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+261:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+262:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+263:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+264:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+265:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+266:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+267:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+268:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+269:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+270:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+271:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+272:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+273:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+274:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+275:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+276:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+277:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+278:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+279:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+280:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+281:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+282:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+283:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+284:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+285:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+286:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+287:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+288:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+289:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+290:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+291:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+292:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+293:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+294:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+295:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+296:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+297:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+298:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+299:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+300:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+301:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+302:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+303:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+304:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+305:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+306:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+307:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+308:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+309:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+310:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+311:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+312:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+313:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+314:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+315:	proc  2 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+316:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+317:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+318:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+319:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+320:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+321:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+322:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+323:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+324:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+325:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+326:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+327:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+328:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+329:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+330:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+331:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+332:	proc  2 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+333:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+334:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+335:	proc  2 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+336:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+337:	proc  2 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+338:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+339:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+340:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+341:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+342:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+343:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+344:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+345:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+346:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+347:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+348:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+349:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+350:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+351:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+352:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+353:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+354:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+355:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+356:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+357:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+358:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+359:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+360:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+361:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+362:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+363:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+364:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+365:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+366:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+367:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+368:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+369:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+370:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+371:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+372:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+373:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+374:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+375:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+376:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+377:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+378:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+379:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+380:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+381:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+382:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+383:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+384:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+385:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+386:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+387:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+388:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+389:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+390:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+391:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+392:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+393:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+394:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+395:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+396:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+397:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+398:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+399:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+400:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+401:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+402:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+403:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+404:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+405:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+406:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+407:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+408:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+409:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+410:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+411:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+412:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+413:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+414:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+415:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+416:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+417:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+418:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+419:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+420:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+421:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+422:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+423:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+424:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+425:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+426:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+427:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+428:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+429:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+430:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+431:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+432:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+433:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+434:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+435:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+436:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+437:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+438:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+439:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+440:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+441:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+442:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+443:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+444:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+445:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+446:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+447:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+448:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+449:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+450:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+451:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+452:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+453:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+454:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+455:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+456:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+457:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+458:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+459:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+460:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+461:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+462:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+463:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+464:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+465:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+466:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+467:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+468:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+469:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+470:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+471:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+472:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+473:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+474:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+475:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+476:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+477:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+478:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+479:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+480:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+481:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+482:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+483:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+484:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+485:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+486:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+487:	proc  2 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+488:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+489:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+490:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+491:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+492:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+493:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+494:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+495:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+496:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+497:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+498:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+499:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+500:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+501:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+502:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+503:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+504:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+505:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+506:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+507:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+508:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+509:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+510:	proc  2 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+511:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+512:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+513:	proc  2 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+514:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+515:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+516:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+517:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+518:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+519:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+520:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+521:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+522:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+523:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+524:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+525:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+526:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+527:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+528:	proc  4 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+529:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+530:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+531:	proc  4 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+532:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+533:	proc  4 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+534:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+535:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+536:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+537:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+538:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+539:	proc  2 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+540:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+541:	proc  2 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+542:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+543:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+544:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+545:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+546:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+547:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+548:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+549:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+550:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+551:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+552:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+553:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+554:	proc  2 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+555:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+556:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+557:	proc  2 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+558:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+559:	proc  2 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+560:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+561:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+562:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+563:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+564:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+565:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+566:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+567:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+568:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+569:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+570:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+571:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+572:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+573:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+574:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+575:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+576:	proc  3 (Node:1) simple_model.pml:81 (state 2)	[envChan!meter]
+577:	proc  0 (Env:1) simple_model.pml:40 (state 1)	[envChan?meter]
+578:	proc  0 (Env:1) simple_model.pml:43 (state 4)	[envChan!smallData]
+579:	proc  3 (Node:1) simple_model.pml:87 (state 6)	[envChan?smallData]
+580:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+581:	proc  3 (Node:1) simple_model.pml:89 (state 7)	[servChan!smallData]
+582:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+583:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+584:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+585:	proc  4 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+586:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+587:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+588:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+589:	proc  1 (Server:1) simple_model.pml:54 (state 1)	[servChan?smallData]
+590:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+591:	proc  3 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+592:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+593:	proc  1 (Server:1) simple_model.pml:56 (state 2)	[servChan!continue]
+594:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+595:	proc  2 (Node:1) simple_model.pml:95 (state 11)	[servChan?continue]
+596:	proc  - (liveness:1) _spin_nvr.tmp:4 (state 1)	[(!(sC))]
+597:	proc  0 (Env:1) simple_model.pml:41 (state 8)	[break]
+598:	proc  0 (Env:1) simple_model.pml:45 (state 9)	[goto Idle]
+spin: trail ends after 598 steps
+#processes: 5
+598:	proc  4 (Node:1) simple_model.pml:81 (state 2)
+598:	proc  3 (Node:1) simple_model.pml:81 (state 2)
+598:	proc  2 (Node:1) simple_model.pml:81 (state 2)
+598:	proc  1 (Server:1) simple_model.pml:53 (state 8)
+598:	proc  0 (Env:1) simple_model.pml:38 (state 11)
+MSC: ~G line 3
+598:	proc  - (liveness:1) _spin_nvr.tmp:3 (state 6)
+5 processes created
+Exit-Status 0
+
+
+===end Sim===
+===start Queues===
+[queues, step 598]
+
+q 2  :: (servChan): 
+
+
+===end Queues===
+LTL_Panel	0
+a_mode	0
+bc_mode	0
+bc_bound	0
+bf_mode	0
+c_mode	1
+cc_mode	0
+e_mode	0
+estop		0
+f_mode	1
+it_mode	0
+ma_mode	0
+p_mode	2
+peg		0
+po_mode	0
+q_mode	0
+s_mode	0
+sv_mode	0
+u_mode	0
+vranges	0
+x_mode	0
+===start VerOut===
+verification result:
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000  -a -f -N liveness
+Pid: 2988
+warning: only one claim defined, -N ignored
+error: p.o. reduction not compatible with fairness (-f) in models
+       with rendezvous operations: recompile with -DNOREDUCE
+
+pan: elapsed time 1.72e+07 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -a -f -N liveness
+Pid: 3026
+warning: only one claim defined, -N ignored
+pan:1: acceptance cycle (at depth 22)
+pan: wrote simple_model.pml.trail
+
+(Spin Version 6.4.5 -- 1 January 2016)
+Warning: Search not completed
+
+Full statespace search for:
+	never claim         	+ (liveness)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 76 byte, depth reached 597, errors: 1
+      898 states, stored (5780 visited)
+    10937 states, matched
+    16717 transitions (= visited+matched)
+     3565 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.089	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.286	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+
+pan: elapsed time 0.01 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOCLAIM -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -a -f
+Pid: 3071
+
+(Spin Version 6.4.5 -- 1 January 2016)
+
+Full statespace search for:
+	never claim         	- (not selected)
+	assertion violations	+
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	+
+
+State-vector 68 byte, depth reached 229, errors: 0
+     2429 states, stored
+     4945 states, matched
+     7374 transitions (= stored+matched)
+     1597 atomic steps
+hash conflicts:        68 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.222	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.384	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.827	total actual memory usage
+
+
+unreached in proctype Env
+	simple_model.pml:49, state 13, "-end-"
+	(1 of 13 states)
+unreached in proctype Server
+	simple_model.pml:76, state 19, "-end-"
+	(1 of 19 states)
+unreached in proctype Node
+	(0 of 18 states)
+unreached in claim liveness
+	_spin_nvr.tmp:4, state 6, "(!(sC))"
+	_spin_nvr.tmp:4, state 6, "((!(!((cN==0)))&&!(sC)))"
+	_spin_nvr.tmp:9, state 10, "-end-"
+	(2 of 10 states)
+
+pan: elapsed time 0 seconds
+No errors found -- did you verify all claims?
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOCLAIM -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -E -a -f
+Pid: 3109
+
+(Spin Version 6.4.5 -- 1 January 2016)
+
+Full statespace search for:
+	never claim         	- (not selected)
+	assertion violations	+
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	- (disabled by -E flag)
+
+State-vector 68 byte, depth reached 229, errors: 0
+     2429 states, stored
+     4945 states, matched
+     7374 transitions (= stored+matched)
+     1597 atomic steps
+hash conflicts:        68 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.222	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.384	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.827	total actual memory usage
+
+
+unreached in proctype Env
+	simple_model.pml:49, state 13, "-end-"
+	(1 of 13 states)
+unreached in proctype Server
+	simple_model.pml:76, state 19, "-end-"
+	(1 of 19 states)
+unreached in proctype Node
+	(0 of 18 states)
+unreached in claim liveness
+	_spin_nvr.tmp:4, state 6, "(!(sC))"
+	_spin_nvr.tmp:4, state 6, "((!(!((cN==0)))&&!(sC)))"
+	_spin_nvr.tmp:9, state 10, "-end-"
+	(2 of 10 states)
+
+pan: elapsed time 0.01 seconds
+No errors found -- did you verify all claims?
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -E -a -f -N liveness
+Pid: 3152
+warning: only one claim defined, -N ignored
+pan:1: acceptance cycle (at depth 22)
+pan: wrote simple_model.pml.trail
+
+(Spin Version 6.4.5 -- 1 January 2016)
+Warning: Search not completed
+
+Full statespace search for:
+	never claim         	+ (liveness)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	- (disabled by -E flag)
+
+State-vector 76 byte, depth reached 597, errors: 1
+      898 states, stored (5780 visited)
+    10937 states, matched
+    16717 transitions (= visited+matched)
+     3565 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.089	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.286	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+
+pan: elapsed time 0.01 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -E -a -f -N liveness
+Pid: 3225
+warning: only one claim defined, -N ignored
+pan:1: acceptance cycle (at depth 22)
+pan: wrote simple_model.pml.trail
+
+(Spin Version 6.4.5 -- 1 January 2016)
+Warning: Search not completed
+
+Full statespace search for:
+	never claim         	+ (liveness)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	- (disabled by -E flag)
+
+State-vector 76 byte, depth reached 597, errors: 1
+      898 states, stored (5780 visited)
+    10937 states, matched
+    16717 transitions (= visited+matched)
+     3565 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.089	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.286	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+
+pan: elapsed time 0 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  simple_model.pml
+ltl liveness: (! ((cN==0))) U (sC)
+gcc -DMEMLIM=1024 -O2 -DXUSAFE -DNOREDUCE -w -o pan pan.c
+./pan -m10000  -E -A -a -f -n -N liveness
+Pid: 3296
+warning: only one claim defined, -N ignored
+pan:1: acceptance cycle (at depth 22)
+pan: wrote simple_model.pml.trail
+
+(Spin Version 6.4.5 -- 1 January 2016)
+Warning: Search not completed
+
+Full statespace search for:
+	never claim         	+ (liveness)
+	assertion violations	- (disabled by -A flag)
+	acceptance   cycles 	+ (fairness enabled)
+	invalid end states	- (disabled by -E flag)
+
+State-vector 76 byte, depth reached 597, errors: 1
+      898 states, stored (5780 visited)
+    10937 states, matched
+    16717 transitions (= visited+matched)
+     3565 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.089	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.286	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+
+pan: elapsed time 0.01 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+
+
+===end VerOut===
+srow0 	1
+srow1 	5
+srow2 	100
+srow3 	10000
+srow4 	4
+srow5 	
+srow6 	512M
+srow7 	60m
+srow8 	1.5
+srow9 	512
+srow10	250000
+srow11	
+srow12	-c1 -x -n
+===start CCopts===
+-DBITSTATE -DPUTPID             # basic dfs
+-DBITSTATE -DPUTPID -DREVERSE   # reversed transition ordering
+-DBITSTATE -DPUTPID -DT_REVERSE # reversed process ordering
+-DBITSTATE -DPUTPID -DREVERSE -DT_REVERSE       # both
+-DBITSTATE -DPUTPID -DP_RAND -DT_RAND   # same series with randomization
+-DBITSTATE -DPUTPID -DP_RAND -DT_RAND -DT_REVERSE
+-DBITSTATE -DPUTPID -DP_RAND -DT_RAND -DREVERSE
+-DBITSTATE -DPUTPID -DP_RAND -DT_RAND -DREVERSE -DT_REVERSE
+
+
+===end CCopts===
+===start SwSetup===
+swarm setup output
+
+
+===end SwSetup===
+===start SwRun===
+swarm run output
+no 'swarm' command is found
+available from: http://spinroot.com/swarm/
+
+
+===end SwRun===

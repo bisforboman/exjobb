@@ -1,10 +1,11 @@
-#define NUM_NODES   2
+#define NUM_NODES   3
 #define dC          (cN == 0) 
 // dC: doneCollecting, referring to the nodes.
 
 mtype = {meter, bigData, smallData, continue, stop};
 
 // witnessess
+bool sC = false; // stopCollecting
 bool oC = false; // over-collection occured
 int cN = 0; // cN: collectingNodes, ...
 
@@ -13,8 +14,7 @@ int cN = 0; // cN: collectingNodes, ...
        the decision is taken and the system should eventually
        stop collecting.
 */
-//ltl correctness { always (oC implies (X (eventually dC))) && (eventually dC) }
-ltl correctness { always (oC implies (eventually dC))  }
+//ltl correctness { always (oC implies (eventually dC))  }
 
 /* 
 
@@ -23,7 +23,7 @@ ltl correctness { always (oC implies (eventually dC))  }
   * States the program should keep collecting until overcollection
 
   */
-//ltl liveness { (!dC until msgSent) }
+ltl liveness { (!dC until sC) }
 
 chan envChan = [0] of {mtype};
 chan servChan = [NUM_NODES] of {mtype};
@@ -42,7 +42,7 @@ Idle: if
            :: envChan ! bigData; break;
            :: envChan ! smallData; break;
            od; 
-end:       goto Idle;
+          goto Idle;
         }
       fi;
 //       printf("E: No one collecting. Shutting down.\n"); 
@@ -57,6 +57,7 @@ Idle:   if
             goto Idle;
         :: servChan ? bigData -> 
 //            printf("S: bigData. no more ... \n");
+            sC = true;
             servChan ! stop;
             goto OverC;
         fi;
@@ -95,6 +96,5 @@ Waiting:
          :: servChan ? stop -> cN--; 
          fi;
        }
-end:  
 //      printf("N: Ok, done collecting.\n"); 
 }
