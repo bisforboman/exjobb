@@ -1,4 +1,4 @@
-#define NUM_NODES   3
+#define NUM_NODES   1
 #define dC          (cN == 0) 
 // dC: doneCollecting, referring to the nodes.
 
@@ -35,13 +35,14 @@ active proctype Env() {
         "instantly". 
         d_step didn't allow goto's which is why atomic was used instead. */
 
-Idle: if
+Idle:
+end:  if
       :: atomic { 
           envChan ? meter ->  
-           do // random outcome 
-           :: envChan ! bigData; break;
-           :: envChan ! smallData; break;
-           od; 
+           if // random outcome 
+           :: envChan ! bigData;
+           :: envChan ! smallData;
+           fi; 
           goto Idle;
         }
       fi;
@@ -61,7 +62,8 @@ Idle:   if
             servChan ! stop;
             goto OverC;
         fi;
-OverC:  if
+OverC:
+end:    if
         :: servChan ? smallData -> 
 //            printf("S: smallData. Stop! \n");
             servChan ! stop; 
