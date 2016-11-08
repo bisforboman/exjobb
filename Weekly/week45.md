@@ -34,6 +34,8 @@ Is the liveness-formulation I'm using even useable? It feels like a `dC || !dC`-
 
 * Either construct a proof for the liveness or rework it(?)
 
+* Begin analyze how the extended models should look(?)
+
 ### Thesis
 
 * Design-chapter
