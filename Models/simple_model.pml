@@ -1,38 +1,53 @@
 #define NUM_NODES   1
 //#define dC          (cN == 0) 
-#define node_send      Node@waiting // node 0 arrived at waiting
-#define server_dC        Server@Accept_oc
+#define node_send       Node@Waiting // node 0 arrived at waiting
+#define server_dC       Server@Stopping
+#define node_done       Node@DoneColl
+#define server_ans      Server@Answering
+#define server_stop     Server@Stopping
 //#define n_end       Node[NUM_NODES]@end // node 0 stopped
 // dC: doneCollecting, referring to the nodes.
 
 mtype = {meter, bigData, smallData, continue, stop};
 
 // witnessess
-bool sC = false; // stopCollecting
-bool oC = false; // over-collection occured
-int cN = NUM_NODES; // cN: collectingNodes, ... 
+//bool sC = false; // stopCollecting
+//bool oC = false; // over-collection occured
+//int cN = NUM_NODES; // cN: collectingNodes, ... 
 
 /* 
    * If the message is sent (the server is notified), 
        the decision is taken and the system should eventually
        stop collecting.
 */
-//ltl correctness { always (oC implies (eventually dC))  }
+//ltl correctness_old { always (oC implies (eventually dC))  }
+//ltl correctness { always (server_dC implies (eventually node_done)) }
 
 /* 
 
   Liveness property 
 
-  * States the program should keep collecting until overcollection
+  * Liveness_send states that eventually a node gets to send data to the server.
+  * Liveness_reply states that when a node has sent, eventually the server responds accordingly.
 
   */
-ltl liveness_send { (eventually (node_send)) }
-//ltl liveness_reply { always (node_send implies ()) }
-//ltl liveness { (always !sC) || (eventually dC) }
+//ltl liveness_send { (eventually (node_send)) }
+//ltl liveness_reply { (node_send implies (eventually (server_ans || server_stop))) }
 
 
+// channel inits.
 chan envChan = [0] of {mtype};
-chan servChan = [NUM_NODES] of {mtype};
+chan servChan[NUM_NODES] = [1] of {mtype};
+
+init {
+  atomic {
+    int i;
+    for (i : 0  .. (NUM_NODES-1)) {
+      run Node(servChan[i]);
+      //printf("\n\n%d\n\n",i);
+    }
+  }
+}
 
 
 active proctype Env() {
@@ -53,61 +68,74 @@ Accept_e_idle:
           goto Accept_e_idle;
         }
       fi;
-//       printf("E: No one collecting. Shutting down.\n"); 
 }
 
 active proctype Server() {
-//      printf("S: starting up.\n");
-   
-Accept_idle: 
+
+// initializing active channel
+chan active_chan;
+int i=0;
+
+// in the label that start with "idle_" the server will only check
+//    if any data is put on one of the channels each in turn.
+Idle_Answering: 
         if
-        :: servChan ? smallData -> 
-//            printf("S: smallData. Go... \n");
-            servChan ! continue; 
-            goto Accept_idle;
-        :: servChan ? bigData -> 
-//            printf("S: bigData. no more ... \n");
-            sC = true;
-            servChan ! stop;
-            goto Accept_oc;
+        :: nempty(servChan[i]) -> 
+            active_chan = servChan[i];
+            goto Answering; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Answering;
         fi;
-Accept_oc:    
+
+Idle_Stopping:
         if
-        :: servChan ? smallData -> 
-//            printf("S: smallData. Stop! \n");
-            servChan ! stop; 
-            goto Accept_oc;
-        :: servChan ? bigData -> 
-//            printf("S: Overcollection!\n");
-            oC = true;
-            servChan ! stop;
-            goto Accept_oc;
+        :: nempty(servChan[i]) -> 
+            active_chan = servChan[i]; 
+            goto Stopping; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Stopping;
         fi;
-//      printf("S: Shutting down.\n");
+
+Answering: 
+        if
+        :: active_chan ? smallData -> 
+            active_chan ! continue; 
+            goto Idle_Answering;
+        :: active_chan ? bigData ->
+            active_chan ! stop;
+            goto Idle_Stopping;
+        fi;
+
+Stopping:    
+        if
+        :: active_chan ? smallData -> 
+            active_chan ! stop; 
+            goto Idle_Stopping;
+        :: active_chan ? bigData ->
+            active_chan ! stop;
+            goto Idle_Stopping;
+        fi;
 }
 
-active [NUM_NODES] proctype Node() {
-//       cN++;
-//       printf("N: starting up.\n");
-Accept_n_idle:   
+proctype Node(chan out) {
+Idle:   
         envChan ! meter; 
         if
         :: envChan ? bigData -> 
-//          printf("N: Collected bigData from E.\n");
-           servChan ! bigData; 
-           goto waiting;
+           out ! bigData; 
+           goto Waiting;
         :: envChan ? smallData -> 
-//          printf("N: Collected smallData from E.\n");
-           servChan ! smallData; 
-           goto waiting;
+           out ! smallData; 
+           goto Waiting;
         fi;
-waiting:
+Waiting:
         atomic {
           if
-          :: servChan ? continue -> goto Accept_n_idle;
-          :: servChan ? stop -> cN--; 
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
           fi;
         }
-DoneColl: 
-//      printf("N: Ok, done collecting.\n"); 
+DoneColl: // node will shutdown here.
 }
