@@ -1,0 +1,142 @@
+\chapter{Theory}
+
+% maybe talk something about the breadcrumbs that lead me to where I am now?
+
+This chapter provides an introduction into the theoretical elements used throughout the course of the project. 
+
+% approach ->
+% As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. Once the features of the decision procedure is characterized in this simple setting, I will then look at introducing more distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To this aim, a computation unit would need to know what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further collection is needed. 
+
+% unit testing vs formal verification
+%To analyze the system we wanted to improve, the project investigated different ways to design and verify a \wsn . For verifying, the two most relevant options were formal verification and testing (e.g. unit-testing) \todo{talk more about testing?}. Unit-testing is the technique of \ldots
+
+%Formal verification on the other hand means that you, by logic, prove certain properties of the system and by so making sure the system works as intended. % really?
+
+\section{Formal Verification}
+
+The act of formal verification means to make use of mathematical techniques to make sure that a design upholds a defined functional correctness.\cite{bjesse2005formal}
+This means, that if we assume we have the following: a model of a design, a description of the environment where the design is supposed to operate in and some properties we wish the design to uphold. With this information, one may want to construct some input sequences, that are in the allowed in domain of the environment, that would violate the properties stated. A common practice for finding such patterns today are random simulations or directed tests.
+Formal verification allows for an extended approach to this, as it allows both to search for input sequences that violates the properties but also allows to mathematically prove that the stated properties holds when no input sequences exist.
+
+\section{Model Checking}
+
+A traditional approach to verifying concurrent systems is based on using extensive testing and simulation to find and eliminate unwanted occurrences from the system, but this way can easily miss crucial errors when the system that's being tested has a large number of possible states\cite{clarke1999model}. An alternative technique that was developed in the 1980's by Clarke et al. is called \textit{temporal logic model checking} or "Model Checking".
+
+Model Checking is an automated technique to verify finite state concurrent systems, by letting a tool verify that a model holds for certain properties. The process of applying Model Checking to a design is separated into several tasks; \textit{modeling}, \textit{specification} and \textit{verification}. \\
+
+\begin{itemize}
+\item[] \textbf{Modeling:} First task is to translate a design into a format which is accepted by a model checking tool. This is either a compilation task or a task in abstracting certain aspects of the design to eliminate irrelevant or unimportant details, due to limitations on time an memory. \\
+\item[] \textbf{Specification:} Second task is to state which properties the design is supposed to have. This is usually done using in a logical formalism, commonly in temporal logic, which can express assertions on a system evolving over time. \\
+\item[] \textbf{Verification:} The final step is allowing the tool to verify the specification on the model. This will either be a positive result, meaning the model satisfies the properties, or a negative result where the properties aren't. A negative result can also be that the model's state space is too large to fit into a computer, which will require the model to be further abstracted to be verified.
+\end{itemize}
+
+
+\subsection{Model Checking Workflow}
+
+\textit{show a structure of a model checking workflow}\todo{show structure of model checking workflow}
+
+\subsection{State Space Explosion}
+
+\textit{will explain the problems with having a to precise model}\todo{mention the problem with state space explosion}
+
+\section{Promela \& SPIN}
+
+The model checking tool used for this project is called Simple Promela Interpreter (SPIN) and the language it accepts is called Promela, which is an acronym for Process Meta Language. \\
+
+\textit{describe usages of SPIN}
+
+\subsection{Operational Semantics of Promela}
+
+\textit{explain why this section is relevant} \\
+
+Definitions 7.1-7.5 defined in Spin reference manual (p.155-157) \cite{spinreferencemanualbook}
+
+\begin{definition}{}{}
+\label{def:Variable}
+(Variable) 
+
+A \textit{variable} is a tuple (\textit{name}, \textit{scope}, \textit{domain}, \textit{inival}, \textit{curval}) where
+
+\begin{itemize}
+\item[] \textit{name} is an \textit{identifier} that is unique within the given \textit{scope},
+\item[] \textit{scope} is either \textit{global} or local to a specific \textit{process},
+\item[] \textit{domain} is a finite set of \textit{integers},
+\item[] \textit{inival}, the initial value, is an \textit{integer} from the given \textit{domain}, and
+\item[] \textit{curval}, the current value, is also an \textit{integer} from the given \textit{domain}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{}{}
+\label{def:Msg}
+(Message)
+
+A \textit{message} is an ordered set of \textit{variables} (Def~\ref{def:Variable}).
+\end{definition}
+
+\begin{definition}{}{}
+\label{def:MsgChan}
+(Message Channel)
+
+A \textit{message channel} is a tuple (\textit{ch\_id}, \textit{nslots}, \textit{contents}) where
+\begin{itemize}
+\item[] \textit{ch\_id} is a positive \textit{integer} that uniquely identifies the channel,
+\item[] \textit{nslots} is an \textit{integer}, and
+\item[] \textit{contents} is an ordered set of \textit{messages}(Def~\ref{def:Msg}) with maximum cardinality \textit{nslots}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{}{}
+\label{def:Process}
+(Process)
+
+A \textit{process} is a tuple (\textit{pid}, \textit{lvars}, \textit{lstates}, \textit{initial}, \textit{curstate}, \textit{trans}) where
+\begin{itemize}
+\item[] \textit{pid} is a positive \textit{integer} that uniquely identifies the process,
+\item[] \textit{lvars} is a finite set of local \textit{variables} (Def~\ref{def:Variable}), each with a \textit{scope}
+\item[] \textit{lstates} is a finite set of \textit{integers},
+\item[] \textit{intial} and \textit{curstate} are elements of set \textit{lstates}, and
+\item[] \textit{trans} is a finite set of \textit{transitions}(Def~\ref{def:Transition}) on lstates.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{}{}
+\label{def:Transition}
+(Transition)
+
+A \textit{transition} in process \textit{P} is defined by a tuple (\textit{tr\_id}, \textit{source}, \textit{target}, \textit{cond}, \textit{effect}, \textit{prty}, \textit{rv}) where
+\begin{itemize}
+\item[] \textit{tr\_id} is a non-negative \textit{integer},
+\item[] \textit{source} and \textit{target} are elements from \textit{P.lstates} (i.e. \textit{integers}),
+\item[] \textit{cond} is a boolean condition from the global \textit{system state}(Def~\ref{def:SysState}),
+\item[] \textit{effect} is a function that modifies the global \textit{system state}(Def~\ref{def:SysState}),
+\item[] \textit{prty} and \textit{rv} are \textit{integers}.
+\end{itemize}
+\end{definition}
+
+\begin{definition}{}{}
+\label{def:SysState}
+(System State)
+
+A global \textit{system state} is a tuple of the form  (\textit{gvars}, \textit{procs}, \textit{chans}, \textit{exclusive}, \textit{handshake}, \textit{timeout}, \textit{else}, \textit{stutter}) where
+\begin{itemize}
+\item[] \textit{gvars} is a finite set of \textit{variables} (Def~\ref{def:Variable}) with \textit{global} scope,
+\item[] \textit{procs} is a finite set of \textit{processes} (Def~\ref{def:Process}),
+\item[] \textit{chans} is a finite set of \textit{message channels} (Def~\ref{def:MsgChan}),
+\item[] \textit{exclusive} and \textit{handshake} are \textit{integers},
+\item[] \textit{timeout}, \textit{else} and \textit{stutter} are \textit{booleans}.
+\end{itemize}
+\end{definition}
+
+\section{Related Work}
+\subsection{Smart City} 
+
+\textit{some background into their approach}\cite{li2016privacy}
+
+\textit{some comparison to this project}
+
+%*discuss smart city's approach in difference to your own*
+
+\subsection{Privacy Enhancing Technologies (PET)}
+
+\textit{compare this to your work}
+%find surveys regarding this

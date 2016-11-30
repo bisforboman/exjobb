@@ -1,0 +1,67 @@
+\chapter{Introduction}
+
+\section{Motivation}
+
+\section{Aim}
+
+%The purpose of this thesis is improve privacy in \wsns, in the sense that minimizing the amount of personal data being processed reduces the amount of data being communicated in the network. Different versions of \wsns will be considered and analyzed to reach a general solution as possible. 
+
+%The project also seeks to formalize the meaning of overcollection and what it means in the setting of \wsns collecting personal data. 
+
+This thesis will investigate ways to improve privacy in a special kind of IoT (Internet of Things) devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimization. This means the project sought to improve privacy in distributed networks by limiting the amount of personal data being processed.
+
+To achieve this, the project sought to accomplish the following steps:
+
+\begin{itemize}
+\item Define Over-Collection and it's meaning with regards to this project. 
+\item Construct an example of a \wsn that stops the collection when Over-Collection is occuring.
+\end{itemize}
+
+%maybe add some list with goals?
+
+\section{Limitations}
+
+% faulty wsns
+The project will not consider faulty behaviors of a \wsn, meaning that the systems and algorithms will work under the assumption that all messages sent are received and all units are working as intended without malfunctions.
+
+% time complexity
+Only the result of the data collection will be analyzed in the sought outcome and if time complexity of the algorithm will be an issue for the project, it will not be considered as a failure should it arise. Some analysis will be done but it won't be a main focus to minifor the project.
+
+% time vs states
+Any model properties related to time (in the sense that they can be measured numerically) will be treated on an abstract level or be disregarded.\todo{this section is borrowed from another MT where a quote was also included from Ben-Ari's book from 2008. I thought it was relevant for me aswell} %borrowed from other thesis, referred to Ben-Ari 2008 p. 173.
+
+%The project seeks to model and verify an overcollecting system and investigate 
+
+%\textit{in this section I will explain what questions the project sought/didn't seek to answer and what problems it did and didn't attempt to solve.}
+
+% define overcollection formally
+
+\section{Thesis Structure}
+
+\textit{saving for later when the thesis has shaped up}
+
+\section{Background}
+
+\textit{This section should cover some background information to give the reader some background knowledge to what the project has been about that is required knowledge before moving forward.}
+
+\subsection{Wireless Sensor Network (WSN)}
+
+%describe my idea of a sensor network and how I will look at them for the sake of the thesis. (node/server/environment)
+
+% how it's built up (components)
+
+A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{WSN_a_survey} 
+
+\todo{discuss other good things with WSNs but try to keep it relevant}
+
+\subsection{Data Minimization}
+
+As defined by the EDPS (European Data Protection Supervisor); \say{The principle of "data minimization" means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose.} \cite{website:europa.eu}
+
+\todo{discuss where and how the quote came to be, there's information on the link for that.}
+
+This covers two important aspects of data minimization, the first being that data should only be kept for as long as it is useful for an application and the second being that they should only collect "relevant" data. The latter is more interesting to the project, since the project's aim is to solve part of this problem.
+
+%why is this a good a good definition for me?
+
+%*discuss DM more*

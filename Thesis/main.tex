@@ -1,0 +1,75 @@
+\documentclass[12pt,a4paper,twoside,openright]{report}
+\pagenumbering{roman}			% Roman numbering (starting with i (one)) until first main chapter
+\input{include/settings/settings}
+
+\begin{document} 
+
+% COVER PAGE, TITLE PAGE AND IMPRINT PAGE
+\input{include/frontpage/titlepage}
+
+% ABSTRACT
+\newpage
+\input{include/frontpage/abstract}
+
+% ACKNOWLEDGEMENTS
+\newpage
+\input{include/frontpage/acknowledgements}
+
+% TABLE OF CONTENTS
+\newpage
+\tableofcontents
+
+% List of figures (add to table of contents)
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listfigurename} 
+\listoffigures
+% List of tables (add to table of contents)
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\listtablename}  
+\listoftables
+% List of listings (add to table of contents)
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\lstlistingname}  
+\lstlistoflistings
+
+
+% START OF MAIN DOCUMENT
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{arabic}			% Arabic numbering starting from 1 (one)
+\setlength{\parskip}{0pt plus 1pt}
+
+  % introduction
+  \input{include/Introduction}
+
+  % theory chapter
+  \input{include/Theory}
+
+  % modeling & specification
+  \input{include/Specification}
+
+  % design 
+  \input{include/Design}
+
+  % implementation chapter, not yet defined
+  \input{include/Implementation}
+
+  % 3 parts for now, barely contains anything so
+  \input{include/DiscussionConclusionEthics}
+
+
+% REFERENCES / BIBLIOGRAPHY
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,include/refs}
+
+% APPENDICES
+%\cleardoublepage
+%\appendix
+%\setcounter{page}{1}
+%\pagenumbering{Roman}			% Capitalized roman numbering starting from I (one)
+
+% add appendices
+
+\end{document}

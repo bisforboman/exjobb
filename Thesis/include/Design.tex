@@ -1,0 +1,218 @@
+\chapter{Design}
+
+%(1) justify why Promela/SPIN is a good fit for your model, in comparison with other similar tools (NuSMV, UPPAAL, ...). Then, explain 
+
+\textit{introduction-text: I seek to use SPIN/Promela for my models and first I need to justify why I did so and compare it to other tools...} \\
+
+% -----
+% Uppaal
+
+% Shall i make an translation example to Uppaal's timed automata?
+
+Analysis of UPPAAL vs. TLC for verifying the WS-AT Protocol. \cite{uppaal_analysis} \\
+
+
+
+%-----
+% NuSVM
+
+Survey regarding the NuSVM "symbolic" model checker.\cite{NuSVM_modelchecker}
+
+%-----
+
+% comparison table between two/three choices?
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| p{3cm} || p{3cm} | p{3cm} | p{3cm} |} \hline
+Tool 
+	& \textbf{SPIN} 
+    & \textbf{UPPAAL}
+    & \textbf{NuSVM}
+    \\ \hline\hline
+specification language 
+	& promela
+    & timed automata network with shared variables
+    & ...
+    \\ \hline
+necessary user's background 
+	& programming
+    & programming
+    & ...
+    \\ \hline
+expressiveness of spec. language 
+	& ...
+    & restricted, communicating state machines, C-like (but finite) data structures, inductive approach
+    & ...
+    \\ \hline
+model checker characteristics 
+	& ...
+    & verifies the full specification language (with time)
+    & ...
+    \\ \hline
+modeling / verification speed 
+	& ...
+    & slower modeling, faster verification
+    & ...
+    \\ \hline
+verification of time/cost features
+	& ...
+    & straightforward modeling and state-of-the-art verification support
+    & ...
+    \\ \hline
+parameterized reasoning
+	& ...
+    & ...
+    & ...
+    \\ \hline
+\end{tabular}
+\caption{Comparison between the model checkers SPIN, UPPAAL and NuSVM.}\cite{compare_spin_uppaal}
+\end{table}
+
+%this is all bs?
+%\textit{FSA models contain States, Conditions, Steps? ...} 
+%The translation to Promela from the FSA-models was made by the following steps:
+%\begin{itemize}
+%\item[] \textbf{States:} Were translated into \textit{labels} and and a move between two states were translated into \textit{GOTO}-statements \todo{explain GOTOs in promela?} and corresponding message sent became \textit{messages} sent in \textit{message channels} between the two actors\todo{are these the correct terms?}.  
+%\item[] \textbf{Conditions:} Were translated into \textit{if}-clauses.\todo{rewriting this part, stopped here since it only was a draft of how I could do it.}
+%\end{itemize}
+
+%(2) how you systematically translate your FSA models into Promela models (given that the LTL formulas are quite straightforward) (the systematicity is very important here because you want to avoid to introduce errors in this translation to be sure you verify the right thing), 
+
+%(3) what are the results of the verification (and how you verified it) and what you modified in your model when you discovered errors (show a particularly interesting and somewhat complicated case to show that this verification part actually helped you and that you know how to take profit from it), 
+
+%and finally (4) explain the limitations of the abstraction, what is not covered, what could be relaxed: take some perspective.
+
+%\section{System Description}
+
+%\textit{first the proposed system will be described, with overlay of the architecture and how it's intended to work.}
+
+%The system that's intended to be modeled were a system 
+
+% explain the code design and the flow of the procedures
+
+\section{Modeling in Promela}
+
+%\textit{Explain the systematic translation to promela models, motivate that I don't introduce errors} \\
+
+The system consists of message channels between three different classes of procedures \textbf{Node}, \textbf{Server} and \textbf{Environment}. The node allows a dynamic number of instances to run at start-up and it's set by a predefined macro named \texttt{NUM\_NODES}. As an abstraction, the project considered the data sent in the network as a set of two possibilities. Either the sent data causes a system change, the system realizes it should stop collecting to prevent over-collection, or it doesn't and it continues as before. This were noted as \texttt{bigData} and \texttt{smallData}, where \texttt{bigData} causes the system change and \texttt{smallData} doesn't. \\
+
+The system procedures communicate using shared communication channels, \texttt{envChan} for the communication between the \texttt{Nodes} and \texttt{Environment} and \texttt{servChan} for the communication between the \texttt{Server} and the \texttt{Nodes}.
+
+\subsection{Environment}
+
+The environment is an abstraction made to simplify the work. It's considered to be a shared resource between the nodes where each node can individually meter the environment and then communicate it to the server. To achieve this the environment is constructed as an atomic statement so when a node puts up a request on the channel it's instantly handled before any other statement is executed. To handle the randomness between the outcomes (so both types of the data can be metered) an \texttt{if}-statement without guards is used. \todo{argue translation?}
+
+\begin{lstlisting}[caption=Environment code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+active proctype Env() {
+
+	Idle:  
+		if
+		:: atomic { 
+			envChan ? meter ->  
+				if
+				:: envChan ! bigData;
+				:: envChan ! smallData;
+				fi; 
+				goto Idle;
+		}
+		fi;
+}
+\end{lstlisting}
+
+\subsection{Server}
+
+The server consists of two primary states, the first being the initial state, noted below as \texttt{Answering}, where data is assumed to be collected and the second state, noted as \texttt{Stopping} where the system starts requesting that the nodes stop collecting to prevent over-collection. The states beginning with "\texttt{Idle\_}" are just looping to check if a node is sending data.
+
+\begin{lstlisting}[caption=Server code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+active proctype Server() {
+   
+chan active_chan;
+int i=0;
+
+Idle_Answering: 
+        if
+        :: nempty(servChan[i]) -> 
+            active_chan = servChan[i];
+            goto Answering; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Answering;
+        fi;
+
+Idle_Stopping:
+        if
+        :: nempty(servChan[i]) -> 
+            active_chan = servChan[i]; 
+            goto Stopping; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Stopping;
+        fi;
+
+Answering: 
+        if
+        :: active_chan ? smallData -> 
+            active_chan ! continue; 
+            goto Idle_Answering;
+        :: active_chan ? bigData ->
+            active_chan ! stop;
+            goto Idle_Stopping;
+        fi;
+
+Stopping:    
+        if
+        :: active_chan ? smallData -> 
+            active_chan ! stop; 
+            goto Idle_Stopping;
+        :: active_chan ? bigData ->
+            active_chan ! stop;
+            goto Idle_Stopping;
+        fi;
+}
+\end{lstlisting}
+
+\subsection{Node}
+
+The node is initialized with a channel to communicate to the server with. It starts by attempting to meter the environment, then communicates it to the server and proceeds into \texttt{Waiting} to wait for an answer.  
+
+\begin{lstlisting}[caption=Server code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+proctype Node(chan out) {
+Idle:   
+        envChan ! meter; 
+        if
+        :: envChan ? bigData -> 
+           out ! bigData; 
+           goto Waiting;
+        :: envChan ? smallData -> 
+           out ! smallData; 
+           goto Waiting;
+        fi;
+Waiting:
+        atomic {
+          if
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
+          fi;
+        }
+DoneColl: // node will shutdown here.
+}
+\end{lstlisting}
+
+\subsection{Translation}
+
+\textit{this section will generally discuss the translation and the new errors that could occur, but are handled by design.}
+
+%\[ \textit{show figure of node's code/psuedocode here.} \]
+
+A node \ldots
+
+
+
+\section{Verification}
+
+\textit{Discuss the results from the verification, present modifications done to fix any errors that might occur (perhaps show a interesting case of this).}
+
+%\section{Component Description} \textit{Each individual component will also be described and how their protocols are defined will also be described}
+
+%\section{System Change} \textit{How the system is designed to act before, during and after over-collection has occurred will be described}
