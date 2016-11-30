@@ -6,7 +6,7 @@ Done some changes to the repository, e.g. old files that has been used before wi
 
 ### Tasks
 
-* A draft for a "decentralized disjunctive distributed"-network is uploaded under "Models/Variations"
+* A draft for a "decentralized disjunctive distributed"-network is uploaded: "Models/Variations/dec_disj_dist.pml"
 
 ### Thesis
 
@@ -25,6 +25,8 @@ Done some changes to the repository, e.g. old files that has been used before wi
 (Both) Have gotten some progress with a "decentralized disjunctive distributed"-example. Some aspects aren't finished yet since I still considering each entities purpose (e.g. should the server manage the decision-communication?)
 
 ## Specific questions
+
+Nodes in a Distributed setting - I'd like to discuss how a node should work in a distributed setting more specifically (like how it should look as an automaton). Basically a general discussion on the "distributed variation" would be helpful.
 
 ## Work plan for the following week
 
