@@ -1,0 +1,55 @@
+\select@language {english}
+\contentsline {chapter}{List of Figures}{xi}{chapter*.2}
+\contentsline {chapter}{List of Tables}{xiii}{chapter*.3}
+\contentsline {chapter}{Listing}{xv}{chapter*.4}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Aim}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Limitations}{1}{section.1.3}
+\contentsline {section}{\numberline {1.4}Thesis Structure}{1}{section.1.4}
+\contentsline {section}{\numberline {1.5}Background}{2}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Wireless Sensor Network (WSN)}{2}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Data Minimization}{2}{subsection.1.5.2}
+\contentsline {chapter}{\numberline {2}Theory}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Formal Verification}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Model Checking}{3}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Model Checking Workflow}{4}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}State Space Explosion}{4}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Promela \& SPIN}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Operational Semantics of Promela}{4}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Related Work}{5}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Smart City}{5}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Privacy Enhancing Technologies (PET)}{5}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Modeling \& Specification}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Definitions}{7}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Basic WSN}{7}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Actors}{7}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Decisions}{8}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Over-Collection}{8}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Modeling}{8}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Variations}{9}{subsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.1.1}Decision Making}{9}{subsubsection.3.2.1.1}
+\contentsline {subsubsection}{\numberline {3.2.1.2}Decision Analysis}{9}{subsubsection.3.2.1.2}
+\contentsline {subsubsection}{\numberline {3.2.1.3}Communication}{9}{subsubsection.3.2.1.3}
+\contentsline {subsection}{\numberline {3.2.2}Initialization}{9}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Server Actor}{9}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Environment Actor}{10}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Node Actor}{11}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Specification}{12}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Properties}{12}{subsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.1.1}Correctness}{12}{subsubsection.3.3.1.1}
+\contentsline {subsubsection}{\numberline {3.3.1.2}Liveness}{12}{subsubsection.3.3.1.2}
+\contentsline {chapter}{\numberline {4}Design}{15}{chapter.4}
+\contentsline {section}{\numberline {4.1}Modeling in Promela}{16}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Environment}{16}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Server}{16}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Node}{17}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Translation}{18}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Verification}{18}{section.4.2}
+\contentsline {chapter}{\numberline {5}Implementation}{19}{chapter.5}
+\contentsline {section}{\numberline {5.1}Code Generation}{19}{section.5.1}
+\contentsline {section}{\numberline {5.2}Satisfaction}{19}{section.5.2}
+\contentsline {section}{\numberline {5.3}Analysis}{19}{section.5.3}
+\contentsline {chapter}{\numberline {6}Discussion}{21}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusion}{23}{chapter.7}
+\contentsline {chapter}{\numberline {8}Ethics}{25}{chapter.8}

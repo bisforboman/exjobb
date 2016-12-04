@@ -277,15 +277,19 @@ This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}
 \newpage
 \section{Specification}
 
-\textit{here the properties will be defined}
+This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of this process.
 
 \subsection{Properties}
 
-\textit{mention that the properties are LTLs (and why?)}
+The properties defined on the network were formulated using \textit{Linear Time Logic} (LTL). This decision came from the fact that LTL were native to SPIN and the models were abstracted to only focus on the relevant parts to the project, LTL could provide a simple and direct specification to that problem.
+
+%\textit{mention that the properties are LTLs (and why?)}
 
 \subsubsection{Correctness}
 
-\textit{discuss correctness briefly}
+The primary property sought of the system was that it was working as intended. This was formulated as a safety correctness property, to ensure that when decision had been taken, the system respond to the by changing its' behavior.
+
+%\textit{discuss correctness briefly}
 
 %*discuss the properties a bit more before diving into them*
 
@@ -299,13 +303,13 @@ Safety Correctness
 LTL: $\Box (O \rightarrow (\Diamond D)) $ \\
 \end{definition}
 
-Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. \\
-
-\textit{discuss the LTL formulation and argue for the reader why it expresses what I say it does.}
+Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. This captures the sought system change; whenever the system reaches the state O, eventually it will reach state D. An immediate change is not required, therefore the timing\todo{is this the proper word?} is relaxed by the eventually-operator.\\
 
 \subsubsection{Liveness}
 
-A liveness property should express that \say{eventually something good happens} which for this project became that "eventually a node communicates data to the server". This didn't entirely capture what was sought from the system so also a property was added for "if a data is communicated to the server, eventually the server replies to the node". 
+
+
+%A liveness property should express that "eventually something good happens" which for this project became that "eventually a node communicates data to the server". This didn't entirely capture what was sought from the system so an additional property was added for "if a data is communicated to the server, eventually the server replies to the node". 
 
 The second property was intuitive for the system since the initial models were constructed in such a way that when data is sent to the server, the first thing the server does it analyze it and respond accordingly depending on what data was sent.\todo{mention it was verified by design?}  
 

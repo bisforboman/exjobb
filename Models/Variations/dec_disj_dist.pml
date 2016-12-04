@@ -82,11 +82,14 @@ Accept_e_idle:
 
 active proctype Server() {
 
+
+
 // initializing active channel
-int i=0,j=0;
+//int i=0,j=0;
 
 // in the label that start with "idle_" the server will only check
 //    if any data is put on one of the channels each in turn.
+/*
 Idle_Answering: 
         if
         :: nempty(servChan[i]) -> 
@@ -128,6 +131,7 @@ Stopping:
             servChan[j] ! stop;
             goto Idle_Stopping;
         fi;
+*/
 }
 
 proctype Node(chan out, envChan, broadcast) {
