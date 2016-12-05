@@ -2,7 +2,7 @@
 
 % maybe talk something about the breadcrumbs that lead me to where I am now?
 
-This chapter provides an introduction into the theoretical elements used throughout the course of the project. 
+This chapter provides an introduction into the theoretical elements used throughout the course of the project. \\ \textit{more text will be added as the chapter is rewritten}
 
 % approach ->
 % As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. Once the features of the decision procedure is characterized in this simple setting, I will then look at introducing more distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To this aim, a computation unit would need to know what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further collection is needed. 
@@ -14,7 +14,7 @@ This chapter provides an introduction into the theoretical elements used through
 
 \section{Formal Verification}
 
-The act of formal verification means to make use of mathematical techniques to make sure that a design upholds a defined functional correctness.\cite{bjesse2005formal}
+The act of formal verification means to make use of mathematical techniques to make sure that a design upholds a defined functional correctness\cite{bjesse2005formal}.
 This means, that if we assume we have the following: a model of a design, a description of the environment where the design is supposed to operate in and some properties we wish the design to uphold. With this information, one may want to construct some input sequences, that are in the allowed in domain of the environment, that would violate the properties stated. A common practice for finding such patterns today are random simulations or directed tests.
 Formal verification allows for an extended approach to this, as it allows both to search for input sequences that violates the properties but also allows to mathematically prove that the stated properties holds when no input sequences exist.
 
@@ -33,7 +33,9 @@ Model Checking is an automated technique to verify finite state concurrent syste
 
 \subsection{Model Checking Workflow}
 
-\textit{show a structure of a model checking workflow}\todo{show structure of model checking workflow}
+%\textit{show a structure of a model checking workflow}\todo{show structure of model checking workflow}
+
+The use of model checking in practice typically follows the workflow in Figure~\ref{fig:MCworkflow}. A design is translated into a description, that the model checker can read, and a specification of wanted or unwanted behavior is translated into a property. Then the model checker will produce a result which is either that the property is upheld or an error explaining how the property is invalidated. 
 
 \subsection{State Space Explosion}
 

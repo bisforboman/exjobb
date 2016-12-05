@@ -2,6 +2,8 @@
 
 % the spin reference manual will be useful for this part
 
+This chapter contains the model and the specification aspect of the work. The modeling will be explained as the iterative process it was. 
+
 \section{Definitions}
 
 \subsection{Basic WSN}
@@ -50,7 +52,11 @@ To describe the interaction between two actors in the system, behavior models we
 
 \subsection{Decisions}
 
-A decision, or a decision procedure is an algorithm that terminates with a yes or no answer given a decision problem.\cite{decisionproceduresbook} \textit{more text regarding decision processes will be added here}
+This section explains the usage of the decision algorithm to solve over-collection. \textit{some more text will be written here once the subsection is revised}
+
+\subsubsection{Definition}
+
+%A decision, or a decision procedure is an algorithm that terminates with a yes or no answer given a decision problem.\cite{decisionproceduresbook} 
 
 \begin{definition}{}{}
 \label{def:DecProc}
@@ -59,7 +65,17 @@ A decision, or a decision procedure is an algorithm that terminates with a yes o
 A process is called a decision process for T if it is sound and complete with respect to every formula of T.
 \end{definition}
 
-\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
+%\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
+
+\begin{definition}{}{}
+\label{def:DecComplete}
+(Completeness of a procedure)
+
+A procedure for the decision problem is complete if 
+\ldot it always terminates (termination), and
+\ldot it returns "Valid" when the input is valid. (soundness)
+\end{definition}
+
 
 %A decision \todo{rewrite} is a control message sent through the network forcing an action to be taken\todo{witness? semantics?}, in this report that's mainly when over-collection is occurring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
 
@@ -68,6 +84,10 @@ A process is called a decision process for T if it is sound and complete with re
 %*formally define decisions* ?
 
 \subsection{Over-Collection}
+
+A wireless sensor's networks objective is to collect and analyze data from an observed source. 
+
+% argue against overcollection
 
 %Consider a collection process collecting some personal data from a users. The process is only interested in collecting as much data as possible and storing it at a central server for future processing. We can assume that the process will need a good quantity of data entries to extract relevant information from the data. If we assume that the program doesn't remove any data it's collected, we can safely say that at some point the system will have collected enough data to accomplish the tasks it's designed to do and beyond that point it's collected more than it requires.
 
