@@ -67,7 +67,7 @@ proctype Env(chan envChan) {
         "instantly". 
         d_step didn't allow goto's which is why atomic was used instead. */
 
-Accept_e_idle:  
+Idle:  
       if
       :: atomic { 
           envChan ? meter ->  
@@ -75,87 +75,60 @@ Accept_e_idle:
            :: envChan ! bigData;
            :: envChan ! smallData;
            fi; 
-          goto Accept_e_idle;
+          goto Idle;
         }
       fi;
 }
 
 active proctype Server() {
 
+int i=0, j=0;
 
+Idle: 
+      if
+      :: nempty(servChan[i]) -> 
+          j=i;
+          i=(i+1)%NUM_NODES;
+          goto Waiting; 
+      :: empty(servChan[i]) ->
+          i=(i+1)%NUM_NODES;
+          goto Idle;
+      fi;
 
-// initializing active channel
-//int i=0,j=0;
+Waiting: 
+      if
+      :: servChan[j] ? continue -> 
+        goto Idle;
+      :: servChan[j] ? stop ->
+        broadChan ! stop;
+        goto Idle;
+      fi;
 
-// in the label that start with "idle_" the server will only check
-//    if any data is put on one of the channels each in turn.
-/*
-Idle_Answering: 
-        if
-        :: nempty(servChan[i]) -> 
-            j=i;
-            i=(i+1)%NUM_NODES;
-            goto Answering; 
-        :: empty(servChan[i]) ->
-            i=(i+1)%NUM_NODES;
-            goto Idle_Answering;
-        fi;
-
-Idle_Stopping:
-        if
-        :: nempty(servChan[i]) -> 
-            j=i;
-            i=(i+1)%NUM_NODES;
-            goto Stopping; 
-        :: empty(servChan[i]) ->
-            i=(i+1)%NUM_NODES;
-            goto Idle_Stopping;
-        fi;
-
-Answering: 
-        if
-        :: servChan[j] ? smallData -> 
-            servChan[j] ! continue; 
-            goto Idle_Answering;
-        :: servChan[j] ? bigData ->
-            servChan[j] ! stop;
-            goto Idle_Stopping;
-        fi;
-
-Stopping:    
-        if
-        :: servChan[j] ? smallData -> 
-            servChan[j] ! stop; 
-            goto Idle_Stopping;
-        :: servChan[j] ? bigData ->
-            servChan[j] ! stop;
-            goto Idle_Stopping;
-        fi;
-*/
 }
 
 proctype Node(chan out, envChan, broadcast) {
-Idle:   // if stop is broadcasted the nodes should stop.
+
+Idle:   
         if
         :: nempty(broadcast) -> 
             broadcast ? stop -> goto DoneColl;
         fi;
 
         envChan ! meter; 
+
+Check:  
+        if
+        :: nempty(broadcast) -> 
+            broadcast ? stop -> goto DoneColl;
+        fi;
+
         if
         :: envChan ? bigData -> 
-           out ! bigData; 
-           goto Waiting;
+           out ! stop; 
+           goto DoneColl;
         :: envChan ? smallData -> 
-           out ! smallData; 
-           goto Waiting;
+           goto Idle;
         fi;
-Waiting:
-        atomic {
-          if
-          :: out ? continue -> goto Idle;
-          :: out ? stop -> 
-          fi;
-        }
+
 DoneColl: // node will shutdown here.
 }
