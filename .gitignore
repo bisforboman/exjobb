@@ -2,3 +2,12 @@
 pan*
 _spin_nvr*
 *~
+
+
+*.aux
+*.lot
+*.synctex.gz
+*.toc
+*.out
+*.lol
+*.lof

@@ -303,11 +303,9 @@ Safety Correctness
 LTL: $\Box (O \rightarrow (\Diamond D)) $ \\
 \end{definition}
 
-Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. This captures the sought system change; whenever the system reaches the state O, eventually it will reach state D. An immediate change is not required, therefore the timing\todo{is this the proper word?} is relaxed by the eventually-operator.\\
+Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. This captures the sought system change; whenever the system reaches the state O, eventually it will reach state D. An immediate change is not required, therefore the timing\todo{is this the proper word?} is relaxed by the eventually-operator.
 
 \subsubsection{Liveness}
-
-
 
 %A liveness property should express that "eventually something good happens" which for this project became that "eventually a node communicates data to the server". This didn't entirely capture what was sought from the system so an additional property was added for "if a data is communicated to the server, eventually the server replies to the node". 
 
@@ -328,7 +326,7 @@ Liveness (replying)
 
 \textit{If a node sends data to the server, eventually the server replies to the node.} \\
 
-LTL: $\Box ($Node\_Send $\rightarrow$ Server\_Reply$)$\todo{server\_reply doesnt exist atm.} \\
+LTL: $\Box ($Node\_Send $\rightarrow \Diamond$ Server\_Reply$)$\todo{server\_reply doesnt exist atm.} \\
 
 Where Node\_Send means the same as previously and Server\_Reply denotes the state where the server responds to the node.
 \end{definition}
