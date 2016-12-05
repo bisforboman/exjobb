@@ -1,10 +1,10 @@
 #define NUM_NODES   1
 //#define dC          (cN == 0) 
-#define node_send       Node@Waiting // node 0 arrived at waiting
-#define server_dC       Server@Stopping
-#define node_done       Node@DoneColl
-#define server_ans      Server@Answering
-#define server_stop     Server@Stopping
+//#define node_send       Node@Waiting // node 0 arrived at waiting
+//#define server_dC       Server@Stopping
+//#define node_done       Node@DoneColl
+//#define server_ans      Server@Answering
+//#define server_stop     Server@Stopping
 //#define n_end       Node[NUM_NODES]@end // node 0 stopped
 // dC: doneCollecting, referring to the nodes.
 
@@ -52,12 +52,16 @@ init {
 }
 
 active proctype Network() {
+  int i=0;
+Idle: 
   if 
-  :: broadChan ? stop ->
+  :: atomic {
+      broadChan ? stop ->
       for(i : 0 .. (NUM_NODES-1)) {
-        networkChan ! stop;
-      } 
-  fi
+        networkChan[i] ! stop;
+      }
+    }
+  fi;
 }
 
 proctype Env(chan envChan) {
@@ -98,10 +102,10 @@ Idle:
 Waiting: 
       if
       :: servChan[j] ? continue -> 
-        goto Idle;
+         goto Idle;
       :: servChan[j] ? stop ->
-        broadChan ! stop;
-        goto Idle;
+         broadChan ! stop;
+         goto Idle;
       fi;
 
 }
@@ -112,16 +116,12 @@ Idle:
         if
         :: nempty(broadcast) -> 
             broadcast ? stop -> goto DoneColl;
+        :: empty(broadcast) ->  
         fi;
 
         envChan ! meter; 
 
 Check:  
-        if
-        :: nempty(broadcast) -> 
-            broadcast ? stop -> goto DoneColl;
-        fi;
-
         if
         :: envChan ? bigData -> 
            out ! stop; 
