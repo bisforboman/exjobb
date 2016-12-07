@@ -1,12 +1,10 @@
 #define NUM_NODES   1
-//#define dC          (cN == 0) 
 #define node_send       Node@Waiting // node 0 arrived at waiting
 #define server_dC       Server@Stopping
 #define node_done       Node@DoneColl
 #define server_ans      Server@Answering
 #define server_stop     Server@Stopping
-//#define n_end       Node[NUM_NODES]@end // node 0 stopped
-// dC: doneCollecting, referring to the nodes.
+
 
 mtype = {meter, bigData, smallData, continue, stop};
 

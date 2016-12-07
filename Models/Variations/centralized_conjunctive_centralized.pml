@@ -102,7 +102,7 @@ Idle_Answering:
             goto Idle_Answering;
         fi;
 
-Answering: 
+Answering: // updating index will only be relevant here
         if
         :: servChan[j] ? smallData -> 
             data[index]=false;
