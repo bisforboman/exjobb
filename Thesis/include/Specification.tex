@@ -28,7 +28,7 @@ A basic \wsn was defined as a starting point for the models. It consisted of a s
 
 A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. Throughout the thesis these entities will be referred to as \textit{Actors}.\todo{motivate why?}
 
-To describe the interaction between two actors in the system, behavior models were used (e.g. Figure ~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
+To describe the interaction between two actors in the system, behavior models were used (e.g. Figure~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
 
 % describe why the environment is modeled as such
 % describe that the environment came later of directly?
@@ -37,18 +37,17 @@ To describe the interaction between two actors in the system, behavior models we
 
 \subsection{Over-Collection}
 
-A wireless sensor's networks objective is to collect and analyze data from an observed source. 
+%A \wsn primary objective is to collect data from an observed source and let a processing unit analyze the state of it. 
 
-% argue against overcollection
+In the paper \textit{insert reference to chapter 2 here,} they defined \textit{Data Over-Collection} to be "Collecting data more than enough on original function while within the permission scope". 
 
+%For this to be true, we make the assumption that it exists a state for the system where the process of collecting data isn't required for the system to function the way it's intended. This could arise from a number of origins, either that a threshold has been reached and the system is no longer stable or that 
 
 
 %Consider a collection process collecting some personal data from a users. The process is only interested in collecting as much data as possible and storing it at a central server for future processing. We can assume that the process will need a good quantity of data entries to extract relevant information from the data. If we assume that the program doesn't remove any data it's collected, we can safely say that at some point the system will have collected enough data to accomplish the tasks it's designed to do and beyond that point it's collected more than it requires.
 
 % describe what over-collection means
 %With a collection-process 'mindlessly' collecting personal data and storing it, we can assume that there's state where the collection has collected more data than it requires to complete whatever function the system is designed to do. 
-
-\textit{will explain the meaning over-collection for this project}
 
 \begin{definition}{def:Coll}{}
 (Collecting)
@@ -61,7 +60,7 @@ A process $P$ collects a data point $d$ in a state $s$ if after leaving the stat
 \begin{definition}{def:ToFunc}{}
 (To Function)
 
-\textit{define what it means for a process to function}
+\textit{if a process P yields a valid result by a specific amount of input parameters, we say it requires these input parameters}
 \end{definition}
 
 % shall i really include time as a variable in my definition? snapshots seems better.
@@ -70,21 +69,21 @@ A process $P$ collects a data point $d$ in a state $s$ if after leaving the stat
 \begin{definition}{def:OverColl}{} 
 (Over-Collection)
 
-Over-collection is the state when a process collects more data than it requires to function. 
+\textit{if a process P collects more data than it requires to function, we say a process is over-collecting.}
 \end{definition} 
 
-\textbf{Formal Definition: } 
-Let a process P be able to collect data entries and to evaluate boolean expressions. 
+%\textbf{Formal Definition: } 
+%Let a process P be able to collect data entries and to evaluate boolean expressions. 
 
 %$P_{collect}: D \cup P_{collection}$
 
 %where $P_{collection}$ means the set of data entries $(D_1,D_2,\ldots)$ collected, intially $\emptyset$, and $D$ is a new data entry being collected.
 
-$P_{eval}: D \rightarrow \textbf{Bool}$
+%$P_{eval}: D \rightarrow \textbf{Bool}$
 
-Let a service $S(x, y, ...)$ be a boolean expression depending on variables $x, y, ...$ 
+%Let a service $S(x, y, ...)$ be a boolean expression depending on variables $x, y, ...$ 
 
-We say the process $P$ dedicated to the service $S$, noted $<P,S>$, over-collects data if and only if $P$ collects any data concerning one of the variables appearing in $S$ after $S$ has been evaluated to be true.
+%We say the process $P$ dedicated to the service $S$, noted $<P,S>$, over-collects data if and only if $P$ collects any data concerning one of the variables appearing in $S$ after $S$ has been evaluated to be true.
 
 %$<P,S>$ over-collects iff $ \{ D \in P_{collection} \} \wedge \{ P_{eval}(D) = \textbf{True}\}$ \todo{something like that, but with S}
 
@@ -113,32 +112,34 @@ We say the process $P$ dedicated to the service $S$, noted $<P,S>$, over-collect
 
 \subsection{Decisions}
 
+%introduction leading up to what we need it for.
 
-
-\subsubsection{Formal Definition}
+From the Definition~\ref{def:OverColl} we understnd it's not uncommon for processes to collect more data than they require. A single sensor node usually\cite{WSN_a_survey} doesn't hold the information of the entire system state.
 
 A \textit{decision procedure} is an algorithm that terminates with a yes or no answer, given a decision problem.\cite{decisionproceduresbook} 
 
-\begin{definition}{}{}
-\label{def:DecProc}
-(Decision Process)
+%\subsubsection{Formal Definition}
 
-A process is called a decision process for T if it is sound and complete with respect to every formula of T.
-\end{definition}
+%\begin{definition}{}{}
+%\label{def:DecProc}
+%(Decision Process)
+
+%A process is called a decision process for T if it is sound and complete with respect to every formula of T.
+%\end{definition}
 
 %\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
 
-\begin{definition}{}{}
-\label{def:DecComplete}
-(Completeness of a procedure)
+%\begin{definition}{}{}
+%\label{def:DecComplete}
+%(Completeness of a procedure)
 
-A procedure for the decision problem is complete if 
-\begin{itemize}
-\item it always terminates (termination), and
-\item it returns "Valid" when the input is valid. (soundness)
-\end{itemize}
+%A procedure for the decision problem is complete if 
+%\begin{itemize}
+%\item it always terminates (termination), and
+%\item it returns "Valid" when the input is valid. (soundness)
+%\end{itemize}
 
-\end{definition}
+%\end{definition}
 
 
 %A decision \todo{rewrite} is a control message sent through the network forcing an action to be taken\todo{witness? semantics?}, in this report that's mainly when over-collection is occurring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
