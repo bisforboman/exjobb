@@ -52,12 +52,27 @@ init {
 
 
 active proctype Env() {
+
     /* atomic here is used to simulate that the data is gathered from the 
         environment without interleaving actions, meaning a node can do this 
         "instantly". 
         d_step didn't allow goto's which is why atomic was used instead. */
 
-Accept_e_idle:  
+Idle:  
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData; goto Idle_bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle;
+        }
+      fi;
+
+  /* This is a extension for the environment so be able to track a state
+  where bigData has been sent and the language is the same for both automata  */
+Idle_bigData:
       if
       :: atomic { 
           envChan ? meter ->  
@@ -65,9 +80,9 @@ Accept_e_idle:
            :: envChan ! bigData;
            :: envChan ! smallData;
            fi; 
-          goto Accept_e_idle;
+          goto Idle_bigData;
         }
-      fi;
+      fi;       
 }
 
 active proctype Server() {
