@@ -2,92 +2,46 @@
 
 % the spin reference manual will be useful for this part
 
-This chapter contains the model and the specification aspect of the work. The modeling will be explained as the iterative process it was. 
+The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties demanded on the system. This chapter covers the process of these two steps, by first defining some building blocks used and then describing how the final models turned out.
 
 \section{Definitions}
 
+First we will explain how a typical design, for a \wsn we seek to model, looks. Secondly we will describe in detail how each entity, referred to as \textit{Actors}, operates. Finally, before explaining the modeling, we will explain the meaning of some key aspects of the work such as \textit{Decisions} and \textit{Over-Collection}.
+
 \subsection{Basic WSN}
 
-A basic \wsn was defined as a starting point for the models. It consisted of a set of collection nodes (referred to as "nodes"), a central server (referred to as "the server") and finally an environment (the observed source). An illustration of this can be seen in Figure~\ref{fig:basic_wsn}. This example became the initial working example for the project and helped shape the first models.
+A basic \wsn was defined as a starting point for the models. It consisted of a set of collection nodes (referred to as "nodes"), a central server (referred to as "Server") and finally an Environment (the observed source). An illustration of this can be seen in Figure~\ref{fig:basic_wsn}. Which is the basis for all the models described in the thesis. An important note on this setup is that the "environment" here is considered an entity (same as a node or a server). This abstraction was made to simplify the modeling, so the nodes instead of managing a shared resource instead can have the data communicated to them as messages.
 
 \begin{figure}[ht]
-    \includegraphics[scale=0.3]{include/figures/basic_wsn}
+    \includegraphics{include/figures/basic_wsn}
     \caption{An illustration of a \wsn}
     \label{fig:basic_wsn}
 \end{figure}
 
-In this setup, the environment is considered an entity (same as a node or a server). This simplification was made so the environment would be easier to develop. 
-
-%\begin{itemize}
-%\item \textit{list some environment examples} 
-%\end{itemize}
-
 %As a start for the formal development process, the project required some "building blocks" \todo{find a better word} to better define certain aspects of a \wsnd. 
 
-%\textit{some text leading up to next paragraph}
+%We will henceforth refer to entities in the system as \textbf{actors} in the system.
 
-We will henceforth refer to entities in the system as \textbf{actors} in the system.\todo{textflow in report might be weird now}
-
-\subsection{Actors}
+\subsection{Description of the Actors}
 
 % describe a general network
 
-%A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. To generalize this concept, the project used a definition called an \textbf{actor}. For example, a collection node is an actor since it collects data from an environment and forwards it to a server.
-
-
-%\textbf{Definition:} An actor is a device in the network that communicates data and acts according to a defined behavior.
+A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. Throughout the thesis these entities will be referred to as \textit{Actors}.\todo{motivate why?}
 
 To describe the interaction between two actors in the system, behavior models were used (e.g. Figure ~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
-
-%To describe the interaction between several units in a network, one can specify how they behave in regards to their program state and the input received. Now that we have a general way of describing each group of devices, we can define their behavior in a \textbf{Behavior Model}.
-
-%\[ \textit{image of a behavior model example here} \]
-
-%\textit{describe the features of the behavior model here and what they do.}
 
 % describe why the environment is modeled as such
 % describe that the environment came later of directly?
 
 % explain how i use them
 
-\subsection{Decisions}
-
-This section explains the usage of the decision algorithm to solve over-collection. \textit{some more text will be written here once the subsection is revised}
-
-\subsubsection{Definition}
-
-%A decision, or a decision procedure is an algorithm that terminates with a yes or no answer given a decision problem.\cite{decisionproceduresbook} 
-
-\begin{definition}{}{}
-\label{def:DecProc}
-(Decision Process)
-
-A process is called a decision process for T if it is sound and complete with respect to every formula of T.
-\end{definition}
-
-%\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
-
-\begin{definition}{}{}
-\label{def:DecComplete}
-(Completeness of a procedure)
-
-A procedure for the decision problem is complete if 
-\ldot it always terminates (termination), and
-\ldot it returns "Valid" when the input is valid. (soundness)
-\end{definition}
-
-
-%A decision \todo{rewrite} is a control message sent through the network forcing an action to be taken\todo{witness? semantics?}, in this report that's mainly when over-collection is occurring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
-
-%\textbf{Definition: } A message sent in the network is considered a decision if it changes the behavior of an actor.
-
-%*formally define decisions* ?
-
 \subsection{Over-Collection}
 
 A wireless sensor's networks objective is to collect and analyze data from an observed source. 
 
 % argue against overcollection
+
+
 
 %Consider a collection process collecting some personal data from a users. The process is only interested in collecting as much data as possible and storing it at a central server for future processing. We can assume that the process will need a good quantity of data entries to extract relevant information from the data. If we assume that the program doesn't remove any data it's collected, we can safely say that at some point the system will have collected enough data to accomplish the tasks it's designed to do and beyond that point it's collected more than it requires.
 
@@ -155,6 +109,44 @@ We say the process $P$ dedicated to the service $S$, noted $<P,S>$, over-collect
 %*overcollection-examples*
 
 %*define over-collection*
+
+
+\subsection{Decisions}
+
+
+
+\subsubsection{Formal Definition}
+
+A \textit{decision procedure} is an algorithm that terminates with a yes or no answer, given a decision problem.\cite{decisionproceduresbook} 
+
+\begin{definition}{}{}
+\label{def:DecProc}
+(Decision Process)
+
+A process is called a decision process for T if it is sound and complete with respect to every formula of T.
+\end{definition}
+
+%\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
+
+\begin{definition}{}{}
+\label{def:DecComplete}
+(Completeness of a procedure)
+
+A procedure for the decision problem is complete if 
+\begin{itemize}
+\item it always terminates (termination), and
+\item it returns "Valid" when the input is valid. (soundness)
+\end{itemize}
+
+\end{definition}
+
+
+%A decision \todo{rewrite} is a control message sent through the network forcing an action to be taken\todo{witness? semantics?}, in this report that's mainly when over-collection is occurring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
+
+%\textbf{Definition: } A message sent in the network is considered a decision if it changes the behavior of an actor.
+
+%*formally define decisions* ?
+
 
 \section{Modeling}
 
