@@ -33,6 +33,7 @@ mtype = {meter, bigData, smallData, continue, stop};
   */
 //ltl liveness_send { (eventually (node_send)) }
 //ltl liveness_reply { (node_send implies (eventually (server_ans || server_stop))) }
+//ltl liveness { (not node_notify until bigData_metered) }
 
 
 // channel inits.
@@ -51,7 +52,6 @@ init {
 
 
 active proctype Env() {
-//      printf("E: starting up.\n");
     /* atomic here is used to simulate that the data is gathered from the 
         environment without interleaving actions, meaning a node can do this 
         "instantly". 
@@ -88,6 +88,16 @@ Idle_Answering:
             goto Idle_Answering;
         fi;
 
+Answering: 
+        if
+        :: servChan[j] ? smallData -> 
+            servChan[j] ! continue; 
+            goto Idle_Answering;
+        :: servChan[j] ? bigData ->
+            servChan[j] ! stop;
+            goto Idle_Stopping;
+        fi;
+        
 Idle_Stopping:
         if
         :: nempty(servChan[i]) -> 
@@ -96,16 +106,6 @@ Idle_Stopping:
             goto Stopping; 
         :: empty(servChan[i]) ->
             i=(i+1)%NUM_NODES;
-            goto Idle_Stopping;
-        fi;
-
-Answering: 
-        if
-        :: servChan[j] ? smallData -> 
-            servChan[j] ! continue; 
-            goto Idle_Answering;
-        :: servChan[j] ? bigData ->
-            servChan[j] ! stop;
             goto Idle_Stopping;
         fi;
 

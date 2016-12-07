@@ -11,32 +11,25 @@ mtype = {meter, bigData, smallData, continue, stop};
        the decision is taken and the system should eventually
        stop collecting.
 */
-//ltl correctness_old { always (oC implies (eventually dC))  }
 //ltl correctness { always (server_dC implies (eventually node_done)) }
 
 /* 
-
   Liveness property 
-
-  * Liveness_send states that eventually a node gets to send data to the server.
-  * Liveness_reply states that when a node has sent, eventually the server responds accordingly.
-
   */
 ltl liveness { (not node_notify until bigData_metered) }
 
 
 // channel inits.
+chan envChan = [0] of {mtype};
 chan servChan[NUM_NODES] = [1] of {mtype};
 chan broadChan = [0] of {mtype}; // broadcast channel between server & network
 chan networkChan[NUM_NODES] = [1] of {mtype}; // channel for network actor to nodes.
 
 init {
   atomic {
-    chan envChan = [0] of {mtype};
-    run Env(envChan);
     int i;
     for (i : 0  .. (NUM_NODES-1)) {
-      run Node(servChan[i], envChan, networkChan[i]);
+      run Node(servChan[i], networkChan[i]);
     }
   }
 }
@@ -54,7 +47,7 @@ Idle:
   fi;
 }
 
-proctype Env(chan envChan) {
+active proctype Env() {
 
     /* atomic here is used to simulate that the data is gathered from the 
         environment without interleaving actions, meaning a node can do this 
@@ -114,7 +107,7 @@ Waiting:
 
 }
 
-proctype Node(chan out, envChan, broadcast) {
+proctype Node(chan out, broadcast) {
 
 Idle:   
         if
