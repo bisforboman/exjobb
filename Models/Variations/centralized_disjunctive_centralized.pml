@@ -73,15 +73,15 @@ Accept_e_idle:
 active proctype Server() {
 
 // initializing active channel
-chan active_chan;
-int i=0;
+int i=0,j=0;
 
 // in the label that start with "idle_" the server will only check
 //    if any data is put on one of the channels each in turn.
 Idle_Answering: 
         if
         :: nempty(servChan[i]) -> 
-            active_chan = servChan[i];
+            j=i;
+            i=(i+1)%NUM_NODES;
             goto Answering; 
         :: empty(servChan[i]) ->
             i=(i+1)%NUM_NODES;
@@ -91,7 +91,8 @@ Idle_Answering:
 Idle_Stopping:
         if
         :: nempty(servChan[i]) -> 
-            active_chan = servChan[i]; 
+            j=i;
+            i=(i+1)%NUM_NODES;
             goto Stopping; 
         :: empty(servChan[i]) ->
             i=(i+1)%NUM_NODES;
@@ -100,21 +101,21 @@ Idle_Stopping:
 
 Answering: 
         if
-        :: active_chan ? smallData -> 
-            active_chan ! continue; 
+        :: servChan[j] ? smallData -> 
+            servChan[j] ! continue; 
             goto Idle_Answering;
-        :: active_chan ? bigData ->
-            active_chan ! stop;
+        :: servChan[j] ? bigData ->
+            servChan[j] ! stop;
             goto Idle_Stopping;
         fi;
 
 Stopping:    
         if
-        :: active_chan ? smallData -> 
-            active_chan ! stop; 
+        :: servChan[j] ? smallData -> 
+            servChan[j] ! stop; 
             goto Idle_Stopping;
-        :: active_chan ? bigData ->
-            active_chan ! stop;
+        :: servChan[j] ? bigData ->
+            servChan[j] ! stop;
             goto Idle_Stopping;
         fi;
 }

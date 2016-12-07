@@ -1,19 +1,10 @@
 #define NUM_NODES   1
-//#define dC          (cN == 0) 
-//#define node_send       Node@Waiting // node 0 arrived at waiting
-//#define server_dC       Server@Stopping
-//#define node_done       Node@DoneColl
-//#define server_ans      Server@Answering
-//#define server_stop     Server@Stopping
-//#define n_end       Node[NUM_NODES]@end // node 0 stopped
-// dC: doneCollecting, referring to the nodes.
+#define node_done       Node@DoneColl
+#define node_notify     Node@Broadcast
+#define bigData_metered Env@Idle_bigData
 
 mtype = {meter, bigData, smallData, continue, stop};
 
-// witnessess
-//bool sC = false; // stopCollecting
-//bool oC = false; // over-collection occured
-//int cN = NUM_NODES; // cN: collectingNodes, ... 
 
 /* 
    * If the message is sent (the server is notified), 
@@ -31,13 +22,12 @@ mtype = {meter, bigData, smallData, continue, stop};
   * Liveness_reply states that when a node has sent, eventually the server responds accordingly.
 
   */
-//ltl liveness_send { (eventually (node_send)) }
-//ltl liveness_reply { (node_send implies (eventually (server_ans || server_stop))) }
+ltl liveness { (not node_notify until bigData_metered) }
 
 
 // channel inits.
 chan servChan[NUM_NODES] = [1] of {mtype};
-chan broadChan = [0] of {mtype}; // broadcast channel
+chan broadChan = [0] of {mtype}; // broadcast channel between server & network
 chan networkChan[NUM_NODES] = [1] of {mtype}; // channel for network actor to nodes.
 
 init {
@@ -76,12 +66,26 @@ Idle:
       :: atomic { 
           envChan ? meter ->  
            if // random outcome 
-           :: envChan ! bigData;
+           :: envChan ! bigData; goto Idle_bigData;
            :: envChan ! smallData;
            fi; 
           goto Idle;
         }
       fi;
+
+  /* This is a extension for the environment so be able to track a state
+  where bigData has been sent and the language is the same for both automata  */
+Idle_bigData:
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle_bigData;
+        }
+      fi;       
 }
 
 active proctype Server() {
@@ -124,11 +128,11 @@ Idle:
 Check:  
         if
         :: envChan ? bigData -> 
-           out ! stop; 
-           goto DoneColl;
+           goto Broadcast;
         :: envChan ? smallData -> 
            goto Idle;
         fi;
 
+Broadcast: out ! stop;
 DoneColl: // node will shutdown here.
 }
