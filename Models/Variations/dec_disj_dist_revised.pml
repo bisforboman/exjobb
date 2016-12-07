@@ -1,10 +1,9 @@
 #define NUM_NODES   1
-//#define dC          (cN == 0) 
 #define node_send       Node@Waiting // node 0 arrived at waiting
 #define server_dC       Server@Stopping
 #define node_done       Node@DoneColl
-//#define server_ans      Server@Answering
-//#define server_stop     Server@Stopping
+#define server_ans      Server@Answering
+#define server_stop     Server@Stopping
 #define bigData_metered Env@Idle_bigData
 
 // ack is an extension for decentralized 
@@ -21,7 +20,6 @@ chan networkChan[NUM_NODES] = [1] of {mtype}; // channel for network actor to no
 
 /* Liveness */
 //ltl liveness { (not node_notify until bigData_metered) }
-
 
 init {
   atomic {
