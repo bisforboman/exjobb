@@ -2,7 +2,7 @@
 
 % maybe talk something about the breadcrumbs that lead me to where I am now?
 
-This chapter provides an introduction into the theoretical elements used throughout the course of the project. \\ \textit{more text will be added as the chapter is rewritten}
+This chapter provides an introduction to the various concepts used throughout the thesis. First we explain \textit{Formal Verification}, following it up with \textit{Model Checking} and its' strengths and weaknesses. Finally some introduction to the model checking tool \textit{SPIN}, Simple Promela INterpreter, and its' input language \textit{Promela}.
 
 % approach ->
 % As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. Once the features of the decision procedure is characterized in this simple setting, I will then look at introducing more distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To this aim, a computation unit would need to know what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further collection is needed. 
@@ -37,97 +37,27 @@ Model Checking is an automated technique to verify finite state concurrent syste
 
 The use of model checking in practice typically follows the workflow in Figure \textit{insert ref here}. A design is translated into a description, that the model checker can read, and a specification of wanted or unwanted behavior is translated into a property. Then the model checker will produce a result which is either that the property is upheld or an error explaining how the property is invalidated. 
 
-\subsection{State Space Explosion}
+%\subsection{LTL property verification}
+% might be a useful subchapter to introduce "specification"
+\subsection{Problem space reduction}
 
 \textit{will explain the problems with having a to precise model}\todo{mention the problem with state space explosion}
 
-\section{Promela \& SPIN}
+\section{SPIN}
 
-The model checking tool used for this project is called Simple Promela Interpreter (SPIN) and the language it accepts is called Promela, which is an acronym for Process Meta Language. \\
+The model checking tool used for this project is called Simple Promela Interpreter (SPIN) and the language it accepts is called Promela, which is an acronym for Process Meta Language. 
+
+\textit{some history of SPIN}
 
 \textit{describe usages of SPIN}
 
-\subsection{Operational Semantics of Promela}
+\section{Promela}
 
-\textit{explain why this section is relevant} \\
+\textit{discuss promela}
 
-Definitions 7.1-7.5 defined in Spin reference manual (p.155-157) \cite{spinreferencemanualbook}
+\subsection{Semantics}
 
-\begin{definition}{}{}
-\label{def:Variable}
-(Variable) 
-
-A \textit{variable} is a tuple (\textit{name}, \textit{scope}, \textit{domain}, \textit{inival}, \textit{curval}) where
-
-\begin{itemize}
-\item[] \textit{name} is an \textit{identifier} that is unique within the given \textit{scope},
-\item[] \textit{scope} is either \textit{global} or local to a specific \textit{process},
-\item[] \textit{domain} is a finite set of \textit{integers},
-\item[] \textit{inival}, the initial value, is an \textit{integer} from the given \textit{domain}, and
-\item[] \textit{curval}, the current value, is also an \textit{integer} from the given \textit{domain}.
-\end{itemize}
-\end{definition}
-
-\begin{definition}{}{}
-\label{def:Msg}
-(Message)
-
-A \textit{message} is an ordered set of \textit{variables} (Def~\ref{def:Variable}).
-\end{definition}
-
-\begin{definition}{}{}
-\label{def:MsgChan}
-(Message Channel)
-
-A \textit{message channel} is a tuple (\textit{ch\_id}, \textit{nslots}, \textit{contents}) where
-\begin{itemize}
-\item[] \textit{ch\_id} is a positive \textit{integer} that uniquely identifies the channel,
-\item[] \textit{nslots} is an \textit{integer}, and
-\item[] \textit{contents} is an ordered set of \textit{messages}(Def~\ref{def:Msg}) with maximum cardinality \textit{nslots}.
-\end{itemize}
-\end{definition}
-
-\begin{definition}{}{}
-\label{def:Process}
-(Process)
-
-A \textit{process} is a tuple (\textit{pid}, \textit{lvars}, \textit{lstates}, \textit{initial}, \textit{curstate}, \textit{trans}) where
-\begin{itemize}
-\item[] \textit{pid} is a positive \textit{integer} that uniquely identifies the process,
-\item[] \textit{lvars} is a finite set of local \textit{variables} (Def~\ref{def:Variable}), each with a \textit{scope}
-\item[] \textit{lstates} is a finite set of \textit{integers},
-\item[] \textit{intial} and \textit{curstate} are elements of set \textit{lstates}, and
-\item[] \textit{trans} is a finite set of \textit{transitions}(Def~\ref{def:Transition}) on lstates.
-\end{itemize}
-\end{definition}
-
-\begin{definition}{}{}
-\label{def:Transition}
-(Transition)
-
-A \textit{transition} in process \textit{P} is defined by a tuple (\textit{tr\_id}, \textit{source}, \textit{target}, \textit{cond}, \textit{effect}, \textit{prty}, \textit{rv}) where
-\begin{itemize}
-\item[] \textit{tr\_id} is a non-negative \textit{integer},
-\item[] \textit{source} and \textit{target} are elements from \textit{P.lstates} (i.e. \textit{integers}),
-\item[] \textit{cond} is a boolean condition from the global \textit{system state}(Def~\ref{def:SysState}),
-\item[] \textit{effect} is a function that modifies the global \textit{system state}(Def~\ref{def:SysState}),
-\item[] \textit{prty} and \textit{rv} are \textit{integers}.
-\end{itemize}
-\end{definition}
-
-\begin{definition}{}{}
-\label{def:SysState}
-(System State)
-
-A global \textit{system state} is a tuple of the form  (\textit{gvars}, \textit{procs}, \textit{chans}, \textit{exclusive}, \textit{handshake}, \textit{timeout}, \textit{else}, \textit{stutter}) where
-\begin{itemize}
-\item[] \textit{gvars} is a finite set of \textit{variables} (Def~\ref{def:Variable}) with \textit{global} scope,
-\item[] \textit{procs} is a finite set of \textit{processes} (Def~\ref{def:Process}),
-\item[] \textit{chans} is a finite set of \textit{message channels} (Def~\ref{def:MsgChan}),
-\item[] \textit{exclusive} and \textit{handshake} are \textit{integers},
-\item[] \textit{timeout}, \textit{else} and \textit{stutter} are \textit{booleans}.
-\end{itemize}
-\end{definition}
+\textit{show some semantics}
 
 \section{Related Work}
 \subsection{Smart City} 
@@ -139,6 +69,7 @@ A global \textit{system state} is a tuple of the form  (\textit{gvars}, \textit{
 %*discuss smart city's approach in difference to your own*
 
 \subsection{Privacy Enhancing Technologies (PET)}
+\label{section:SmartCity}
 
 \textit{compare this to your work}
 %find surveys regarding this
