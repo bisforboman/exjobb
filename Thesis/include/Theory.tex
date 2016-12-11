@@ -45,19 +45,25 @@ The use of model checking in practice typically follows the workflow in Figure \
 
 \section{SPIN}
 
-The model checking tool used for this project is called Simple Promela Interpreter (SPIN) and the language it accepts is called Promela, which is an acronym for Process Meta Language. 
+The model checking tool used in this thesis is called SPIN, an abbreviation of Simple Promela Interpreter. The SPIN tool allows to create an abstract model of a system, specifying properties that the model must hold and then verify them to see if there is possible system state that invalidates it. SPIN verification models are focused on proving the correctness of process interactions.\cite{holzmann1997model} Process interactions can be specified in several ways using SPIN; rendevouz primitives, asynchronous message passing, shared variables or a combination of these. 
 
-\textit{some history of SPIN}
-
-\textit{describe usages of SPIN}
+% discuss difference from SPIN to other tools?
 
 \section{Promela}
+The input language SPIN uses is called Promela (Process Meta Language).
 
-\textit{discuss promela}
+\subsection{Promela Example}
 
-\subsection{Semantics}
+\textit{show an example}
 
-\textit{show some semantics}
+\section{LTL in SPIN}
+
+The properties SPIN accepts are specified in Linear Time Logic. 
+
+\subsection{Specification}
+\subsection{Verification}
+
+\textit{discuss the usage of LTL for specifications}
 
 \section{Related Work}
 \subsection{Smart City} 
