@@ -1,6 +1,6 @@
-#define NUM_NODES   1
+#define NUM_NODES   2
 #define node_send       Node@Waiting // node 0 arrived at waiting
-#define server_dC       Server@Stopping
+#define server_dC       (Server@Stopping || Server@Idle_Stopping)
 #define node_done       Node@DoneColl
 #define server_ans      Server@Answering
 #define server_stop     Server@Stopping
@@ -156,7 +156,7 @@ Waiting: // here the node notifies the server.
         atomic {
           if 
           :: out ? continue -> goto Check;
-          :: out ? ack -> 
+          :: out ? ack ->
           fi; 
         }
 DoneColl: 
