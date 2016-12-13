@@ -37,12 +37,6 @@ Model Checking is an automated technique to verify finite state concurrent syste
 
 The use of model checking in practice typically follows the workflow in Figure \textit{insert ref here}. A design is translated into a description, that the model checker can read, and a specification of wanted or unwanted behavior is translated into a property. Then the model checker will produce a result which is either that the property is upheld or an error explaining how the property is invalidated. 
 
-%\subsection{LTL property verification}
-% might be a useful subchapter to introduce "specification"
-\subsection{Problem space reduction}
-
-\textit{will explain the problems with having a to precise model}\todo{mention the problem with state space explosion}
-
 \section{SPIN}
 
 The model checking tool used in this thesis is called SPIN, an abbreviation of Simple Promela Interpreter. The SPIN tool allows to create an abstract model of a system, specifying properties that the model must hold and then verify them to see if there is possible system state that invalidates it. SPIN verification models are focused on proving the correctness of process interactions.\cite{holzmann1997model} Process interactions can be specified in several ways using SPIN; rendevouz primitives, asynchronous message passing, shared variables or a combination of these. 
@@ -81,7 +75,11 @@ Idle:
 
 \subsection{Properties in SPIN}
 
-% The properties SPIN accepts are specified in Linear Time Logic. 
+% intro linear time logic?
+
+% something explanatory?
+
+\subsubsection{Specification}
 
 In order to prove or disprove a property using SPIN, we must first state them in some formal notation. This can be done by either using \texttt{assertion}-statements, to ensure a property at a certain point in time, or using LTL to prove properties over an entire system trace. 
 Except the operators inherited from propositional logic (\textit{negation}, \textit{conjunction}, \textit{equivalence}, \textit{implication}, etc.) LTL also provides the temporal operators such as \textit{always}, \textit{eventually} and \textit{until}. \todo{include reference} 
@@ -92,20 +90,16 @@ Except the operators inherited from propositional logic (\textit{negation}, \tex
 	\item[] \textbf{Until} ($U$) captures a relative behavior between two condditions, e.g. $a \text{ U } b$ means that $a$ must hold true atleast until $b$ holds true. In promela this is written as \texttt{U} or \texttt{until}.
  \end{itemize}
 
-For a complete description of the LTL properties available, and their semantics in SPIN, see Holzmann (2003, p. 135-139).
-
-\subsubsection{Specification}
-
-% how do properties look in spin?
-Spin allows us to either prove properties that always should hold true (safety properties) or error behaviors (i.e. properties that should never hold). When verifying safety properties in Spin, instead of trying to prove that a property holds true in each possible system state, it tries to find a state in which the property is invalidated. 
-
-% explain that this is due to effiency
+For a complete description of Linear Time Logic and its' semantics in SPIN, see Holzmann (2003, p. 135-139).
 
 \subsubsection{Verification}
 
+Spin allows us to either prove properties that always should hold true (safety properties) or error behaviors (i.e. properties that should never hold). When verifying safety properties in Spin, instead of trying to prove that a property holds true in each possible system state, it tries to find a state in which the property is invalidated. This is intuitively a faster way of finding erroneous behavior since when the verification finds one counterexample to the stated property, it no longer needs to search other states. 
+So when running the verification, Spin negates the specified property and then attempts to find a system trace in which the negated property holds. If this is successful, then the property can be violated. Otherwise, if no such trace exists, the property is verified to always hold true.
 
+\subsection{Problem space reduction}
 
-% how do spin verify properties?
+% mention abstraction and reducing the model 
 
 \section{Related Work}
 \subsection{Smart City} 
