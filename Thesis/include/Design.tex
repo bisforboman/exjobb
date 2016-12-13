@@ -124,7 +124,7 @@ active proctype Env() {
 
 The server consists of two primary states, the first being the initial state, noted below as \texttt{Answering}, where data is assumed to be collected and the second state, noted as \texttt{Stopping} where the system starts requesting that the nodes stop collecting to prevent over-collection. The states beginning with "\texttt{Idle\_}" are just looping to check if a node is sending data.
 
-\begin{lstlisting}[caption=Server code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+\begin{lstlisting}[caption={Server code},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 active proctype Server() {
    
 chan active_chan;
@@ -176,7 +176,7 @@ Stopping:
 
 The node is initialized with a channel to communicate to the server with. It starts by attempting to meter the environment, then communicates it to the server and proceeds into \texttt{Waiting} to wait for an answer.  
 
-\begin{lstlisting}[caption=Server code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+\begin{lstlisting}[caption={Node code},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 proctype Node(chan out) {
 Idle:   
         envChan ! meter; 

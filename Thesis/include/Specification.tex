@@ -69,7 +69,7 @@ A process $P$ collects a data point $d$ in a state $s$ if after leaving the stat
 \begin{definition}{def:OverColl}{} 
 (Over-Collection)
 
-\textit{if a process P collects more data than it requires to function, we say a process is over-collecting.}
+\textit{if a process P collects more data than it "requires to function", we say a process is over-collecting.}
 \end{definition} 
 
 %\textbf{Formal Definition: } 
@@ -114,9 +114,12 @@ A process $P$ collects a data point $d$ in a state $s$ if after leaving the stat
 
 %introduction leading up to what we need it for.
 
-From the Definition~\ref{def:OverColl} we understnd it's not uncommon for processes to collect more data than they require. A single sensor node usually\cite{WSN_a_survey} doesn't hold the information of the entire system state
+To 
 
 A \textit{decision procedure} is an algorithm that terminates with a yes or no answer, given a decision problem.\cite{decisionproceduresbook} 
+
+From the Definition~\ref{def:OverColl} we understand it's not uncommon for processes to collect more data than they require. A single sensor node usually\cite{WSN_a_survey} doesn't hold enough information about the system state to 
+
 
 %\subsubsection{Formal Definition}
 
@@ -290,23 +293,17 @@ This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}
 \newpage
 \section{Specification}
 
-This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of this process.
+This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of this process. 
 
 \subsection{Properties}
 
-The properties defined on the network were formulated using \textit{Linear Time Logic} (LTL). This decision came from the fact that LTL were native to SPIN and the models were abstracted to only focus on the relevant parts to the project, LTL could provide a simple and direct specification to that problem.
-
-%\textit{mention that the properties are LTLs (and why?)}
+The properties defined on the network were formulated using \textit{Linear Time Logic} (LTL). This choice came from the fact that LTL were native to SPIN and the models were abstracted to only focus on the relevant parts to the project, LTL could provide a simple and direct specification to that problem.
 
 \subsubsection{Correctness}
 
 The primary property sought of the system was that it was working as intended. This was formulated as a safety correctness property, to ensure that when decision had been taken, the system respond to the by changing its' behavior.
 
-%\textit{discuss correctness briefly}
-
-%*discuss the properties a bit more before diving into them*
-
-%The first model had properties for \textbf{safety correctness} and \textbf{liveness}. Due to the simplicity of the model, made both of them also rather simple to express. The correctness property was stated as follows: 
+% explain correctness some more
 
 \begin{definition}{}{} 
 Safety Correctness

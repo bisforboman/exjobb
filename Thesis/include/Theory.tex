@@ -25,9 +25,9 @@ A traditional approach to verifying concurrent systems is based on using extensi
 Model Checking is an automated technique to verify finite state concurrent systems, by letting a tool verify that a model holds for certain properties. The process of applying Model Checking to a design is separated into several tasks; \textit{modeling}, \textit{specification} and \textit{verification}. \\
 
 \begin{itemize}
-\item[] \textbf{Modeling:} First task is to translate a design into a format which is accepted by a model checking tool. This is either a compilation task or a task in abstracting certain aspects of the design to eliminate irrelevant or unimportant details, due to limitations on time an memory. \\
-\item[] \textbf{Specification:} Second task is to state which properties the design is supposed to have. This is usually done using in a logical formalism, commonly in temporal logic, which can express assertions on a system evolving over time. \\
-\item[] \textbf{Verification:} The final step is allowing the tool to verify the specification on the model. This will either be a positive result, meaning the model satisfies the properties, or a negative result where the properties aren't. A negative result can also be that the model's state space is too large to fit into a computer, which will require the model to be further abstracted to be verified.
+	\item[] \textbf{Modeling:} First task is to translate a design into a format which is accepted by a model checking tool. This is either a compilation task or a task in abstracting certain aspects of the design to eliminate irrelevant or unimportant details, due to limitations on time an memory. \\
+	\item[] \textbf{Specification:} Second task is to state which properties the design is supposed to have. This is usually done using in a logical formalism, commonly in temporal logic, which can express assertions on a system evolving over time. \\
+	\item[] \textbf{Verification:} The final step is allowing the tool to verify the specification on the model. This will either be a positive result, meaning the model satisfies the properties, or a negative result where the properties aren't. A negative result can also be that the model's state space is too large to fit into a computer, which will require the model to be further abstracted to be verified.
 \end{itemize}
 
 
@@ -49,21 +49,63 @@ The model checking tool used in this thesis is called SPIN, an abbreviation of S
 
 % discuss difference from SPIN to other tools?
 
-\section{Promela}
-The input language SPIN uses is called Promela (Process Meta Language).
+% discuss how you can use SPIN to find errors
 
-\subsection{Promela Example}
+\subsection{Promela}
+Promela is a specification language with its' focus on modeling process synchronization and coordination rather than computation. Therefore the language targets the description of conurrent software systems, rather than the description of hardware circuits, which is more common for other model checking applications\cite{holzmann1997model}.
+The features in the Promela language allows for description of concurrent processes and communication through message passing over buffered or rendevouz(unbuffered) channels.  
 
-\textit{show an example}
+% discuss the simplicity of promela for reaching better abstraction
 
-\section{LTL in SPIN}
+\subsubsection{Promela Example}
 
-The properties SPIN accepts are specified in Linear Time Logic. 
+To give an impression of Promela's syntax, Listing~\ref{lst:example} serves as an small example that captures most of the concepts used in this thesis. The example models an environment, receiving a \texttt{meter}-request on \texttt{envChan}. Then the process undeterministically choses one of the two responses in the guard statement and responds back on the same channel. Worth noting is that most part of the model is captured in an \texttt{atomic}-statement, this means that when the request is received, this process will be allowed to execute the rest of the \texttt{atomic}-statement without any interleaving. 
+Since this process flow isn't realistic in a concurrent system, where interleaving is prone to occur, all usage of \texttt{atomic} has to be explained and carefully motivated. 
 
-\subsection{Specification}
-\subsection{Verification}
+\begin{lstlisting}[caption={Promela Example},label={lst:example},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+active proctype Environment() {
 
-\textit{discuss the usage of LTL for specifications}
+Idle:  
+	if
+	:: atomic { 
+		envChan ? meter ->  
+			if
+			:: envChan ! bigData;
+			:: envChan ! smallData;
+			fi; 
+			goto Idle;
+	}
+	fi;
+}
+\end{lstlisting}
+
+\subsection{Properties in SPIN}
+
+% The properties SPIN accepts are specified in Linear Time Logic. 
+
+In order to prove or disprove a property using SPIN, we must first state them in some formal notation. This can be done by either using \texttt{assertion}-statements, to ensure a property at a certain point in time, or using LTL to prove properties over an entire system trace. 
+Except the operators inherited from propositional logic (\textit{negation}, \textit{conjunction}, \textit{equivalence}, \textit{implication}, etc.) LTL also provides the temporal operators such as \textit{always}, \textit{eventually} and \textit{until}. \todo{include reference} 
+
+\begin{itemize}
+	\item[] \textbf{Always} ($\Box$) states that a property has to hold on the entire subsequent path\todo{mention what subsequent path means}, e.g $\Box a$ means that the condition $a$ always holds true. In promela this is either written as \texttt{always} or \texttt{[]}.
+	\item[] \textbf{Eventually} ($\Diamond$) states that a property has to hold somewhere on the subsequent path, meaning that $\Diamond a$ means that $a$ must hold in the current state or in some future state. This is written in promela as \texttt{<>} or \texttt{eventually}.
+	\item[] \textbf{Until} ($U$) captures a relative behavior between two condditions, e.g. $a \text{ U } b$ means that $a$ must hold true atleast until $b$ holds true. In promela this is written as \texttt{U} or \texttt{until}.
+ \end{itemize}
+
+For a complete description of the LTL properties available, and their semantics in SPIN, see Holzmann (2003, p. 135-139).
+
+\subsubsection{Specification}
+
+% how do properties look in spin?
+Spin allows us to either prove properties that always should hold true (safety properties) or error behaviors (i.e. properties that should never hold). When verifying safety properties in Spin, instead of trying to prove that a property holds true in each possible system state, it tries to find a state in which the property is invalidated. 
+
+% explain that this is due to effiency
+
+\subsubsection{Verification}
+
+
+
+% how do spin verify properties?
 
 \section{Related Work}
 \subsection{Smart City} 
