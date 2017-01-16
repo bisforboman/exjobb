@@ -1,0 +1,72 @@
+\chapter{Background}
+
+In this chapter we introduce the basic concepts that are the core of this thesis, such as \wsn and \textit{Data Minimization}. 
+
+%\textit{This section should cover some background information to give the reader some background knowledge to what the project has been about that is required knowledge before moving forward.}
+
+\section{Wireless Sensor Network (WSN)}
+
+%describe my idea of a sensor network and how I will look at them for the sake of the thesis. (node/server/environment)
+
+% how it's built up (components)
+
+A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{WSN_a_survey} 
+
+\todo{discuss other good things with WSNs but try to keep it relevant}
+
+\section{Data Minimization}
+
+As defined by the EDPS (European Data Protection Supervisor); "The principle of data minimization means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose." \cite{website:europa.eu} 
+
+This covers the main aspect of this thesis work. Data Minimization also covers the aspect that data should only be stored as long as it is useful, but that is beyond the scope of the thesis. 
+
+In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010terminology} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly. To give these definition some context, we will use the same terminology as in the paper, persons communicating in the system are \textit{subjects} and the information is regarded as \textit{Items of interest} (IOI). % is this obvious? Should IOIs be better defined?
+
+%It should be noted that the definitions are written with regards to an attacker's perspective. 
+
+\begin{itemize}
+\item[] \textbf{Anonymity} means that for a subject to have anonymity, it has to be indistinguisable in a set of subjects. Meaning that if a subject has a set of attributes defining the subject, there always has to exist an appropriate set of subjects with potentially the same attributes. This was defined as: "Anonymity of a subject means that the subject is not identifiable within a set of subjects, the \textit{anonymity set}.", where the anonymity set is the set of all possible subjects. % I guess opposites are not relevant to discuss, kinda intuitive
+
+\item[] \textbf{Unlinkability} is the relation between two IOIs in the system. If several IOIs become compromised, an attacker should not be able to distinguish whether these IOIs are related or not. 
+
+\item[] \textbf{Undetectability} is an attribute for an IOI. It means that an attacker should not be able to distinguish whether the item exists or not.
+
+\item[] \textbf{Unobservability} 
+
+\end{itemize}
+
+
+
+%This covers two important aspects of data minimization, the first being that data should only be kept for as long as it is useful for an application and the second being that they should only collect "relevant" data. The latter is more interesting to the project, since the project's aim is to solve part of this problem.
+
+%why is this a good a good definition for me?
+
+\section{Related Work}
+
+%\subsection{Smart City} 
+%\label{section:SmartCity}
+
+%\textit{some background into their approach}\cite{li2016privacy}
+%\textit{some comparison to this project}
+%*discuss smart city's approach in difference to your own*
+% ---
+
+\subsection{Privacy Enhancing Technologies (PET)}
+
+%\cite{hansen2004privacy}
+
+In an online setting, it's assumed that people would like to retain their anononymity.\cite{hansen2004privacy} To let users manually control their identities would be a cumbersome process, so instead an automated solution managing this would be preferred. Such a solution would be an Identity Management System (IMS).
+
+An IMS is a system that allows support for "administration of information subjects". An extension of this is Privacy-Enhancing Management Systems (PE-IMS) which supports "active management of personal information" which grants all parties involved flexibility and control over their personal data.
+
+
+
+% --- 
+%\textit{compare this to your work}
+
+%\subsection{Security and Privacy for Mobile Electronic Health Monitoring and Recording Systems}
+%\todo{Health applications using DM}\cite{barnickel2010security}
+%\textit{discuss how healthnet works}
+%In a paper from 2010 Barnickel, Karahan and Meyer investigated a mobile health monitoring and data collection system called HealthNet, which is a joint research project of several research groups of RWTH Aachen University. The system consists of a sensor network embedded in a users clothing which collects vital parameters and wirelessly communicates it to the wearer's phone. From there the data is managed, stored and transfered securely to relevant parties, such as medical experts, emergency care and private parties trusted by the wearer. By using the phone the user can control who may access the data. The system is deisgned so that the emergency support can be managed automatically when the vital signs match predefined patterns and not to create an infrastructure among medical experts or health insurance companies. Confidentially and integrity is managed through cryptographic techniques, which prevent attacks on the transmissions and stolen devices. 
+%\textit{find the entry point for discussing DM}
+
