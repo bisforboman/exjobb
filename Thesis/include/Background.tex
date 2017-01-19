@@ -1,6 +1,6 @@
 \chapter{Background}
 
-In this chapter we introduce the basic concepts that are the core of this thesis, such as \wsn and \textit{Data Minimization}. 
+In this chapter we introduce the basic concepts that are the focus of this thesis, such as \wsn and \textit{Data Minimization}. % we still start by giving some areas to the research into DM and reasons for it.
 
 %\textit{This section should cover some background information to give the reader some background knowledge to what the project has been about that is required knowledge before moving forward.}
 
@@ -10,36 +10,55 @@ In this chapter we introduce the basic concepts that are the core of this thesis
 
 % how it's built up (components)
 
-A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{WSN_a_survey} 
+A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{WSNsurvey} 
 
 
 \section{Data Minimization}
 
-As defined by the EDPS (European Data Protection Supervisor); "The principle of data minimization means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose." \cite{website:europa.eu} 
+% discuss DM from an abstract POV. Social > Legal > Technical, since there isn't much technical articles regarding DM & WSNs. 
 
-This covers the main aspect of this thesis work. Data Minimization also covers the aspect that data should only be stored as long as it is useful, but that is beyond the scope of the thesis. 
+As defined by the EDPS (European Data Protection Supervisor); "The principle of data minimization means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose." \cite{website:europa.eu} %discuss privacy?
 
-In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010terminology} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly. To give these definition some context, we will use the same terminology as in the paper, persons communicating in the system are \textit{subjects} and the information is regarded as \textit{Items of interest} (IOI). % is this obvious? Should IOIs be better defined?
+% doesn't fit here now?
+%This covers the main aspect of this thesis work. Data Minimization also covers the aspect that data should only be stored as long as it is useful, but that is beyond the scope of the thesis. 
+
+This makes it a key aspect of privacy in data-collecting settings. With the world becomming more and more digitalized\todo{if ref is required there are lots of articles for IoT development} collecting personal data from users becomes a growing concern. Today, data processing entities automatically makes decisions based on data analysis which can impact the lives of individuals, which in turn makes the need for protecting their personal data is even greater.\cite{danezis2015privacy} One problem problem which arises from being more connected is that individuals, whose data is being collected, are often unaware of the consequences of the data processing that comes after. Also, legal repercussions for infringement of data protection obligations are usually only the cause of a breach or misuse that has already occured. There are architectures\todo{is this the correct word?} that support this thinking, to require users know more of the data collected, such as Privacy Enchaning Information Management Systems (PE-IMS) that will be discussed later on in this chapter. 
+
+% to have privacy is a fundamental right for everyone. 
+
+
+
+% from this discussion extract what DM seeks to prevent?
+
+
+
+% maybe this is a too general paragraph that is too short, should be converted to a more arguing paragraph leading up to the more precise definitions.
+
+
+In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010terminology} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly. To give these definition some context, we will use the same terminology as in the paper, where the two most important ones for the definitions are \textit{subjects} and \textit{Items of Interest} (IOI). For privacy reasons, being that we wish to maximize it for human beings, subjects are mainly considered as persons. But in reality it can be a legal person or even be a computer. An Item of Interest is a generalization of what can be seen as information. The contents of a message, the name or the pseudonym of a user or even the action of a user sending a message, all of them can be an Items of Interest.
+
+
+% persons communicating in the system are \textit{subjects} and the information is regarded as \textit{Items of interest} (IOI). % is this obvious? Should IOIs be better defined?
 
 % It should be noted that this reference isn't as carefully finished as other papers. It seems to be a work in progress and it should perhaps be mentioned in the text.
 
 %It should be noted that the definitions are written with regards to an attacker's perspective. 
 
 \begin{itemize}
-\item[] \textbf{Anonymity} means that for a subject to have anonymity, it has to be indistinguisable in a set of subjects. Meaning that if a subject has a set of attributes defining the subject, there always has to exist an appropriate set of subjects with potentially the same attributes, in other words: "Anonymity of a subject means that the subject is not identifiable within a set of subjects, the \textit{anonymity set}.", where the anonymity set is the set of all possible subjects. % I guess opposites are not relevant to discuss, kinda intuitive
+\item[] \textbf{Anonymity} means that for a subject to have anonymity, it has to be indistinguisable in a set of subjects. Meaning that if a subject has a set of attributes defining the subject, there always has to exist an appropriate set of subjects with potentially the same attributes, in other words: "Anonymity of a subject means that the subject is not identifiable within a set of subjects, the \textit{anonymity set}.", where the anonymity set is the set of all possible subjects. The opposite of anonymity is called \textit{Identifiability}. % I guess opposites are not relevant to discuss, kinda intuitive
 
-\item[] \textbf{Unlinkability} is the relation between two IOIs in the system. If several IOIs become compromised, an attacker should not be able to distinguish whether these IOIs are related or not. 
+\item[] \textbf{Unlinkability} is the relation between two IOIs in the system. If several IOIs become compromised, an attacker should not be able to distinguish whether these IOIs are related or not. The opposite of unlinkability is called \textit{Linkability}.
 
-\item[] \textbf{Undetectability} is an attribute for an IOI. It means that an attacker should not be able to distinguish whether the item exists or not.
+\item[] \textbf{Undetectability} is an attribute for an IOI. It means that an attacker should not be able to distinguish whether the item exists or not. The opposite of undetectability is called \textit{Detectability}.
 
-\item[] \textbf{Unobservability} is an attribute which is combination of \textit{anonnymity} and \textit{undetectability}. It means that, in regards to an IOI, that neither a subject involed in the IOI or not involved should be aware of the involved subjects.
+\item[] \textbf{Unobservability} is an attribute which is combination of \textit{anonnymity} and \textit{undetectability}. It means that, in regards to an IOI, that neither a subject involed in the IOI or not involved should be aware of the involved subjects. The opposite of unobservability is called \textit{Unobservability}.
 \end{itemize}
 
-These definitions also have their opposites; \texit{identifiability}, \textit{linkability}, \textit{detectability} and \textit{observability}. 
+%These definitions also have their opposites; \texit{identifiability}, \textit{linkability}, \textit{detectability} and \textit{observability}. 
 
 %TBR: This covers two important aspects of data minimization, the first being that data should only be kept for as long as it is useful for an application and the second being that they should only collect "relevant" data. The latter is more interesting to the project, since the project's aim is to solve part of this problem. %why is this a good a good definition for me?
 
-\section{Section for giving examples of different approaches to achieve DM in WSNs}
+\section{Modelling Concurrency}
 
 \subsection{Petri Nets}
 
@@ -47,13 +66,15 @@ These definitions also have their opposites; \texit{identifiability}, \textit{li
 
 % other ways of modelling concurrent systems
 
+% mention that neither of the described approaches are used and the chosen approach is covered in the next section
+
 \section{Related Work}
 
 \subsection{Data Erasure}
 
 % it's different, but try explain the duality of it and DM.
 
-\subsection{Privacy Enhancing Technologies (PET)}
+\subsection{Privacy Enhancing Identity Management Systems (PE-IMS)}
 
 %\cite{hansen2004privacy}
 

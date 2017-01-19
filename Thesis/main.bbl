@@ -1,0 +1,29 @@
+\begin{thebibliography}{1}
+
+\bibitem{pfitzmann2010terminology}
+A.~Pfitzmann and M.~Hansen, ``A terminology for talking about privacy by data
+  minimization: Anonymity, unlinkability, undetectability, unobservability,
+  pseudonymity, and identity management,'' 2010.
+
+\bibitem{hansen2004privacy}
+M.~Hansen, P.~Berlich, J.~Camenisch, S.~Clau{\ss}, A.~Pfitzmann, and
+  M.~Waidner, ``Privacy-enhancing identity management,'' {\em Information
+  security technical report}, vol.~9, no.~1, pp.~35--44, 2004.
+
+\bibitem{bjesse2005formal}
+P.~Bjesse, ``What is formal verification?,'' {\em ACM SIGDA Newsletter},
+  vol.~35, no.~24, p.~1, 2005.
+
+\bibitem{clarke1999model}
+E.~M. Clarke, O.~Grumberg, and D.~Peled, {\em Model checking}.
+\newblock MIT press, 1999.
+
+\bibitem{holzmann1997model}
+G.~J. Holzmann, ``The model checker spin,'' {\em IEEE Transactions on software
+  engineering}, vol.~23, no.~5, p.~279, 1997.
+
+\bibitem{decisionproceduresbook}
+D.~Kroening and O.~Strichman, {\em Decision Procedures}.
+\newblock Springer, 2008.
+
+\end{thebibliography}
