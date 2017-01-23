@@ -64,15 +64,45 @@ In this section we will go through some different approaches to modelling concur
 
 \subsection{Petri Nets}
 
-In 1962, Carl Adam Petri disserted his work on a more graphical way of modelling concurrency, namely using something called \textit{Petri Nets}. A Petri Net is a directed bipartite graph. Each node in the graph represent transitions, shown as bars, or places, which are shown as circles. Connecting the nodes are directed arcs that describe pre- and/or postconditions for the transitions, illustrated as arrows. % show an example of a petri net
+In 1962, Carl Adam Petri disserted his work on a more graphical way of modelling concurrency, namely using something called \textit{Petri Nets}. A Petri Net is a directed bipartite graph. An example can be seen in Figure~\ref{fig:petri_net}. Each node in the graph represent transitions, shown as bars, or places, which are shown as circles. The black dots at places are called tokens, they indicate the holding of a condition at that place. Connecting the nodes are directed arcs that describe pre- and/or postconditions for the transitions, illustrated as arrows. 
+% discuss input and output?
+% discuss tokens?
+% mention arc-weights?
 
+% https://upload.wikimedia.org/wikipedia/commons/f/fe/Detailed_petri_net.png
+\begin{figure}[h]
+    \includegraphics[scale=0.5]{include/figures/petri_net}
+    \caption{Illustration of a Petri Net}
+    \label{fig:petri_net}
+\end{figure}
 
+The primary rule for Petri Net theory is the rule for transition enabling and firing. It derives from the idea that many systems can be described as system states and their changes. So to simulate the behavior of a system, each state or marking are allowed to change according to the following rule:
+
+\begin{itemize}
+	\item A transition is enabled iff each of its input places has atleast one token
+	\item A transition can only fire if it is enabled.
+	\item When a transition fires it removes a token from each of its input places and a token is deposited into each of its output places.
+\end{itemize}
+
+%\begin{itemize} alt. description
+%\item A transition t is said to be enabled if each input p of t is marked with at least w (p,t) tokens, where w(p,t) is the weight of the arc from p to t. 
+%\item An enabled transition may or may not fire (depending on whether or not the event takes place).
+%\item A firing of an enabled transition t removes w(p,t) tokens from each input place p of t, and adds w(t,p) tokens to each ouput place p of t, where w(t,p) is the weight of the arc from t to p.
+%\end{itemize} 
+
+By analyzing different properties of a Petri net model of a system, such as liveness and boundedness, many other properties are also unveiled. For example, a Petri net is said to be \textit{live}, if there always exist a fire sequence to each transition in the model, and if the model is live it's also guaranteed to be free of deadlock\cite{ramamoorthy1980performance}. A Petri net is said to be \textit{k-bounded} if for each place, there exists an upper bound for how many tokens that can be there simultaneously. If that upper bound in each place is 1, then the system is \textit{safe}. % mention initial marking?
+
+% give perhaps some disadvantage to this application, not required.
+
+% discuss further developments such as Colored Petri Nets?
 
 \subsection{Process Calculus}
 
 % other ways of modelling concurrent systems
 
 % mention that neither of the described approaches are used and the chosen approach is covered in the next section
+
+% show an example of a language described in PC
 
 \section{Related Work}
 
