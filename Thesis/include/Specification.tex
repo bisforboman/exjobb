@@ -1,10 +1,6 @@
 \chapter{Modeling \& Specification}
 
-% the spin reference manual will be useful for this part
-
-The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first defining some building blocks used and then describing the final models.
-
-%The modeling will first be described 
+The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first stating some basic concepts and then explaining the iterative process that led to the final results.
 
 \section{Definitions}
 
@@ -28,7 +24,7 @@ A basic \wsn was defined as a starting point for the models. It consisted of a s
 
 % describe a general network
 
-A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. Throughout the thesis these entities will be referred to as \textit{Actors}.\todo{motivate why?}
+A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. Throughout the thesis these entities will be referred to as \textit{Actors}.
 
 To describe the interaction between two actors in the system, behavior models were used (e.g. Figure~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
 
@@ -39,12 +35,13 @@ To describe the interaction between two actors in the system, behavior models we
 
 \subsection{Over-Collection}
 
+Over-Collection is the state or process which a system collects data beyond the scope of it's required parameters. 
+
 %A \wsn primary objective is to collect data from an observed source and let a processing unit analyze the state of it. 
 
 %In the paper \textit{insert reference to chapter 2 here}, they defined \textit{Data Over-Collection} to be "Collecting data more than enough on original function while within the permission scope". 
 
 %For this to be true, we make the assumption that it exists a state for the system where the process of collecting data isn't required for the system to function the way it's intended. This could arise from a number of origins, either that a threshold has been reached and the system is no longer stable or that 
-
 
 %Consider a collection process collecting some personal data from a users. The process is only interested in collecting as much data as possible and storing it at a central server for future processing. We can assume that the process will need a good quantity of data entries to extract relevant information from the data. If we assume that the program doesn't remove any data it's collected, we can safely say that at some point the system will have collected enough data to accomplish the tasks it's designed to do and beyond that point it's collected more than it requires.
 
@@ -54,7 +51,9 @@ To describe the interaction between two actors in the system, behavior models we
 \begin{definition}{def:Coll}{}
 (Collecting)
 
-A process $P$ collects a data point $d$ in a state $s$ if after leaving the state then $d \in \{P_{c'} \setminus P_{c}\}$.
+%A process $P$ collects a data point $d$
+
+%A process $P$ collects a data point $d$ in a state $s$ if after leaving the state then $d \in \{P_{c'} \setminus P_{c}\}$.
 
 %A process $P$ collects a data point $d$ in a state $s$ if after leaving state $s$ ($s_{+1}$) then $d \in P.lvars$\todo{promela syntax for local variables, should be something else}.
 \end{definition}
@@ -156,13 +155,16 @@ A \textit{decision procedure} is an algorithm that terminates with a yes or no a
 
 \section{Modeling}
 
-%*what is a model?*
+This section covers the modeling aspect of the thesis which was one of the main goals of the thesis, first will be discuss some initial assumptions and show some faulty models that were refined to the final results. 
 
-As a starting point for defining the models, first different architectural choices were considered. This was done to help define different cases of \wsn that could use decisions. 
+%*what is a model?*
+\subsection{Initial Models}
+
+
 
 \subsection{Variations}
 
-The different variations considered were: \\
+%As a starting point for defining the models, first different architectural choices were considered. This was done to help define different cases of \wsn that could use decisions. The different variations considered were: \\
 
 \begin{itemize}
 \item Centralized or Decentralized decision making

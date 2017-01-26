@@ -1,6 +1,6 @@
 \chapter{Background}
 
-In this chapter we introduce the basic concepts that are the focus of this thesis, such as \wsn and \textit{Data Minimization}. % we still start by giving some areas to the research into DM and reasons for it.
+In this chapter we introduce the basic concepts that are the focus of this thesis, such as \wsns and \textit{Data Minimization}. % we still start by giving some areas to the research into DM and reasons for it.
 
 %\textit{This section should cover some background information to give the reader some background knowledge to what the project has been about that is required knowledge before moving forward.}
 
@@ -10,22 +10,23 @@ In this chapter we introduce the basic concepts that are the focus of this thesi
 
 % how it's built up (components)
 
-A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{WSNsurvey} 
+A \wsn is recent improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. \\
 
-% give examples of WSNs?
+Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{wsnsurvey} 
 
+% does this need more information? it's just a network of sensor nodes?
 
 \section{Data Minimization}
 
 % discuss DM from an abstract POV. Social > Legal > Technical, since there isn't much technical articles regarding DM & WSNs. 
 
-As defined by the EDPS (European Data Protection Supervisor); "The principle of data minimization means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose." \cite{website:europa.eu} %discuss privacy?
+As defined by the EDPS (European Data Protection Supervisor); "The principle of data minimization means that a data controller should limit the collection of personal information to what is directly relevant and necessary to accomplish a specified purpose."\cite{websiteEu} %discuss privacy?
 
 %They should also retain the data only for as long as is necessary to fulfil that purpose.
 
 %This makes it an important aspect of privacy in data-collecting settings. 
 
-With the world becomming more and more digitalized\todo{if ref is required there are lots of articles for IoT development} collecting personal data from users becomes a growing concern. Today, data processing entities automatically makes decisions based on data analysis which can impact the lives of individuals, which in turn makes the need for protecting their personal data is even greater.\cite{danezis2015privacy} One problem problem which arises from being more connected is that individuals, whose data is being collected, are often unaware of the consequences of the data processing that comes after. Also, legal repercussions for infringement of data protection obligations are usually only the cause of a breach or misuse that has already occured. There are architectures\todo{is this the correct word?} that support this thinking, to require users know more of the data collected, such as Privacy Enchaning Information Management Systems (PE-IMS) that will be discussed later on in this chapter. 
+With the world becoming more and more digitalized, the collection of personal data from users becomes a growing concern. Today, data processing entities automatically makes decisions based on data analysis which can impact the lives of individuals, which in turn makes the need for protecting their personal data is even greater.\cite{danezis2015privacy} Another problem which arises from being more connected is that individuals, whose data is being collected, are often unaware of the consequences of the data processing that comes after. Also, legal repercussions for infringement of data protection obligations is usually only due to a breach or a misuse that has already occured. There are systems that support this thinking, that requires users to know what data is being collected, such as Privacy Enchaning Information Management Systems (PE-IMS) which will be discussed later on in this chapter. \\
 
 % to have privacy is a fundamental right for everyone. 
 
@@ -33,8 +34,7 @@ With the world becomming more and more digitalized\todo{if ref is required there
 
 % maybe this is a too general paragraph that is too short, should be converted to a more arguing paragraph leading up to the more precise definitions.
 
-In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010terminology} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly.\todo{implement this} To give these definition some context, we will use the same terminology as in the paper, where the two most important ones for the definitions are \textit{subjects} and \textit{Items of Interest} (IOI). For privacy reasons, being that we wish to maximize it for human beings, subjects are mainly considered as persons. But in reality it can be a legal person or even be a computer. An Item of Interest is a generalization of what can be seen as information. The contents of a message, the name or the pseudonym of a user or even the action of a user sending a message, all of them can be an Items of Interest.
-
+In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly.\todo{implement this} To give these definition some context, we will use the same terminology as in the paper, where the two most important ones are \textit{subjects} and \textit{Items of Interest} (IOI). For privacy reasons, being that we wish to maximize it for human beings, subjects are mainly users in a system. But in the generalizations that follows, it can be a legal person or even be a computer. An Item of Interest is a generalization of what can be seen as information, e.g. the contents of a message, the name or the pseudonym of a user or even the action of a user sending a message. All of these can be an Item of Interest, in the following list are some definitions to expand the meaning of Data Minimization: \\
 
 % persons communicating in the system are \textit{subjects} and the information is regarded as \textit{Items of interest} (IOI). % is this obvious? Should IOIs be better defined?
 
@@ -49,18 +49,16 @@ In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology fo
 
 \item[] \textbf{Undetectability} is an attribute for an IOI. It means that an attacker should not be able to distinguish whether the item exists or not. The opposite of undetectability is called \textit{Detectability}.
 
-\item[] \textbf{Unobservability} is an attribute which is combination of \textit{anonnymity} and \textit{undetectability}. It means that, in regards to an IOI, that neither a subject involed in the IOI or not involved should be aware of the involved subjects. The opposite of unobservability is called \textit{Unobservability}.
+\item[] \textbf{Unobservability} is an attribute which is combination of \textit{anonymity} and \textit{undetectability}. It means that, in regards to an IOI, that neither if a subject is involved in the IOI or not, he or she should be aware of the other involved subjects. The opposite of unobservability is called \textit{Observability}.
 \end{itemize}
 
 % discuss these definitions in a setting? todo on this from prev paragraph
-
-%These definitions also have their opposites; \texit{identifiability}, \textit{linkability}, \textit{detectability} and \textit{observability}. 
 
 %TBR: This covers two important aspects of data minimization, the first being that data should only be kept for as long as it is useful for an application and the second being that they should only collect "relevant" data. The latter is more interesting to the project, since the project's aim is to solve part of this problem. %why is this a good a good definition for me?
 
 \section{Modelling Concurrency}
 
-In this section we will go through some different approaches to modelling concurrency. These will give an insight into some other ways of approaching the problem at hand and the chosen approach will be explained the next chapter.
+In this section we will present some different approaches to modelling concurrency. These will give an insight into the other tools available, the chosen approach for this thesis (Model Checking) will not be described here but will be thoroughly explained in the next chapter.
 
 \subsection{Petri Nets}
 
@@ -90,19 +88,35 @@ The primary rule for Petri Net theory is the rule for transition enabling and fi
 %\item A firing of an enabled transition t removes w(p,t) tokens from each input place p of t, and adds w(t,p) tokens to each ouput place p of t, where w(t,p) is the weight of the arc from t to p.
 %\end{itemize} 
 
-By analyzing different properties of a Petri net model of a system, such as liveness and boundedness, many other properties are also unveiled. For example, a Petri net is said to be \textit{live}, if there always exist a fire sequence to each transition in the model, and if the model is live it's also guaranteed to be free of deadlock\cite{ramamoorthy1980performance}. A Petri net is said to be \textit{k-bounded} if for each place, there exists an upper bound for how many tokens that can be there simultaneously. If that upper bound in each place is 1, then the system is \textit{safe}. % mention initial marking?
+By analyzing different properties of a Petri net model of a system, such as liveness and boundedness, one can prove other properties aswell. For example, a Petri net is said to be \textit{live}, if there always exist a fire sequence to each transition in the model, and if the model is live it's also guaranteed to be free of deadlock\cite{ramamoorthy1980performance}. A Petri net is said to be \textit{k-bounded} if for each place, there exists an upper bound \textit{k}, for how many tokens that can be there simultaneously. If \textit{k} is 1, then the system is said to be \textit{safe}. % mention initial marking?
 
 % give perhaps some disadvantage to this application, not required.
 
 % discuss further developments such as Colored Petri Nets?
 
-\subsection{Process Calculus}
+\subsection{Process Calculi}
 
-% other ways of modelling concurrent systems
+\textit{Process Calculi} is a family of related approaches for formal modelling of concurrent systems. It allows for a high-level description of the interaction, communication and the synchronization between processes and agents. %wikiwiki
+Some examples of different Process Calculi are CSP, LOTOS and $\pi$-calculus\todo{referencez}. Their focus vary, for they are specialized on modelling different systems, but some features they (and other Process Calculi) share are:
 
-% mention that neither of the described approaches are used and the chosen approach is covered in the next section
+\begin{itemize}
+\item Interaction between processes are represented as communication(message-passing), rather than manipulation of shared variables. %interactions 
+\item Processes are described as a collection of primitives and operators for those primitives. %processes
+\item Algebraic laws are defined for the process operators, which allows them to be analyzed by \textit{equational reasoning}\todo{find ref}.%algebraic laws
+\end{itemize}
+
+Initially, to define a \textit{process calculus}, you start with a set of channels as a means of communication. The internal structure of channels are rich and are constructed to improve efficiency, but when explained theoretically these improvements are usually abstracted away. Also, a way to form new processes from old ones is required, this also varies from the different implementations but what they have in common can be summarized the following: %durr?
+
+\begin{itemize}
+\item A way of expressing parallell composition of processes
+\item A way of specifying which channels are used for sending and receiving data
+\item A way to sequentialize interactions
+\item A way to hide interaction points
+\item Recursion or a way to process replication
+\end{itemize}
 
 % show an example of a language described in PC
+Furthermore, an example of constructing a process calculus model can be seen in the CRC Handbook of Computer Science and Engineering\cite{pierce1997foundational}, written in $\pi$-calculus and compared to $\lambda$-calculus. % mention it's not relevant to present?
 
 \section{Related Work}
 
@@ -116,7 +130,7 @@ Another step to consider when ensuring privacy for users having their data colle
 
 % how it's used (maybe list one or two examples)
 
-In an article by Chong and Myers\cite{chong2005language}, they propose a security policy framework where policies for both can be specified so it suits the desired application. In said framework, one would specify an erasure policy on under which conditions information must be erased. One could also state what policy that would allow data to survive erasure, since information could be allowed to still exist within a system in a restricted form. Secondly, declassification policies would define what policy should be enforced on new information, the conditions under which said information would be declassified and finally the policy it should have after declassification. 
+In an paper by Chong and Myers\cite{chong2005language}, they propose a security policy framework where policies for both can be specified so it suits the desired application. In said framework, one would specify an erasure policy on under which conditions information must be erased. One could also state what policy that would allow data to survive erasure, since information could be allowed to still exist within a system in a restricted form. Secondly, declassification policies would define what policy should be enforced on new information, the conditions under which said information would be declassified and finally the policy it should have after declassification. 
 
 % Declassifying information means that information that is classified as secret ceases to be to restricted. 
 

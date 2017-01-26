@@ -1,9 +1,36 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{pfitzmann2010terminology}
+\bibitem{wsnsurvey}
+I.~F. Akyildiz, W.~Su, Y.~Sankarasubramaniam, and E.~Cayirci, ``Wireless sensor
+  networks: a survey,'' {\em Computer networks}, vol.~38, no.~4, pp.~393--422,
+  2002.
+
+\bibitem{websiteEu}
+E.~D.~P. Supervisor, ``Regulation (ec) no 45/2001,'' December 2000.
+
+\bibitem{danezis2015privacy}
+G.~Danezis, J.~Domingo-Ferrer, M.~Hansen, J.-H. Hoepman, D.~L. Metayer,
+  R.~Tirtea, and S.~Schiffner, ``Privacy and data protection by design-from
+  policy to engineering,'' {\em arXiv preprint arXiv:1501.03726}, 2015.
+
+\bibitem{pfitzmann2010}
 A.~Pfitzmann and M.~Hansen, ``A terminology for talking about privacy by data
   minimization: Anonymity, unlinkability, undetectability, unobservability,
   pseudonymity, and identity management,'' 2010.
+
+\bibitem{ramamoorthy1980performance}
+C.~Ramamoorthy and G.~S. Ho, ``Performance evaluation of asynchronous
+  concurrent systems using petri nets,'' {\em IEEE Transactions on software
+  Engineering}, no.~5, pp.~440--449, 1980.
+
+\bibitem{pierce1997foundational}
+B.~C. Pierce, ``Foundational calculi for programming languages.,'' {\em The
+  Computer Science and Engineering Handbook}, vol.~1997, pp.~2190--2207, 1997.
+
+\bibitem{chong2005language}
+S.~Chong and A.~C. Myers, ``Language-based information erasure,'' in {\em
+  Computer Security Foundations, 2005. CSFW-18 2005. 18th IEEE Workshop},
+  pp.~241--254, IEEE, 2005.
 
 \bibitem{hansen2004privacy}
 M.~Hansen, P.~Berlich, J.~Camenisch, S.~Clau{\ss}, A.~Pfitzmann, and
