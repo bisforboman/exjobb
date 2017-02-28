@@ -101,3 +101,125 @@ So when running the verification, Spin negates the specified property and then a
 
 % mention abstraction and reducing the model 
 
+%\section{Other stuff} % this section has been moved from §4
+
+\subsection{Over-Collection}
+
+% mention others definitions' of over-collection
+
+%Over-Collection is the state or process which a system collects data beyond the scope of it's required parameters. 
+
+%A \wsn primary objective is to collect data from an observed source and let a processing unit analyze the state of it. 
+
+%In the paper \textit{insert reference to chapter 2 here}, they defined \textit{Data Over-Collection} to be "Collecting data more than enough on original function while within the permission scope". 
+
+%For this to be true, we make the assumption that it exists a state for the system where the process of collecting data isn't required for the system to function the way it's intended. This could arise from a number of origins, either that a threshold has been reached and the system is no longer stable or that 
+
+%Consider a collection process collecting some personal data from a users. The process is only interested in collecting as much data as possible and storing it at a central server for future processing. We can assume that the process will need a good quantity of data entries to extract relevant information from the data. If we assume that the program doesn't remove any data it's collected, we can safely say that at some point the system will have collected enough data to accomplish the tasks it's designed to do and beyond that point it's collected more than it requires.
+
+% describe what over-collection means
+%With a collection-process 'mindlessly' collecting personal data and storing it, we can assume that there's state where the collection has collected more data than it requires to complete whatever function the system is designed to do. 
+
+%\begin{definition}{def:Coll}{}
+%(Collecting)
+
+%A process $P$ collects a data point $d$
+
+%A process $P$ collects a data point $d$ in a state $s$ if after leaving the state then $d \in \{P_{c'} \setminus P_{c}\}$.
+
+%A process $P$ collects a data point $d$ in a state $s$ if after leaving state $s$ ($s_{+1}$) then $d \in P.lvars$\todo{promela syntax for local variables, should be something else}.
+%\end{definition}
+
+%\begin{definition}{def:ToFunc}{}
+%(To Function)
+
+%\textit{if a process P yields a valid result by a specific amount of input parameters, we say it requires these input parameters}
+%\end{definition}
+
+% shall i really include time as a variable in my definition? snapshots seems better.
+% We can consider two possibilities of systems, one where the system doesn't remove data from it's collection on it's own and one where it removes data over time.
+
+%\begin{definition}{def:OverColl}{} 
+%(Over-Collection)
+
+%\textit{if a process P collects more data than it "requires to function", we say a process is over-collecting.}
+%\end{definition} 
+
+%\textbf{Formal Definition: } 
+%Let a process P be able to collect data entries and to evaluate boolean expressions. 
+
+%$P_{collect}: D \cup P_{collection}$
+
+%where $P_{collection}$ means the set of data entries $(D_1,D_2,\ldots)$ collected, intially $\emptyset$, and $D$ is a new data entry being collected.
+
+%$P_{eval}: D \rightarrow \textbf{Bool}$
+
+%Let a service $S(x, y, ...)$ be a boolean expression depending on variables $x, y, ...$ 
+
+%We say the process $P$ dedicated to the service $S$, noted $<P,S>$, over-collects data if and only if $P$ collects any data concerning one of the variables appearing in $S$ after $S$ has been evaluated to be true.
+
+%$<P,S>$ over-collects iff $ \{ D \in P_{collection} \} \wedge \{ P_{eval}(D) = \textbf{True}\}$ \todo{something like that, but with S}
+
+%$P = (C,E)$ $C$ is a finite set where the elements are tuples of $c \in C : c = (x,y,...)$ called data entries. $E: c \in C \rightarrow \textbf{Bool}$ (E is a function on an element in C with a resulting boolean value.) if $\left\{ { E: \exists c \in C \rightarrow \textbf{True} } \right\} \wedge \left\{ { S(x,y,...) \rightarrow \textbf{True} } \right\}$ and $c = (x,y,...)$ (translation between variables and c).
+
+%Let $\textbf{D}_C$ be a new data point not in the collection and $\textbf{D}$ be the current stored collection of data. Let $|D|$ be the amount of data entries in $\textbf{D}$ and $\textbf{F}$ be a fixed number describing the amount of data a process requires to function.  
+
+%So consider a system that is not in a over-collective state ($|\textbf{D}| < \textbf{F}$) is receiving a new entry point to it's collection; 
+
+%\[ \textbf{D} + \textbf{D}_C = \textbf{D}' \]
+
+%Where '+' means the operation of appending the data to the collection. So then if:
+
+%\[ |\textbf{D}'| \geq \textbf{F} \]
+
+%Then a system is over-collecting.
+
+% assume non-dissipating? personal data not being removed?
+
+% formal formulation (like non-inference)
+
+%*overcollection-examples*
+
+%*define over-collection*
+
+
+\subsection{Decisions}
+
+%introduction leading up to what we need it for.
+
+A \textit{decision procedure} is an algorithm that terminates with a yes or no answer, given a decision problem.\cite{decisionproceduresbook} 
+
+%From the Definition~\ref{def:OverColl} we understand it's not uncommon for processes to collect more data than they require. 
+
+% A single sensor node usually\cite{WSN_a_survey} doesn't hold enough information about the system state to 
+
+
+%\subsubsection{Formal Definition}
+
+%\begin{definition}{}{}
+%\label{def:DecProc}
+%(Decision Process)
+
+%A process is called a decision process for T if it is sound and complete with respect to every formula of T.
+%\end{definition}
+
+%\textit{Definition \ref{def:DecProc} also requires some more definitions, but this is an important one so added it for now.}
+
+%\begin{definition}{}{}
+%\label{def:DecComplete}
+%(Completeness of a procedure)
+
+%A procedure for the decision problem is complete if 
+%\begin{itemize}
+%\item it always terminates (termination), and
+%\item it returns "Valid" when the input is valid. (soundness)
+%\end{itemize}
+
+%\end{definition}
+
+
+%A decision \todo{rewrite} is a control message sent through the network forcing an action to be taken\todo{witness? semantics?}, in this report that's mainly when over-collection is occurring. This can for example mean that the server is telling one (or several) collection nodes that they should shut down or wait until sending again. If the nodes are also computing data they can still be kept doing so but without sending communication throughout the network until notified again. The source of the decision depends on if the network has a centralized processing unit (f.e. a master-slave relation) or if computations are decentralized and each processing unit makes decision on their own and uses communication to forward processed data to a storage server. 
+
+%\textbf{Definition: } A message sent in the network is considered a decision if it changes the behavior of an actor.
+
+%*formally define decisions* ?
