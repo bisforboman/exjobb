@@ -1,73 +1,28 @@
 \chapter{Design}
 
+This section covers the design aspect of the work, showing the final versions of the models discussed in the previous chapter as well as explaining how they work. 
+
 %(1) justify why Promela/SPIN is a good fit for your model, in comparison with other similar tools (NuSMV, UPPAAL, ...). Then, explain 
 
-\textit{introduction-text: I seek to use SPIN/Promela for my models and first I need to justify why I did so and compare it to other tools...} \\
+%\textit{introduction-text: I seek to use SPIN/Promela for my models and first I need to justify why I did so and compare it to other tools...} \\
 
 % -----
 % Uppaal
 
 % Shall i make an translation example to Uppaal's timed automata?
 
-Analysis of UPPAAL vs. TLC for verifying the WS-AT Protocol. %\cite{uppaal_analysis} \\
+%Analysis of UPPAAL vs. TLC for verifying the WS-AT Protocol. %\cite{uppaal_analysis} \\
 
 
 
 %-----
 % NuSVM
 
-Survey regarding the NuSVM "symbolic" model checker.%\cite{NuSVM_modelchecker}
+%Survey regarding the NuSVM "symbolic" model checker.%\cite{NuSVM_modelchecker}
 
 %-----
 
 % comparison table between two/three choices?
-
-\begin{table}[H]
-\centering
-\begin{tabular}{| p{3cm} || p{3cm} | p{3cm} | p{3cm} |} \hline
-Tool 
-	& \textbf{SPIN} 
-    & \textbf{UPPAAL}
-    & \textbf{NuSVM}
-    \\ \hline\hline
-specification language 
-	& promela
-    & timed automata network with shared variables
-    & ...
-    \\ \hline
-necessary user's background 
-	& programming
-    & programming
-    & ...
-    \\ \hline
-expressiveness of spec. language 
-	& ...
-    & restricted, communicating state machines, C-like (but finite) data structures, inductive approach
-    & ...
-    \\ \hline
-model checker characteristics 
-	& ...
-    & verifies the full specification language (with time)
-    & ...
-    \\ \hline
-modeling / verification speed 
-	& ...
-    & slower modeling, faster verification
-    & ...
-    \\ \hline
-verification of time/cost features
-	& ...
-    & straightforward modeling and state-of-the-art verification support
-    & ...
-    \\ \hline
-parameterized reasoning
-	& ...
-    & ...
-    & ...
-    \\ \hline
-\end{tabular}
-\caption{Comparison between the model checkers SPIN, UPPAAL and NuSVM.}%\cite{compare_spin_uppaal}
-\end{table}
 
 %this is all bs?
 %\textit{FSA models contain States, Conditions, Steps? ...} 
@@ -199,9 +154,9 @@ DoneColl: // node will shutdown here.
 }
 \end{lstlisting}
 
-\subsection{Translation}
+%\subsection{Translation}
 
-\textit{this section will generally discuss the translation and the new errors that could occur, but are handled by design.}
+%\textit{this section will generally discuss the translation and the new errors that could occur, but are handled by design.}
 
 %\[ \textit{show figure of node's code/psuedocode here.} \]
 
@@ -209,9 +164,9 @@ DoneColl: // node will shutdown here.
 
 
 
-\section{Verification}
+%\section{Verification}
 
-\textit{Discuss the results from the verification, present modifications done to fix any errors that might occur (perhaps show a interesting case of this).}
+%\textit{Discuss the results from the verification, present modifications done to fix any errors that might occur (perhaps show a interesting case of this).}
 
 %\section{Component Description} \textit{Each individual component will also be described and how their protocols are defined will also be described}
 
