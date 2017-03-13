@@ -70,7 +70,7 @@ This meant that our already constructed model were a model with \textbf{centrali
 
 The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model, to give some context to the process. \\
 
-\subsection{The Atomic Requirement} \\
+\textbf{The Atomic Requirement} \\
 
 % explain what, then when atomic statements in the models were introduced
 
@@ -87,7 +87,7 @@ Waiting:
         }
 \end{lstlisting}
 
-This section also had problems with interleaving statements, it was the step where a node either stopped or continued collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel\todo{this can be referenced from the SPIN-book with the same example they had there}. So instead the project had to modify the models to use a unique channel between the server and the nodes. The atomic statement here handled the logic that a node that had received a stop-decision didn't linger, but instead immediately acted on the information and stopped collection.
+This section also had problems with interleaving statements, it was the step where a node either stopped or continued collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel(\textit{this can be referenced from the SPIN-book with the same example they had there}). So instead the project had to modify the models to use a unique channel between the server and the nodes. The atomic statement here handled the logic that a node that had received a stop-decision didn't linger, but instead immediately acted on the information and stopped collection. \\
 
 \textbf{Introduction of States} \\
 
@@ -97,9 +97,9 @@ This section also had problems with interleaving statements, it was the step whe
 As can be seen in the initial model, this version handled the verification by using global variables to monitor certain values and making sure the processes were working as intended. An example is the variable \texttt{nodesDone} which kept track on how many nodes were currently actively collecting data. This approach worked initially, but made the models lack certain information. Specifically for the liveness property to know whether a node was collecting data or not. \\ 
 
 % result
-This caused the introduction of states in the models instead. This also made the models easier to translate to state machines, since the states were clearly stated in the models.
+This caused the introduction of states in the models instead. This also made the models easier to translate to state machines, since the states were clearly stated in the models. \\
 
-\subsection{The Network Channel} \\
+\textbf{The Network Channel} \\
 
 % explain the introduction of the network channel in the distributed case.
 
@@ -107,7 +107,7 @@ This caused the introduction of states in the models instead. This also made the
 
 % result
 
-\subsection{The Liveness Relaxation} \\
+\textbf{The Liveness Relaxation} \\
 
 % explain when the liveness property was expanded to "bigData_metered" instead.
 
