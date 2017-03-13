@@ -70,6 +70,25 @@ This meant that our already constructed model were a model with \textbf{centrali
 
 The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model, to give some context to the process. \\
 
+\subsection{The Atomic Requirement} \\
+
+% explain what, then when atomic statements in the models were introduced
+
+% cause & result
+A big concern when modeling concurrency is the uncertainty of interleaving statements. To fix such problems one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). Of course these should be used with careful consideration, to not change the model of what we wish to model. Our project experienced problems 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
+
+\begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+Waiting:
+        atomic {
+          if
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
+          fi;
+        }
+\end{lstlisting}
+
+This section also had problems with interleaving statements, it was the step where a node either stopped or continued collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel\todo{this can be referenced from the SPIN-book with the same example they had there}. So instead the project had to modify the models to use a unique channel between the server and the nodes. The atomic statement here handled the logic that a node that had received a stop-decision didn't linger, but instead immediately acted on the information and stopped collection.
+
 \textbf{Introduction of States} \\
 
 % explain the change from the ghost variables to states (since SPIN couldn't verify certain things).
@@ -98,13 +117,6 @@ The liveness property for the system demanded a lot of revisions, which isn't un
 
 % result
 
-\subsection{The Atomic Requirement} \\
-
-% explain when atomic statements in the models were introduced
-
-% cause
-
-% result
 
 
 % -------------- ------------------------- old stuff
