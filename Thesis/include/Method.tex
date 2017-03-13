@@ -1,0 +1,25 @@
+\chapter{Method}
+
+\textit{describes how i went about the project, this is not expected to remain in the thesis in the final result but I'm keeping this section seperate from the rest due since I have a lot of other text written on the rest, so not sure how to integrate it yet.}
+
+\section{Initial Model}
+
+\textit{discuss how the intial models looked like} \\
+
+As a starting point, the project began with a minor model of a \wsn. A version of this can be seen in appendix ?? \todo{include ref here}. Here we had 'watchers', or 'ghost-variables', listening for events in the network. For example \texttt{msgSent} was a variable that became true when the network sent a stop-decision, saying that no more data collection should occur.
+
+\section{Revisions}
+
+\subsection{Correctness}
+
+\textit{show and discuss some interesting revisions that came from the refinement in the MC-step} \\
+
+The correctness property of the system specified that our system should be working as intended, but specifying precisely what is sought changed several times through the work. The initial assumption for a correctness property was specified as: 
+
+\[ \textit{When the message containing the stop-decision, the system should shut down.} \]
+
+Initially this seemed correct, since the functionality that was sought was to make sure that collection was paused when a certain threshold was reached or a specific event had occured.
+
+\section{Final Model}
+
+\textit{discuss the final models and their limitations}
