@@ -1,6 +1,6 @@
 \chapter{Discussion} 
 
-\textit{Discuss different choices made and why they were made.} \\
+This section presents a discussion to the choices and limitations made to the thesis. Some ideas for further work is also presented.
 
 \begin{itemize}
 \item discuss why I used formal verification \& model checking instead of traditional approaches
@@ -10,10 +10,29 @@
 \item discuss the other concurrency tools in the background.
 \end{itemize}
 
+\section{Model Checking}
+
+\textit{compare to a different approach and mention if any better results could'd perhaps had been achieved by doing so.}
+
+\textit{discuss the iterative constant rework of the properties and how time consuming such a task is. Initial planning estimated 2-3 weeks but in practice this took 1-2 months.}
+
+\section{Over-Collection}
+
+\textit{overcollection was a difficult task to specify, since it's occurence varied a lot in different systems. }
+
+
+\section{Data Minimization}
+
+
+
 \chapter{Conclusion}
 
 \textit{Conclude the results of the report, did it go as expected? What progress did you make and what didn't you achieve that you had hoped? Did you reach the aim stated and did you keep yourself in the scope \& limitations? }
 
+In this thesis, we aimed to define over-collection in wireless sensor networks and then apply data minimization to said models to reduce, or in the best case prevent, data over-collection.
+For modeling wireless sensor networks, a set of promela models were defined and correctness and liveness properties for the models were verified. Additional properties were discussed, such as fairness, but due to time constraints these weren't implemented.
+
+\textit{During the course of the thesis, an approach to a solution was to construct a module, not integrated into an entity in the system. Which simply could be installed and attached to the system, to prevent over-collection. This idea became an invisible goal to what would sought to be achieved. }
 %\chapter{Ethics}
 %*discuss the/some ethics involved*
 

@@ -105,7 +105,9 @@ So when running the verification, Spin negates the specified property and then a
 
 There are two strategies that SPIN uses to reduce the number of states generated in verification.\todo{ref spin book} The aims of them are; "to reduce the amount of reachable system states that must be searched to verify properties, or to reduce the amount of memory that is needed to store each state".
 
-One strategy to achieve this is called partial order reduction. % continue from pub
+One strategy to achieve this is called partial order reduction, which relies on selecting and examining only a subset of all possible execution paths. An example of this is by detecting interleaving of processes which relative ordering do not affect the final outcome of the execution, with regards to the property being verified. \todo{mention clarke et al?}
+
+Another strategy SPIN uses is stutter equivalence. \todo{mention meaning} Spin's partial order reduction strategy assumes this, and by so only guarantees verification for stutter invariant properties. This makes it impossible to verify properties containing the \textit{next}-operator.
 
 %\section{Other stuff} % this section has been moved from §4
 
@@ -115,15 +117,15 @@ One strategy to achieve this is called partial order reduction. % continue from 
 
 %Over-Collection is the state or process which a system collects data beyond the scope of it's required parameters. 
 
-As mentioned in the background, there are several examples of applications where personal data is collected from users \todo{link some of them here}. Each of these applications have different purposes for collecting data and different levels of privacy. 
+As mentioned in the background, there are several examples of applications where personal data is collected from users \todo{link some of them here}. Each of these applications have different purposes for collecting data and different levels of privacy. \\
 
-\textbf{Definition (informal):} If an entitity collects more data than required to complete it's purpose, it's over-collecting.
+\textbf{Definition (informal):} If an entitity collects more data than required to complete it's purpose, it's over-collecting. \\
 
 From this definition, for instance, if in the article from the Chicago Tribunal \todo{insert ref}, they mentioned that after the nodes had read and analyzed the data, the captured images would be destroyed. This is a step taken to prevent over-collection. If instead the image would be stored after the analysis had been completed, e.g. in a central server, this would be collecting more data than required and the system would be over-collecting.
 
+This means that over-collection is a state of which a system can be in. For our models, we've modeled it as another state. In practice though, a system that collects data without some restriction, could easily be over-collecting always and never. By letting a system knowing more specifically what to look for and discard more of the gathered data, would make it "smarter" in an IoT-sense, and also to better prevent over-collection. \\
  
-
-
+To formalize this, if we have system that collects data, and at some point in the system it's collected enough data - for what's required. At this state, if the system would collect data, without first "leaving" this state, the system would be over-collecting. 
 
 % refer to the definitions by Pfitzmann
 
