@@ -75,7 +75,7 @@ The process of model checking is an iterative process, with many refinement step
 % explain what, then when atomic statements in the models were introduced
 
 % cause & result
-A big concern when modeling concurrency is the uncertainty of interleaving statements. To fix such problems one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). Of course these should be used with careful consideration, to not change the model of what we wish to model. Our project experienced problems 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
+A big concern when modeling concurrency is the uncertainty of interleaving statements. To fix such problems one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). Of course these should be used with careful consideration, to not change the model of what we wish to model. Our project experienced problems with 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
 
 \begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 Waiting:

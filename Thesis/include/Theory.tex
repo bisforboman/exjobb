@@ -99,7 +99,13 @@ So when running the verification, Spin negates the specified property and then a
 
 \subsection{Problem space reduction}
 
+
+
 % mention abstraction and reducing the model 
+
+There are two strategies that SPIN uses to reduce the number of states generated in verification.\todo{ref spin book} The aims of them are; "to reduce the amount of reachable system states that must be searched to verify properties, or to reduce the amount of memory that is needed to store each state".
+
+One strategy to achieve this is called partial order reduction. % continue from pub
 
 %\section{Other stuff} % this section has been moved from §4
 
@@ -108,6 +114,21 @@ So when running the verification, Spin negates the specified property and then a
 % mention others definitions' of over-collection
 
 %Over-Collection is the state or process which a system collects data beyond the scope of it's required parameters. 
+
+As mentioned in the background, there are several examples of applications where personal data is collected from users \todo{link some of them here}. Each of these applications have different purposes for collecting data and different levels of privacy. 
+
+\textbf{Definition (informal):} If an entitity collects more data than required to complete it's purpose, it's over-collecting.
+
+From this definition, for instance, if in the article from the Chicago Tribunal \todo{insert ref}, they mentioned that after the nodes had read and analyzed the data, the captured images would be destroyed. This is a step taken to prevent over-collection. If instead the image would be stored after the analysis had been completed, e.g. in a central server, this would be collecting more data than required and the system would be over-collecting.
+
+ 
+
+
+
+% refer to the definitions by Pfitzmann
+
+
+
 
 %A \wsn primary objective is to collect data from an observed source and let a processing unit analyze the state of it. 
 
@@ -185,9 +206,17 @@ So when running the verification, Spin negates the specified property and then a
 
 \subsection{Decisions}
 
+% how decisions are used
+
+% what they are
+
+% how they can be used
+
+% ----------
+
 %introduction leading up to what we need it for.
 
-A \textit{decision procedure} is an algorithm that terminates with a yes or no answer, given a decision problem.\cite{decisionproceduresbook} 
+To formulate the problem on whether or not to act on information, the thesis used an expression we called \textit{decisions}. We specified that for a system to decide whether or not it was over-collecting; "a decision had to be taken". This meant that there had to be an algorithm in place for the system to yield a "yes or no" answer when invoked. This is known as a \textit{decision procedure}\cite{decisionproceduresbook} 
 
 \textit{show example of a decision procedure}
 
