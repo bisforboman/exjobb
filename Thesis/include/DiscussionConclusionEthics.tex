@@ -8,9 +8,16 @@ This section presents a discussion to the choices and limitations made to the th
 \item discuss why I made simplifications to the initial models
 \item discuss why I chosed to use SPIN/Promela as a tool
 \item discuss the other concurrency tools in the background.
+\item mention that the project should had sought quantifiable means to measure collection or something else to formulate a decision on.
 \end{itemize}
 
+%The thesis had a difficult and abstract goal, with not as much related work to it as was hoped. If a working solution would had been achieved, we had hoped to present an approach for constructing or adapting existing \wsns to achieve data minimization.
+
+%\textit{During the course of the thesis, an approach to a solution was to construct a module, not integrated into an entity in the system. Which simply could be installed and attached to the system, to prevent over-collection. This idea became an invisible goal to what would sought to be achieved. }
+
 \section{Model Checking}
+
+The thesis chosed to use SPIN/Promela due to prior knowledge, from this Model Checking came natural to use. 
 
 \textit{compare to a different approach and mention if any better results could'd perhaps had been achieved by doing so.}
 
@@ -18,7 +25,11 @@ This section presents a discussion to the choices and limitations made to the th
 
 \section{Over-Collection}
 
-\textit{overcollection was a difficult task to specify, since it's occurence varied a lot in different systems. }
+\textit{overcollection was a difficult task to specify, since it's occurence varied a lot in different systems.}
+
+The investigation into over-collection as a concept became delayed several steps on the way, due to that the modeling process took longer time than expected. This lead to that the conclusions sought to be drawn from how to prevent over-collection using data minimization became 
+
+\textit{quantiative approach would'd been useful, aim for a way to measure he result.}
 
 
 \section{Data Minimization}
@@ -27,12 +38,17 @@ This section presents a discussion to the choices and limitations made to the th
 
 \chapter{Conclusion}
 
+
 \textit{Conclude the results of the report, did it go as expected? What progress did you make and what didn't you achieve that you had hoped? Did you reach the aim stated and did you keep yourself in the scope \& limitations? }
 
-In this thesis, we aimed to define over-collection in wireless sensor networks and then apply data minimization to said models to reduce, or in the best case prevent, data over-collection.
-For modeling wireless sensor networks, a set of promela models were defined and correctness and liveness properties for the models were verified. Additional properties were discussed, such as fairness, but due to time constraints these weren't implemented.
+In this thesis, we investigated over-collection in wireless sensor networks. As a tool we used promela to model this and then apply data minimization as a concept to said models to reduce, or in the best case prevent, data over-collection in the systems. For modeling wireless sensor networks, a set of promela models were defined and correctness and liveness properties for the models were verified. Additional properties were discussed, such as fairness, but due to time constraints these weren't implemented. During the modeling of the different variations, many unseen obstacles were encountered. Specifically the verification of the properties, both correctness and liveness. Since the project kept these the same for all variations, when one property was changed a re-iteration of all the previous variations were also required. This resulted in a several delayed deadlines. 
 
-\textit{During the course of the thesis, an approach to a solution was to construct a module, not integrated into an entity in the system. Which simply could be installed and attached to the system, to prevent over-collection. This idea became an invisible goal to what would sought to be achieved. }
+% fråga cissi om jag kan skriva rekommendationer om projektet här
+As a remark, to achieve this goal the project should had instead focused on an/several already existing system(s) to model and abstracted the models from this.  
+
+This resulted in that the last goal, "Implement a solution from the models and analyze results", wasn't achieved. 
+
+
 %\chapter{Ethics}
 %*discuss the/some ethics involved*
 

@@ -1,14 +1,20 @@
 \chapter{Modeling \& Specification}
 
-The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first stating some basic concepts and then explaining the iterative process that led to the final results.
+In order to address the goals stated in the aim, the project first had to visualize and construct the models which would be investigated. To this end, Model Checking was used. The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first stating some basic concepts and then explaining the iterative process that led to the final results.
 
 \section{Definitions}
 
-First we will explain how a typical design looks, for a \wsn we seek to model. Secondly we will describe in detail how each entity operates. Finally, before explaining the modeling, we will explain the meaning of some key aspects of the work such as \textit{Decisions} and \textit{Over-Collection}.
+First we will describe how a typical \wsn, that we sought to model, would look. The project begun with an example as simple and general as possible, having an agile development process in mind, which would then be expanded to more complex models later on. 
+
+%First we will explain how we interpreted that typical \wsn would look that we sought to model. 
+
+%Secondly we will describe in detail how each entity operates. Finally, before explaining the modeling, we will explain the meaning of some key aspects of the work such as \textit{Decisions} and \textit{Over-Collection}.
 
 \subsection{Basic WSN}
 
-A basic \wsn was defined as a starting point for the models. It consisted of a set of collection nodes (referred to as "nodes"), a central server (referred to as "Server") and finally an Environment (the observed source). An illustration of this can be seen in Figure~\ref{fig:basic_wsn}. Which is the basis for all the models described in the thesis. An important note on this setup is that the "environment" here is considered an entity (same as a node or a server). This abstraction was made to simplify the modeling, so the nodes instead of managing a shared resource instead can have the data communicated to them as messages.
+As mentioned in the background, a basic \wsn consists of a set of collection nodes (referred to as "nodes"), a central server (referred to as "Server") and finally an Environment (the observed source). An illustration of this can be seen in Figure~\ref{fig:basic_wsn}. 
+
+%Which is the basis for all the models described in the thesis. %An important note on this setup is that the "environment" here is considered an entity (same as a node or a server). This abstraction was made to simplify the modeling, so the nodes instead of managing a shared resource instead can have the data communicated to them as messages.
 
 \begin{figure}[ht]
     \includegraphics{include/figures/basic_wsn}
@@ -16,138 +22,25 @@ A basic \wsn was defined as a starting point for the models. It consisted of a s
     \label{fig:basic_wsn}
 \end{figure}
 
+These entities were chosen as the three pieces that our initial models would consist of. To abstract these further, the word \textit{Actor} was used to represent that these entities were processes acting on data. Furthermore, the project followed by defining the characteristics of each of these.  
+
+%This would serve as a generalization of any \wsn collecting data that we sought to analyze. 
+
 %As a start for the formal development process, the project required some "building blocks" \todo{find a better word} to better define certain aspects of a \wsnd. 
 
 %We will henceforth refer to entities in the system as \textbf{actors} in the system.
 
-\subsection{Description of Actors}
-
-A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. Throughout the thesis these entities will be referred to as \textit{Actors}.
-
-To describe the interaction between two actors in the system, behavior models were used (e.g. Figure~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
-
-\section{Modeling}
-
-This section covers the modeling aspect of the thesis which was one of the main goals of the thesis, first will be discuss some initial assumptions and show some faulty models that were refined to the final results. 
-
-%*what is a model?*
-\subsection{Initial Models}
-
-As a starting point, the project began with a minor model of a \wsn. The purpose was to start with a small example containing all relevant parts and then work on expanding this to a more thorough model. A version of this can be seen in appendix \textit{centralized\_decision\_multiple\_nodes\_8jul}. As can be seen in the example, the network passes the data between the actors and when the server triggers the decision to stop, the message is passed through the network and the system shuts down. This captures the entire process of the functionality that was sought from the models. To verify that this functionality was achieved, a correctness property was specified as \textit{When the decision to stop is taken, the system should shut down}. \\ 
-
-This property worked great for a model with one collection node, which was a trivial case since no system relevant for this thesis consists of one collection node. So when more nodes were added, the model checking yielded that the delay when several nodes are gathering data and passing it to the server, the correctness property needed to be more relaxed; which refined the property into \textit{When the decision to stop is taken, the system should \underline{eventually} shut down}. 
-
-\[ \textit{show an image or figure explaining this delay} \]
-
-This was the first refinement done for the models and this model became the initial model for the work, which then was refined into the other models. More refinements will be shown in the section \textbf{Revisions}. Coming chapters will discuss some theoretical work that arose from the this model. The project realized that before continuing the work on the models some generalizations for \wsn needed to be done before working further on the models.
-
-%mention the change with ghost variables to states instead?
-
-\subsection{Variations}
-
-%As a starting point for defining the models, first different architectural choices were considered. This was done to help define different cases of \wsn that could use decisions. The different variations considered were: \\
-
-%Before starting the modeling step, the thesis sought to identify some characteristics for \wsns collecing data, to have some generalizations of \wsns to model instead of targeting a specific system. The variations that were considered were as follows:
-
-During the modeling of the initial models, some assumptions were made for the system. From this we realized that our initial model would only work if the target system had the same architecture, which in many cases wouldn't be true. So we sought a model that should work regardlessly from how the target system should look. Meaning that we sought a model of a system that could be attached to an already installed network, which would help the system achieve Data Minimization. So to expand our idea, and help refine our models, we composed a set of architectural variations for \wsns which our model should work on. These variations were generalizations of \wsns that collected personal data. From this the project hoped to refine a model that should work on each of the different variations. \\
-
-The variations the project settled on were the following:
-
-\begin{itemize}
-\item[] \textbf{Centralized or Decentralized decision making} \\ The first choice reflected how much the sensor nodes would analyze the data. Since nodes can have a processing unit, they could potentially analyze the collected data and make a decision on their own.
-\item[] \textbf{Conjunctive or Disjunctive decision analysis} \\ The second choice reflected how the decision were processed, if the data from a single data point could trigger a decision or if the decision considered data from multiple entries in it's evaluation.
-\item[] \textbf{Centralized or Distributed communication} \\ The final variation reflected how the network communicated, it was considered centralized if all communication were sent through a central unit, such as a server, or if nodes were allowed to communicate independently to each other. 
-\end{itemize}
-
-
-%\section{Initial Modeling} % THIS IS THE SECTION FOR THE ITERATIVE PROCESS
-
-%With this in mind, the modeling began on an initial model was made for of these variations namely; a model with a centralized decision making, disjunctive decision analysis and centralized communication. 
-
-This meant that our already constructed model were a model with \textbf{centralized decision making}, \textbf{disjunctive decision analysis} and \textbf{centralized communication}. More of this will be covered in the design chapter, where the final models are discussed. The following section will explain some intermediate steps that led to the final result.
-
-\section{Revisions}
-
-The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model, to give some context to the process. \\
-
-\textbf{The Atomic Requirement} \\
-
-% explain what, then when atomic statements in the models were introduced
-
-% cause & result
-A big concern when modeling concurrency is the uncertainty of interleaving statements. To fix such problems one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). Of course these should be used with careful consideration, to not change the model of what we wish to model. Our project experienced problems with 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
-
-\begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
-Waiting:
-        atomic {
-          if
-          :: out ? continue -> goto Idle;
-          :: out ? stop -> 
-          fi;
-        }
-\end{lstlisting}
-
-This section also had problems with interleaving statements, it was the step where a node either stopped or continued collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel(\textit{this can be referenced from the SPIN-book with the same example they had there}). So instead the project had to modify the models to use a unique channel between the server and the nodes. The atomic statement here handled the logic that a node that had received a stop-decision didn't linger, but instead immediately acted on the information and stopped collection. \\
-
-\textbf{Introduction of States} \\
-
-% explain the change from the ghost variables to states (since SPIN couldn't verify certain things).
-
-% cause
-As can be seen in the initial model, this version handled the verification by using global variables to monitor certain values and making sure the processes were working as intended. An example is the variable \texttt{nodesDone} which kept track on how many nodes were currently actively collecting data. This approach worked initially, but made the models lack certain information. Specifically for the liveness property to know whether a node was collecting data or not. \\ 
-
-% result
-This caused the introduction of states in the models instead. This also made the models easier to translate to state machines, since the states were clearly stated in the models. \\
-
-\textbf{The Network Channel} \\
-
-% explain the introduction of the network channel in the distributed case.
-
-% cause
-
-% result
-
-\textbf{The Liveness Relaxation} \\
-
-% explain when the liveness property was expanded to "bigData_metered" instead.
-
-The liveness property for the system demanded a lot of revisions, which isn't uncommon. A liveness property should capture, loosely explained, that \textit{eventually something good happens}. For this project this was a difficult thing to define, since our solution relied on a state for the system which possibly could never occur in a run. 
-
-% cause
-
-% result
-
-
-
-% -------------- ------------------------- old stuff
-
-% FSA -> blablbabla transition
-
-% The first working model can be seen in appendix \textit{cendralized_decision_multiple_nodes_8jul}. 
-
-%This was made as a starting point for other variations and also help define the properties sought of the network.
-
-
-%This was due to that this variation appeared to be the easiest to implement and analyze, which in turn would help making the other variations and as well formalize the properties sought of the network.
-
-% Furthermore, the project defined the individual components of the \wsn to three actors: \textit{Node}, \textit{Server} and \textit{Environment}.
-
-%Furthermore, the project sought to define a model for the basic \wsn \todo{from 2.1 ref?}, so three actors were defined: \textit{Node}, \textit{Server} and \textit{Environment}.
-
-%Initial models were made for each of the choices except conjunctive decision procedures. 
-
-%This was due to that a conjunctive decision procedure would require a more sophisticated algorithm to analyze the data than the other choices, which would require additional time for just one variation. \todo{is this a relevant chapter?} 
-
-%As suggested when developing formally, I started out with a simple model \todo{only explain how I started out in intro / conclusion} as possible. So the model expects that each actor acts as intended, without malicious users or failing procedures, and that all messages gets through, e.g. no 'lossy' channels. 
-
-%Furthermore, the project sought to define a model for the basic \wsn \todo{from 2.1 ref?}, so three actors were defined: \textit{Node}, \textit{Server} and \textit{Environment}.
-
-
-
+%\subsection{Description of Actors}
 
 \section{Actors}
 
-As mentioned previously, \textit{Actors} represents the entities in the network. This section covers the different actors that reprent the components in our models. 
+A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. %Throughout the thesis these entities will be referred to as \textit{Actors}.
+
+To describe the interaction between two actors in the system, behavior models were used (e.g. Figure~\ref{fig:behav_example}). Where the name of each actor is shown in the boxes at the top. The message channel used between them is shown as the arrows, where the arrow-head points to the actor receiving the message and the contents of the message is referenced above it. Finally the ordering of the messages are in a ascending order from the top, meaning the first message sent is shown furthest to the top of the figure.
+
+At this stage the project realized that to simplify the modeling process, the environment could be considered as an actor in the system. This was an abstraction, since the observed source wouldn't act from a predefined pattern as an actor would, but to save time from having to manage concurrency with a shared resource.
+
+%As mentioned previously, \textit{Actors} represents the entities in the network. This section covers the different actors that reprent the components in our models. 
 
 % describe why the environment is modeled as such
 % describe that the environment came later of directly?
@@ -247,17 +140,154 @@ This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}
 
 %*explain what this model doesn't consider and possible variations for the decisions.*
 
+\section{Modeling}
+
+With this defined, the project began to construct Promela models representing these actors' behaviour. This would be the initial example which then would be expanded step by step into a complex model. This section will describe how the modeling was carried out.
+
+%*what is a model?*
+\subsection{Initial Model}
+
+The first iteration consisted of a \wsn of three collection nodes, a server and an environment. The collection nodes would sent a request to the environment to receive data which would then be passed to the server for analysis. Each message being sent to the server could be the source of over-collection so to each message received, the server would respond to the nodes whether to continue collection or not. The promela representation of this can be seen in appendix \textit{centralized\_decision\_multiple\_nodes\_8jul}. \\
+
+As can be seen in the example, the network passes the data between the actors and when the server triggers the decision to stop, the message is passed through the network and the system shuts down. To verify that this functionality was achieved, a correctness property was specified as \textit{When the decision to stop is taken, the system should shut down}. \\
+
+This initial model were then analyzed, for how it could be expanded to represent a more complex example. This analysis is described following subchapters.
+
+%From the analysis, a set of architectural choices 
+
+
+%As a starting point, the project began with a minor model of a \wsn. The purpose was to start with a small example containing all relevant parts and then work on expanding this to a more thorough model. A version of this can be seen in   \\ 
+
+
+
+%This property worked great for a model with one collection node, which was a trivial case since no system relevant for this thesis consists of one collection node. So when more nodes were added, the model checking yielded that the delay when several nodes are gathering data and passing it to the server, the correctness property needed to be more relaxed; which refined the property into \textit{When the decision to stop is taken, the system should \underline{eventually} shut down}. 
+
+%\[ \textit{show an image or figure explaining this delay} \]
+
+%This was the first refinement done for the models and this model became the initial model for the work, which then was refined into the other models. More refinements will be shown in the section \textbf{Revisions}. Coming chapters will discuss some theoretical work that arose from the this model. The project realized that before continuing the work on the models some generalizations for \wsn needed to be done before working further on the models.
+
+%mention the change with ghost variables to states instead?
+
+\subsection{Variations}
+
+%As a starting point for defining the models, first different architectural choices were considered. This was done to help define different cases of \wsn that could use decisions. The different variations considered were: \\
+
+%Before starting the modeling step, the thesis sought to identify some characteristics for \wsns collecing data, to have some generalizations of \wsns to model instead of targeting a specific system. The variations that were considered were as follows:
+
+During the work on the initial model, we realized that some assumptions were made for the system and that our initial model would only work if the target system communicated in the same way. Which might not always be true. And since we hadn't chosen a predefined system to model, we aimed to keep our model as general as possible to better investigate over-collection. So to abstract our model we composed a set of different architectural variations of \wsns to model, which we considered to help us achieve the sought aim.
+
+%These variations generalizations of \wsns that collected personal data. 
+
+%Meaning that we sought a model of a system that could be  to an already installed network, 
+% which would help the system achieve Data Minimization. 
+
+The variations the project chosed to focus on were the following:
+
+\begin{itemize}
+\item[] \textbf{Centralized or Decentralized decision making} \\ The first choice reflected how much the sensor nodes would analyze the data. Since nodes can have a processing unit, they could potentially analyze the collected data and make a decision on their own.
+\item[] \textbf{Conjunctive or Disjunctive decision analysis} \\ The second choice reflected how the decision were processed, if the data from a single data point could trigger a decision or if the decision considered data from multiple entries in it's evaluation.
+\item[] \textbf{Centralized or Distributed communication} \\ The final variation reflected how the network communicated, it was considered centralized if all communication were sent through a central unit, such as a server, or if nodes were allowed to communicate independently to each other. 
+\end{itemize}
+
+
+%\section{Initial Modeling} % THIS IS THE SECTION FOR THE ITERATIVE PROCESS
+
+%With this in mind, the modeling began on an initial model was made for of these variations namely; a model with a centralized decision making, disjunctive decision analysis and centralized communication. 
+
+This meant that our already constructed model were a model with \textbf{centralized decision making}, \textbf{disjunctive decision analysis} and \textbf{centralized communication}. From this the project continued to refine a model for each of the other variations. During the refinement of the these models, several revisions were made before the end result was reached. The following section will explain some of these intermediate revisions that led to the final result.
+
+% More of this will be covered in the design chapter, where the final models are discussed. \\ 
+% During these modeling of these 
+
+\section{Revisions}
+
+The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model, to give some context to the process. \\
+
+\textbf{The Atomic Requirement} \\
+
+% explain what, then when atomic statements in the models were introduced
+
+% cause & result
+A big concern when modeling concurrency is the uncertainty of interleaving statements. To address such issues, one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). These should be used with careful consideration, to not change the nature of what is sought to model. Our project experienced a 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
+
+\begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+Waiting:
+        atomic {
+          if
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
+          fi;
+        }
+\end{lstlisting}
+
+This section also had problems with interleaving statements, it was the step where a node received the information to whether stop or continue collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel(\textit{this can be referenced from the SPIN-book with the same example they had there}). So instead the project had to modify the models to use a unique channel between the server and each node. The atomic statement here handled the logic that a node that had received a message didn't wait, but instead immediately acted on the information. \\
+
+\textbf{Introduction of States} \\
+
+% explain the change from the ghost variables to states (since SPIN couldn't verify certain things).
+
+% cause
+As can be seen in the initial model, this version handled the verification by using global variables to monitor certain values. An example is the variable \texttt{nodesDone} which represented on how many nodes were currently actively collecting data. This approach worked initially, but made the models lack certain information. Specifically for the liveness property to know whether a specific node had received data or not. \\ 
+
+% result
+This caused the introduction of states in the models instead. Which also made the models easier compare to their sought FSAs. \\
+
+\textbf{The Network Channel} \\
+
+% explain the introduction of the network channel in the distributed case.
+
+% cause
+
+% result
+
+\textbf{The Liveness Relaxation} \\
+
+% explain when the liveness property was expanded to "bigData_metered" instead.
+
+The liveness property for the system demanded a lot of revisions. As defined, a liveness property should express that \textit{eventually something good happens}. For this project this was a difficult thing to define, %since MC sucks balls and if we never OC'd everything was fine.
+
+%since our solution relied on a state for the system which possibly could never occur in a run. 
+
+% cause
+
+% result
+
+
+
+% -------------- ------------------------- old stuff
+
+% FSA -> blablbabla transition
+
+% The first working model can be seen in appendix \textit{cendralized_decision_multiple_nodes_8jul}. 
+
+%This was made as a starting point for other variations and also help define the properties sought of the network.
+
+
+%This was due to that this variation appeared to be the easiest to implement and analyze, which in turn would help making the other variations and as well formalize the properties sought of the network.
+
+% Furthermore, the project defined the individual components of the \wsn to three actors: \textit{Node}, \textit{Server} and \textit{Environment}.
+
+%Furthermore, the project sought to define a model for the basic \wsn \todo{from 2.1 ref?}, so three actors were defined: \textit{Node}, \textit{Server} and \textit{Environment}.
+
+%Initial models were made for each of the choices except conjunctive decision procedures. 
+
+%This was due to that a conjunctive decision procedure would require a more sophisticated algorithm to analyze the data than the other choices, which would require additional time for just one variation. \todo{is this a relevant chapter?} 
+
+%As suggested when developing formally, I started out with a simple model \todo{only explain how I started out in intro / conclusion} as possible. So the model expects that each actor acts as intended, without malicious users or failing procedures, and that all messages gets through, e.g. no 'lossy' channels. 
+
+%Furthermore, the project sought to define a model for the basic \wsn \todo{from 2.1 ref?}, so three actors were defined: \textit{Node}, \textit{Server} and \textit{Environment}.
+
 \section{Specification}
 
-This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of this process. 
+This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of the previously explained process.
 
 \subsection{Properties}
 
-The properties defined on the network were formulated using \textit{Linear Time Logic} (LTL). This choice came from the fact that LTL were native to SPIN and the models were abstracted to only focus on the relevant parts to the project, LTL could provide a simple and direct specification to that problem.
+The properties defined on the network were formulated using \textit{Linear Time Logic} (LTL). This choice came from the fact that LTL were native to SPIN and the models were abstracted to only focus on the relevant parts to the project, LTL could provide a simple and direct specification to that property. \\
 
-\subsubsection{Correctness}
+\textbf{Correctness} \\
 
-The primary property sought of the system was that it was working as intended. This was formulated as a safety correctness property, to ensure that when decision had been taken, the system respond to the by changing its' behavior.
+The primary property sought of the system was, intuitively, that it was working as intended. This was formulated as a safety correctness property, to ensure that when decision had been taken, the system respond to the by changing its' behavior.
 
 % explain correctness some more
 
@@ -269,13 +299,15 @@ Safety Correctness
 LTL: $\Box (O \rightarrow (\Diamond D)) $ \\
 \end{definition}
 
-Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. This captures the sought system change; whenever the system reaches the state O, eventually it will reach state D. An immediate change is not required, therefore the timing\todo{is this the proper word?} is relaxed by the eventually-operator.
+Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision is taken and the states where collection is stopped respectively. This captures the sought system change; whenever the system reaches the state O, eventually it will reach state D. An immediate change is not required, therefore the timing is relaxed by the eventually-operator. \\
 
-\subsubsection{Liveness}
+\textbf{Liveness} \\
 
 %A liveness property should express that "eventually something good happens" which for this project became that "eventually a node communicates data to the server". This didn't entirely capture what was sought from the system so an additional property was added for "if a data is communicated to the server, eventually the server replies to the node". 
 
-The second property was intuitive for the system since the initial models were constructed in such a way that when data is sent to the server, the first thing the server does it analyze it and respond accordingly depending on what data was sent.\todo{mention it was verified by design?}  
+%The second property was intuitive for the system since the initial models were constructed in such a way that when data is sent to the server, the first thing the server does it analyze it and respond accordingly depending on what data was sent.\todo{mention it was verified by design?}  
+
+The second property that was specified was liveness, which expresses that "eventually something good happens". For our system, this was defined as "eventually a node sends it's data to the server".
 
 \begin{definition}{}{}
 Liveness (sending)
