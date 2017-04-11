@@ -1,25 +1,71 @@
 \chapter{Method}
 
-\textit{describes how i went about the project, this is not expected to remain in the thesis in the final result but I'm keeping this section seperate from the rest due since I have a lot of other text written on the rest, so not sure how to integrate it yet.}
+In order to reach the stated aim, as posed in Section 1.2, this project is divided into two phases: \\
 
-\section{Initial Model}
+\textbf{Phase 1:} An initial study of the tools available to model a \wsn, where one will be chosen to be used. We will then seek to formalize the characteristics of a \wsn, to help the future analysis of the system. 
 
-\textit{discuss how the intial models looked like} \\
+From this we will proceed with an agile development process, and construct a system model of a \wsn that can over-collect data. This system model will then be abstracted and refined to provide an analysis of a general system collecting data. This means we will abstract away any characterstics of a system that we consider irrelevant for our analysis. Furthermore, we will proceed with the analysis: \\
 
-As a starting point, the project began with a minor model of a \wsn. A version of this can be seen in appendix ?? \todo{include ref here}. Here we had 'watchers', or 'ghost-variables', listening for events in the network. For example \texttt{msgSent} was a variable that became true when the network sent a stop-decision, saying that no more data collection should occur.
+% mention it should be kept general?
 
-\section{Revisions}
+\begin{enumerate}
+	\setlength\itemsep{1em}
+	\item How and when is Over-Collection occuring in a system? 
+	\item How can we apply Data Minimization to our model to prevent this? \\
+\end{enumerate}
 
-\subsection{Correctness}
+With this analysis completed, we will proceed with an implementation of the models in a suitable programming language to achieve a prototype. \\
 
-\textit{show and discuss some interesting revisions that came from the refinement in the MC-step} \\
+% what tools to use to reach the desired aim?
 
-The correctness property of the system specified that our system should be working as intended, but specifying precisely what is sought changed several times through the work. The initial assumption for a correctness property was specified as: 
+	% agile development process to quickly reach smth
 
-\[ \textit{When the message containing the stop-decision, the system should shut down.} \]
+	% construction of a theoretical model of a wsn
 
-Initially this seemed correct, since the functionality that was sought was to make sure that collection was paused when a certain threshold was reached or a specific event had occured.
+% a general way of describing a \wsn collecting data
 
-\section{Final Model}
+% from this we seek to extract
 
-\textit{discuss the final models and their limitations}
+% how over-collection is occuring
+
+% how data minimization can be relevant 
+
+
+\textbf{Phase 2:} We will then extend our models further, to model a more extensive example of a \wsn collecting data. Here we are open to modelling specifics of a system and abstractions will only be done if required. \\
+
+With this we will proceed with the same analysis as mentioned in Phase 1, the findings from the previous analysis will serve as a framework for this analysis.
+
+%assuming this analysis will be more complex we are prepared to use previous analysis as a helpful tool in this. \\
+ 
+% fråga cissi om sånt ska finnas med?
+% Finally with these results, we will attempt formally define Over-Collection.
+
+% extending the theoretical model with more complexity to simulate a real-world example of a distributed network (wireless sensor network).
+
+% using our previous analysis of OC and DM, investigate if DM would help us prevent OC.
+
+% ----
+
+%\textit{describes how i went about the project, this is not expected to remain in the thesis in the final result but I'm keeping this section seperate from the rest due since I have a lot of other text written on the rest, so not sure how to integrate it yet.}
+
+%\section{Initial Model}
+
+%\textit{discuss how the intial models looked like} \\
+
+%As a starting point, the project began with a minor model of a \wsn. A version of this can be seen in appendix ?? \todo{include ref here}. Here we had 'watchers', or 'ghost-variables', listening for events in the network. For example \texttt{msgSent} was a variable that became true when the network sent a stop-decision, saying that no more data collection should occur.
+
+%\section{Revisions}
+
+%\subsection{Correctness}
+
+%\textit{show and discuss some interesting revisions that came from the refinement in the MC-step} \\
+
+%The correctness property of the system specified that our system should be working as intended, but specifying precisely what is sought changed several times through the work. The initial assumption for a correctness property was specified as: 
+
+%\[ \textit{When the message containing the stop-decision, the system should shut down.} \]
+
+%Initially this seemed correct, since the functionality that was sought was to make sure that collection was paused when a certain threshold was reached or a specific event had occured.
+
+%\section{Final Model}
+
+%\textit{discuss the final models and their limitations}

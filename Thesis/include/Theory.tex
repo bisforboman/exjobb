@@ -2,7 +2,7 @@
 
 % maybe talk something about the breadcrumbs that lead me to where I am now?
 
-This chapter provides an introduction to different tools that were used in the thesis to reach the stated aim. First we explain \textit{Formal Verification}, following it up with \textit{Model Checking} and its' strengths and weaknesses. Finally some introduction to the model checking tool \textit{SPIN}, Simple Promela INterpreter, and its' input language \textit{Promela}.
+This chapter provides an introduction to different tools that were used in the thesis to reach the stated aim. First we explain \textit{Formal Verification}, following it up with \textit{Model Checking} and its' strengths and weaknesses. Also some introduction to the model checking tool \textit{SPIN}, Simple Promela INterpreter, and its' input language \textit{Promela}. 
 
 % approach ->
 % As a starting point, I will consider a WSN where data is collected by sensors and then centrally processed by a server. Here the decision would be processed by the central unit and then propagated back to the sensors. Once the features of the decision procedure is characterized in this simple setting, I will then look at introducing more distributed computation capabilities in the network - e.g. by adding aggregators to manage a set of sensors or equipping all sensors with a computation unit to allow each of them to make decisions. To this aim, a computation unit would need to know what should be computed, how it should be computed and what has already been computed. This will allow the unit to decide if further collection is needed. 
@@ -35,10 +35,10 @@ Model Checking is an automated technique to verify finite state concurrent syste
 
 %\textit{show a structure of a model checking workflow}\todo{show structure of model checking workflow}
 
-The use of model checking in practice typically follows the workflow in Figure~\ref{fig:mc_workflow}. A design is translated into a description, that the model checker can read, and a specification of wanted or unwanted behavior is translated into a property. Then the model checker will produce a result which is either that the property is upheld or an error explaining how the property is invalidated. 
+The use of model checking in practice typically follows the workflow in Figure~\ref{fig:mc_workflow}. A design is translated into a description, that the model checker can read, and a specification of wanted or unwanted behavior is translated into a property. Then the model checker will produce a result which is either that the property is upheld or an error explaining how the property is invalidated\cite{clarke1999model}. 
 
 \begin{figure}[ht]
-%    \includegraphics{include/figures/mc_workflow}
+    \includegraphics[resolution=100]{include/figures/mc_workflow}
     \caption{Workflow of Model Checking}
     \label{fig:mc_workflow}
 \end{figure}
@@ -53,11 +53,11 @@ The model checking tool used in this thesis is called SPIN, an abbreviation of S
 
 \subsection{Promela}
 Promela is a specification language with its' focus on modeling process synchronization and coordination rather than computation. Therefore the language targets the description of conurrent software systems, rather than the description of hardware circuits, which is more common for other model checking applications\cite{holzmann1997model}.
-The features in the Promela language allows for description of concurrent processes and communication through message passing over buffered or rendevouz(unbuffered) channels.  
+The features in the Promela language allows for description of concurrent processes and communication through message passing over buffered or rendevouz(unbuffered) channels. \\
 
 % discuss the simplicity of promela for reaching better abstraction
 
-\subsubsection{Promela Example}
+\textbf{Promela Example} \\
 
 To give an impression of Promela's syntax, Listing~\ref{lst:example} serves as an small example that captures most of the concepts used in this thesis. The example models an procedure called \textit{environment}, receiving a message \texttt{meter} on the channel \texttt{envChan}. Then the process undeterministically choses one of the two responses in the guard statement and responds back on the same channel. Worth noting is that most part of the model is captured in an \texttt{atomic}-statement, this means that when the request is received, this process will be allowed to execute the rest of the \texttt{atomic}-statement without any interleaving. 
 Since this process flow isn't realistic in a concurrent system, where interleaving is prone to occur, all usage of \texttt{atomic} has to be explained and carefully motivated. 
@@ -87,16 +87,17 @@ Idle:
 
 \textbf{Specification} \\
 
-In order to prove or disprove a property using SPIN, we must first state them in some formal notation. This can be done by either using \texttt{assertion}-statements, to ensure a property at a certain point in time, or using LTL to prove properties over an entire system trace. 
-Except the operators inherited from propositional logic (\textit{negation}, \textit{conjunction}, \textit{equivalence}, \textit{implication}, etc.) LTL also provides the temporal operators such as \textit{always}, \textit{eventually} and \textit{until}. \todo{include reference} 
+In order to prove or disprove a property using SPIN, we must first state them in some formal notation\ref{spinreferencemanualbook}. This can be done by either using \texttt{assertion}-statements, to ensure a property at a certain point in time, or using LTL to prove properties over an entire system trace. 
+Except the operators inherited from propositional logic (\textit{negation}, \textit{conjunction}, \textit{equivalence}, \textit{implication}, etc.) LTL also provides the temporal operators such as \textit{always}, \textit{eventually} and \textit{until}. 
 
 \begin{itemize}
-	\item[] \textbf{Always} ($\Box$) states that a property has to hold on the entire subsequent path\todo{mention what subsequent path means}, e.g $\Box a$ means that the condition $a$ always holds true. In promela this is either written as \texttt{always} or \texttt{[]}.
+	\setlength\itemsep{1em}
+	\item[] \textbf{Always} ($\Box$) states that a property has to hold on the entire subsequent path, e.g $\Box a$ means that the condition $a$ always holds true. In promela this is either written as \texttt{always} or \texttt{[]}.
 	\item[] \textbf{Eventually} ($\Diamond$) states that a property has to hold somewhere on the subsequent path, meaning that $\Diamond a$ means that $a$ must hold in the current state or in some future state. This is written in promela as \texttt{<>} or \texttt{eventually}.
 	\item[] \textbf{Until} ($U$) captures a relative behavior between two condditions, e.g. $a \text{ U } b$ means that $a$ must hold true atleast until $b$ holds true. In promela this is written as \texttt{U} or \texttt{until}.
  \end{itemize}
 
-For a complete description of Linear Time Logic and its' semantics in SPIN, see Holzmann (2003, p. 135-139).
+For a complete description of Linear Time Logic and its' semantics in SPIN, see Holzmann (2003, p. 135-139). \\
 
 \textbf{Verification} \\
 
@@ -107,21 +108,18 @@ So when running the verification, Spin negates the specified property and then a
 
 % mention abstraction and reducing the model 
 
-There are two strategies that SPIN uses to reduce the number of states generated in verification.\todo{spinreferencemanualbook} The aims of them are; "to reduce the amount of reachable system states that must be searched to verify properties, or to reduce the amount of memory that is needed to store each state".
+There are two strategies that SPIN uses to reduce the number of states generated in verification \ref{spinreferencemanualbook}. The aims of them are; "to reduce the amount of reachable system states that must be searched to verify properties, or to reduce the amount of memory that is needed to store each state".
 
-One strategy to achieve this is called partial order reduction, which relies on selecting and examining only a subset of all possible execution paths. An example of this is by detecting interleaving of processes which relative ordering do not affect the final outcome of the execution, with regards to the property being verified. \todo{mention clarke et al?}
+One strategy to achieve this is called partial order reduction, which relies on selecting and examining only a subset of all possible execution paths. An example of this is by detecting interleaving of processes which relative ordering do not affect the final outcome of the execution, with regards to the property being verified. 
 
-Another strategy SPIN uses is stutter equivalence. \todo{mention meaning} Spin's partial order reduction strategy assumes this, and by so only guarantees verification for stutter invariant properties. This makes it impossible to verify properties containing the \textit{next}-operator.
+%\todo{mention clarke et al?}
+
+Another strategy SPIN uses is stutter equivalence. As explained by Peled, Wilke \& Wolper in 1995\cite{peled1996algorithmic}: “a pair of sequences are considered to be equivalent if they differ in at most the number of times a state may adjacently repeat”. Spin's partial order reduction strategy assumes this, and by so only guarantees verification for stutter invariant properties. This makes it impossible to verify properties containing the \textit{next}-operator\ref{spinreferencemanualbook}, meaning an LTL formula which doesn't use the \textit{next}-operator is by guarantee also stutter invariant.
 
 %\section{Other stuff} % this section has been moved from §4
 
-\subsection{Over-Collection}
 
-% what is?
-
-In a paper by Yibin Li et al\ref{li2016privacy}, they adressed issues of data over-collection and presented a privacy protection framework to solve them. Their focus was the "smart city", an urban development vision with social facilities being connected wirelessly with information and communication technology and IoT-technology in a secure fashion to improve the efficiency of services. The system would help identify users in a smart fashion to relieve the need of ID- or credit cards. This requires that smart cities have a system that contains a lot of different users' information, which puts the users at a potential privacy leakage when accessing these features. They also sought to prevent over-collection of data, but though a privacy protection. Their definition of data over-collection was; "Collecting data more than enough on it's original function while within the permission scope". This definition is related to that their target, for which they sought to minimize over-collection, was smartphones. An example they used for explaining this definition was the following: "I take a picture and want to share it with my friends via some SNS app in my smartphone. For sharing this photo to my friends, I have to agree the permission request from this app. After authorize the access permission to this SNS app, all my photos are available to this app, but I only want this app to access one specific photo. As a result, this app may collect data more than enough on my original requirement while within the permission scope which I authorize."
-
-This definition, though focusing on a different target system, still held some context to our work and was used a reference point for the initial work on over-collection.
+%This definition, though focusing on a different target system, still held some context to our work and was used a reference point for the initial work on over-collection.
 
 %mention that their targets were primary smartphones demanding too much information?
 
@@ -218,7 +216,6 @@ This definition, though focusing on a different target system, still held some c
 %*define over-collection*
 
 
-\subsection{Decisions}
 
 % how decisions are used
 
@@ -236,15 +233,27 @@ This definition, though focusing on a different target system, still held some c
 
 %\textit{what is a decision procedure?}
 
-In our research of over-collection, the project realized we needed some algorithmic way for a system to determine if it was over-collecting or not. To this end, we studied \textit{decision problems}. A decision problem is a question expressed in some formal system that can be stated a "yes-no" question. And an algorithm used for solving decision problems is called a \textit{decision procedure}, which terminates with a "yes" or "no" answer\cite{decisionproceduresbook}. A formal system for expressing decision problems could for example be propositional logic, an example of its' syntax can be seen in Figure~\ref{fig:prop_logic}. 
+\subsection{Decision Procedures}
 
-\begin{figure}[ht]
-	\[ x_1 \land (x_2 \lor \neg x_3) \]
-    \caption{An example of a propsitional logic}
-    \label{fig:prop_logic}
-\end{figure}
+In our research of over-collection, the project realized we needed some algorithmic way for a system to determine if it was over-collecting or not. To this end, we studied \textit{decision problems}. A decision problem is a question expressed in some formal system that can be stated a "yes-no" question. And an algorithm used for solving decision problems is called a \textit{decision procedure}, which terminates with a "yes" or "no" answer\cite{decisionproceduresbook}. 
+
+% decision procedure has a wide range of uses?
+Decision procedures has a wide range of uses and is increasingly being used in hardware verification and theorem proving tools\cite{ganesh2007decision}. Some examples of such decision procedures are Yices, SVC, CVC Lite, UCLID \cite{dutertre2006fast, barrett1996validity, barrett2004cvc, lahiri2004uclid}. Besides theorem-proving and hardware verification, decision procedures are also increasingly being used in large-scale program analysis, bug finding and test generation tools (e.g. \cite{newsome2006replayer, cadar2008exe}).
+
+%A formal system for expressing decision problems could for example be propositional logic, a simple example of its' syntax can be seen in Figure~\ref{fig:prop_logic}. 
+
+% mention its FOL? 
+%\begin{figure}[ht]
+%	\[ x_1 \land (x_2 \lor \neg x_3) \]
+%    \caption{A simple example of a propsitional logic}
+%    \label{fig:prop_logic}
+%\end{figure}
 
 
+
+
+
+% mention 
 
 % 
 
@@ -258,9 +267,9 @@ In our research of over-collection, the project realized we needed some algorith
 
 %This means that there had to be an algorithm in place for the system to yield a "yes or no" answer when invoked. This is known as a \textit{decision procedure}\cite{decisionproceduresbook} 
 
-\textit{show example of a decision procedure}
+%\textit{show example of a decision procedure}
 
-\textit{explain the point of it}
+%\textit{explain the point of it}
 
 %From the Definition~\ref{def:OverColl} we understand it's not uncommon for processes to collect more data than they require. 
 

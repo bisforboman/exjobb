@@ -1,9 +1,88 @@
 \begin{thebibliography}{10}
 
+\bibitem{miorandi2012internet}
+D.~Miorandi, S.~Sicari, F.~De~Pellegrini, and I.~Chlamtac, ``Internet of
+  things: Vision, applications and research challenges,'' {\em Ad Hoc
+  Networks}, vol.~10, no.~7, pp.~1497--1516, 2012.
+
 \bibitem{wsnsurvey}
 I.~F. Akyildiz, W.~Su, Y.~Sankarasubramaniam, and E.~Cayirci, ``Wireless sensor
   networks: a survey,'' {\em Computer networks}, vol.~38, no.~4, pp.~393--422,
   2002.
+
+\bibitem{akyildiz2007survey}
+I.~F. Akyildiz, T.~Melodia, and K.~R. Chowdhury, ``A survey on wireless
+  multimedia sensor networks,'' {\em Computer networks}, vol.~51, no.~4,
+  pp.~921--960, 2007.
+
+\bibitem{min2001low}
+R.~Min, M.~Bhardwaj, S.-H. Cho, E.~Shih, A.~Sinha, A.~Wang, and
+  A.~Chandrakasan, ``Low-power wireless sensor networks,'' in {\em VLSI Design,
+  2001. Fourteenth International Conference on}, pp.~205--210, IEEE, 2001.
+
+\bibitem{sohrabi2000protocols}
+K.~Sohrabi, J.~Gao, V.~Ailawadhi, and G.~J. Pottie, ``Protocols for
+  self-organization of a wireless sensor network,'' {\em IEEE personal
+  communications}, vol.~7, no.~5, pp.~16--27, 2000.
+
+\bibitem{estrin1999next}
+D.~Estrin, R.~Govindan, J.~Heidemann, and S.~Kumar, ``Next century challenges:
+  Scalable coordination in sensor networks,'' in {\em Proceedings of the 5th
+  annual ACM/IEEE international conference on Mobile computing and networking},
+  pp.~263--270, ACM, 1999.
+
+\bibitem{chicago2016}
+A.~Elahi, ``City seeks input on privacy policy for array of things sensor
+  network,'' June 2016.
+\newblock [Online; posted 10-June-2016].
+
+\bibitem{baggio2005wireless}
+A.~Baggio, ``Wireless sensor networks in precision agriculture,'' in {\em ACM
+  Workshop on Real-World Wireless Sensor Networks (REALWSN 2005), Stockholm,
+  Sweden}, Citeseer, 2005.
+
+\bibitem{collier2010acoustic}
+T.~C. Collier, A.~N. Kirschel, and C.~E. Taylor, ``Acoustic localization of
+  antbirds in a mexican rainforest using a wireless sensor network,'' {\em The
+  Journal of the Acoustical Society of America}, vol.~128, no.~1, pp.~182--189,
+  2010.
+
+\bibitem{khedo2010wireless}
+K.~K. Khedo, R.~Perseedoss, A.~Mungur, {\em et~al.}, ``A wireless sensor
+  network air pollution monitoring system,'' {\em arXiv preprint
+  arXiv:1005.1737}, 2010.
+
+\bibitem{vardhan2000wireless}
+S.~Vardhan, M.~Wilczynski, G.~Portie, and W.~J. Kaiser, ``Wireless integrated
+  network sensors (wins): distributed in situ sensing for mission and flight
+  systems,'' in {\em Aerospace Conference Proceedings, 2000 IEEE}, vol.~7,
+  pp.~459--463, IEEE, 2000.
+
+\bibitem{merrill2003collaborative}
+W.~M. Merrill, F.~Newberg, K.~Sohrabi, W.~Kaiser, and G.~Pottie,
+  ``Collaborative networking requirements for unattended ground sensor
+  systems,'' in {\em Aerospace Conference, 2003. Proceedings. 2003 IEEE},
+  vol.~5, pp.~5\_2153--5\_2165, IEEE, 2003.
+
+\bibitem{darwish2011wearable}
+A.~Darwish and A.~E. Hassanien, ``Wearable and implantable wireless sensor
+  network solutions for healthcare monitoring,'' {\em Sensors}, vol.~11, no.~6,
+  pp.~5561--5595, 2011.
+
+\bibitem{ertin2011autosense}
+E.~Ertin, N.~Stohs, S.~Kumar, A.~Raij, M.~al'Absi, and S.~Shah, ``Autosense:
+  unobtrusively wearable sensor suite for inferring the onset, causality, and
+  consequences of stress in the field,'' in {\em Proceedings of the 9th ACM
+  Conference on Embedded Networked Sensor Systems}, pp.~274--287, ACM, 2011.
+
+\bibitem{chan2003security}
+H.~Chan and A.~Perrig, ``Security and privacy in sensor networks,'' {\em
+  computer}, vol.~36, no.~10, pp.~103--105, 2003.
+
+\bibitem{al2012security}
+M.~Al~Ameen, J.~Liu, and K.~Kwak, ``Security and privacy issues in wireless
+  sensor networks for healthcare applications,'' {\em Journal of medical
+  systems}, vol.~36, no.~1, pp.~93--101, 2012.
 
 \bibitem{websiteEu}
 E.~D.~P. Supervisor, ``Regulation (ec) no 45/2001,'' December 2000.
@@ -13,7 +92,7 @@ G.~Danezis, J.~Domingo-Ferrer, M.~Hansen, J.-H. Hoepman, D.~L. Metayer,
   R.~Tirtea, and S.~Schiffner, ``Privacy and data protection by design-from
   policy to engineering,'' {\em arXiv preprint arXiv:1501.03726}, 2015.
 
-\bibitem{pfitzmann2010}
+\bibitem{pfitzmann2010z}
 A.~Pfitzmann and M.~Hansen, ``A terminology for talking about privacy by data
   minimization: Anonymity, unlinkability, undetectability, unobservability,
   pseudonymity, and identity management,'' 2010.
@@ -22,6 +101,10 @@ A.~Pfitzmann and M.~Hansen, ``A terminology for talking about privacy by data
 C.~Ramamoorthy and G.~S. Ho, ``Performance evaluation of asynchronous
   concurrent systems using petri nets,'' {\em IEEE Transactions on software
   Engineering}, no.~5, pp.~440--449, 1980.
+
+\bibitem{baeten2005brief}
+J.~C. Baeten, ``A brief history of process algebra,'' {\em Theoretical Computer
+  Science}, vol.~335, no.~2-3, pp.~131--146, 2005.
 
 \bibitem{pierce1997foundational}
 B.~C. Pierce, ``Foundational calculi for programming languages.,'' {\em The
@@ -49,8 +132,48 @@ E.~M. Clarke, O.~Grumberg, and D.~Peled, {\em Model checking}.
 G.~J. Holzmann, ``The model checker spin,'' {\em IEEE Transactions on software
   engineering}, vol.~23, no.~5, p.~279, 1997.
 
+\bibitem{peled1996algorithmic}
+D.~Peled, T.~Wilke, and P.~Wolper, ``An algorithmic approach for checking
+  closure properties of $\omega$-regular languages,'' {\em CONCUR'96:
+  Concurrency Theory}, pp.~596--610, 1996.
+
 \bibitem{decisionproceduresbook}
 D.~Kroening and O.~Strichman, {\em Decision Procedures}.
 \newblock Springer, 2008.
+
+\bibitem{ganesh2007decision}
+V.~Ganesh and D.~L. Dill, ``A decision procedure for bit-vectors and arrays,''
+  in {\em International Conference on Computer Aided Verification},
+  pp.~519--531, Springer, 2007.
+
+\bibitem{dutertre2006fast}
+B.~Dutertre and L.~De~Moura, ``A fast linear-arithmetic solver for dpll (t),''
+  in {\em International Conference on Computer Aided Verification}, pp.~81--94,
+  Springer, 2006.
+
+\bibitem{barrett1996validity}
+C.~Barrett, D.~Dill, and J.~Levitt, ``Validity checking for combinations of
+  theories with equality,'' in {\em Formal Methods In Computer-Aided Design},
+  pp.~187--201, Springer, 1996.
+
+\bibitem{barrett2004cvc}
+C.~Barrett and S.~Berezin, ``Cvc lite: A new implementation of the cooperating
+  validity checker,'' in {\em International Conference on Computer Aided
+  Verification}, pp.~515--518, Springer, 2004.
+
+\bibitem{lahiri2004uclid}
+S.~K. Lahiri and S.~A. Seshia, ``The uclid decision procedure,'' in {\em
+  International Conference on Computer Aided Verification}, pp.~475--478,
+  Springer, 2004.
+
+\bibitem{newsome2006replayer}
+J.~Newsome, D.~Brumley, J.~Franklin, and D.~Song, ``Replayer: Automatic
+  protocol replay by binary analysis,'' in {\em Proceedings of the 13th ACM
+  conference on Computer and communications security}, pp.~311--321, ACM, 2006.
+
+\bibitem{cadar2008exe}
+C.~Cadar, V.~Ganesh, P.~M. Pawlowski, D.~L. Dill, and D.~R. Engler, ``Exe:
+  automatically generating inputs of death,'' {\em ACM Transactions on
+  Information and System Security (TISSEC)}, vol.~12, no.~2, p.~10, 2008.
 
 \end{thebibliography}

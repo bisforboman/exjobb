@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-This chapter will give a brief introduction to the thesis, discuss the motivation for why this thesis is relevant and then also discuss the aims sought to be achieved at the end.
+This chapter will give a brief introduction to the thesis, introduce the motivation for why this thesis is relevant and then also present the aims sought to be achieved at the end.
 
 \section{Motivation}
 
@@ -42,7 +42,7 @@ The presence of connected devices in our environment is increasing. These device
 One simple and obvious way to prevent leakages and misuses of personal data is to collect less of this data, a principle known as data minimisation. However, this solution is rarely used in practice because of business models relying on personal data harvest on one hand and because of the difficulty to enforce it once it is defined what is actually needed to provide a service.
 
 % 2. mention DM
-Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons\todo{insert ref}: “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ 
+Privacy is utterly important for the development of IoT applications, Miorandi et al. gives several reasons\cite{miorandi2012internet}: “The main reasons that makes privacy a fundamental IoT requirement lies in the envisioned IoT application domains and in the technologies used. Healthcare applications represent the most outstanding application field, whereby the lack of appropriate mechanisms for ensuring privacy of personal and/or sensitive information has harnessed the adoption of IoT technologies.“ 
 
 % 3. mention what I want with it ?
 
@@ -56,15 +56,19 @@ Privacy is utterly important for the development of IoT applications, Miorandi e
 
 This thesis will investigate ways to improve privacy in a special kind of IoT (Internet of Things) devices known as Wireless Sensor Networks (WSN). WSN are networks of autonomous sensors and actuators. The goal to enhance privacy for this kind of devices will be addressed by relying on data minimization. This means the project sought to improve privacy in distributed networks by limiting the amount of personal data being processed.
 
-To achieve this, the project sought to accomplish the following steps:
+To achieve this, the project sought to accomplish the following steps:\\
 
 \begin{itemize}
-\item Construct models of a \wsn that illustrates Over-Collection.
+\setlength\itemsep{1em}
+\item Construct a model of a \wsn that illustrates Over-Collection.
 \item Investigate Over-Collection and by using Data Minimization, how it can be prevented. 
 \item Implement a solution from the models and analyze results.
 \end{itemize} 
 
 \section{Limitations}
+
+% privacy
+% This project assumes that privacy is each individual right and will not argue for it's 
 
 % faulty wsns
 The project will not consider faulty behaviors of a \wsn, meaning that the systems and algorithms will work under the assumption that all messages sent are received and all units are working as intended without malfunctions.
@@ -76,7 +80,10 @@ Only the result of the data collection will be analyzed in the sought outcome an
 Only the privacy aspects of collecting personal data will be considered throughout the thesis and the aspect of storing and managing it will be outside the scope of this thesis.
 
 % time vs states
-Any model properties related to time (in the sense that they can be measured numerically) will be treated on an abstract level or be disregarded.\todo{this section is borrowed from another MT where a quote was also included from Ben-Ari's book from 2008. I thought it was relevant for me aswell} %borrowed from other thesis, referred to Ben-Ari 2008 p. 173.
+Any model properties related to time (in the sense that they can be measured numerically, not in the sense of ordering events) will be treated on an abstract level or be disregarded. This practice is commonly used when modelling concurrent or distributed systems, from Ben-Ari (2008, p. 173); “Algorithms for these systems are designed to be independent of the speed of execution of a process or the speed at which a message is delivered, so it is sufficient to know that there are no errors caused by interleaving statements and messages.”
+
+
+%\todo{this section is borrowed from another MT where a quote was also included from Ben-Ari's book from 2008. I thought it was relevant for me aswell} %borrowed from other thesis, referred to Ben-Ari 2008 p. 173.
 
 % attackers
 % include that attack vectors and stuff are outside the scope of the project?
@@ -89,5 +96,16 @@ Any model properties related to time (in the sense that they can be measured num
 
 \section{Thesis Structure}
 
-\textit{saving for later when the thesis has shaped up}
+Some abbreviations are used to explain the thesis structure, these will be explained later on as they are used in the thesis. The ordering of the remainder of the thesis is as follows: \\
+
+\begin{itemize}
+\setlength\itemsep{1em}
+\item[] \textbf{Chapter 2 - Background} presents the setting for the thesis and explains e.g. Data Minimization, \wsn. Also presents some related work to this thesis.
+\item[] \textbf{Chapter 3 - Method} presents the method chosen for reaching the stated aim. 
+\item[] \textbf{Chapter 4 - Theory} presents an introduction to the tools chosen to reach the aim e.g. SPIN/Promela, Model Checking, Decision Procedures.
+\item[] \textbf{Chapter 5 - Modeling \& Specification} presents the modelling of the \wsns and their specification.
+\item[] \textbf{Chapter 6 - Design} presents results of the modelling, also argues their translation from their FSAs and shows some refinements the the Model Checking yielded.
+\item[] \textbf{Chapter 7 - Discussion} presents some suggestions for future work.
+\item[] \textbf{Chapter 8 - Conclusion} concludes the thesis.
+\end{itemize} 
 

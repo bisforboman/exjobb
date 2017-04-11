@@ -1,83 +1,63 @@
 \chapter{Design}
 
-This section covers the design aspect of the work, showing the final versions of the models discussed in the previous chapter as well as explaining how they work. 
-
 %(1) justify why Promela/SPIN is a good fit for your model, in comparison with other similar tools (NuSMV, UPPAAL, ...). Then, explain 
+This section will present the resulting design of the Promela models, explain the systematic translation from the FSA models from Section~\ref{actors} and also give some examples of the refinements that the Model Checking yielded. 
 
-%\textit{introduction-text: I seek to use SPIN/Promela for my models and first I need to justify why I did so and compare it to other tools...} \\
-
-% -----
-% Uppaal
-
-% Shall i make an translation example to Uppaal's timed automata?
-
-%Analysis of UPPAAL vs. TLC for verifying the WS-AT Protocol. %\cite{uppaal_analysis} \\
-
-
-
-%-----
-% NuSVM
-
-%Survey regarding the NuSVM "symbolic" model checker.%\cite{NuSVM_modelchecker}
-
-%-----
-
-% comparison table between two/three choices?
-
-%this is all bs?
-%\textit{FSA models contain States, Conditions, Steps? ...} 
-%The translation to Promela from the FSA-models was made by the following steps:
-%\begin{itemize}
-%\item[] \textbf{States:} Were translated into \textit{labels} and and a move between two states were translated into \textit{GOTO}-statements \todo{explain GOTOs in promela?} and corresponding message sent became \textit{messages} sent in \textit{message channels} between the two actors\todo{are these the correct terms?}.  
-%\item[] \textbf{Conditions:} Were translated into \textit{if}-clauses.\todo{rewriting this part, stopped here since it only was a draft of how I could do it.}
-%\end{itemize}
+% As mentioned in the previous Chapter, Model Checking in SPIN was used for modelling. 
+%mention stuff from theory
+% spin has properties
+% spin has the tools I n33d
 
 %(2) how you systematically translate your FSA models into Promela models (given that the LTL formulas are quite straightforward) (the systematicity is very important here because you want to avoid to introduce errors in this translation to be sure you verify the right thing), 
 
-%(3) what are the results of the verification (and how you verified it) and what you modified in your model when you discovered errors (show a particularly interesting and somewhat complicated case to show that this verification part actually helped you and that you know how to take profit from it), 
+\section{System Description} \label{design} %remove other refs of this
 
-%and finally (4) explain the limitations of the abstraction, what is not covered, what could be relaxed: take some perspective.
+The system consists of message channels between three different classes of procedures \textbf{Node}, \textbf{Server} and \textbf{Environment}. Each of these corresponds to the \textit{Actors} specified in Section~\ref{actors}. 
 
-%\section{System Description}
+%The node allows a dynamic number of instances to run at start-up and it's set by a predefined macro named \texttt{NUM\_NODES}. 
 
-%\textit{first the proposed system will be described, with overlay of the architecture and how it's intended to work.}
+As an abstraction, the project considered the data sent in the network as a set of two possibilities. Either the data collected by the system causes the system to take the decision to stop collecting, to prevent over-collection, or it doesn't and it continues as before. 
 
-%The system that's intended to be modeled were a system 
+\[ \text{data} \in (\text{smallData,bigData}) \]
 
-% explain the code design and the flow of the procedures
+This were noted as \texttt{bigData} and \texttt{smallData}, where \texttt{bigData} causes the system change and \texttt{smallData} doesn't. This simplication was made to reduce the state space, and the abstraction was sound as any data collected by the system would result in either of the two events. 
 
-\section{Modeling in Promela}
-
-%\textit{Explain the systematic translation to promela models, motivate that I don't introduce errors} \\
-
-The system consists of message channels between three different classes of procedures \textbf{Node}, \textbf{Server} and \textbf{Environment}. The node allows a dynamic number of instances to run at start-up and it's set by a predefined macro named \texttt{NUM\_NODES}. As an abstraction, the project considered the data sent in the network as a set of two possibilities. Either the sent data causes a system change, the system realizes it should stop collecting to prevent over-collection, or it doesn't and it continues as before. This were noted as \texttt{bigData} and \texttt{smallData}, where \texttt{bigData} causes the system change and \texttt{smallData} doesn't. \\
-
-The system procedures communicate using shared communication channels, \texttt{envChan} for the communication between the \texttt{Nodes} and \texttt{Environment} and \texttt{servChan} for the communication between the \texttt{Server} and the \texttt{Nodes}.
+The system procedures communicate using shared communication channels, \texttt{envChan} for the communication between the \texttt{Nodes} and \texttt{Environment} and \texttt{servChan} for the communication between the \texttt{Server} and the \texttt{Nodes}. This functionality is what is required for the in the behaviour models as shown in Section~\ref{actors}. Continuing on we will cover the actors indepdendently in the subsequent sections.
 
 \subsection{Environment}
 
-The environment is an abstraction made to simplify the work. It's considered to be a shared resource between the nodes where each node can individually meter the environment and then communicate it to the server. To achieve this the environment is constructed as an atomic statement so when a node puts up a request on the channel it's instantly handled before any other statement is executed. To handle the randomness between the outcomes (so both types of the data can be metered) an \texttt{if}-statement without guards is used. \todo{argue translation?}
+As mentioned previously, the environment was abstracted to also be an actor to simplify the work. If this wasn't the case, it would be considered a shared resource between the nodes where each node can individually meter the environment and then communicate it to the server. So to translate this, the environment is constructed as an atomic statement so when a node puts up a request on the channel it's instantly replied to before any other statement is executed. This removes the issue of interleaving which couldn't occur in reality. To handle randomness from the environment, so the entire set \texttt{data} was reachable, an \texttt{if}-statement without guards is used, which is through model checking guarantees the reachability. 
+
+% Also the relaxation described in Section~\ref{revisions}, can be seen here aswell, denoted by \texttt{Idle\_bigData}. 
+
+The FSA of the environment consisted of two states, as seen in Figure~\ref{fig:env_states}, \texttt{Waiting} and \texttt{Generating Data}. Initially remained in the \texttt{Waiting} and when a it received a \texttt{meter}-input it transitioned to \texttt{G}, responded with \texttt{data}, and transitioned back. The language of this translates to the first part of the code, the procedure remains on listening on the channel \texttt{envChan} before receiving a \texttt{meter}. The atomic statement that captures it, doesn't halt the the execution as atomic statements in promela is built to only be active if the first statement in them are executable. Only once the \texttt{meter} is received, it becomes active. The following \texttt{if}-statement corresponds to the \texttt{Generating Data}-state, which responds with data$\in$(smallData,bigData). The final statement of the atomic statement is to return to the label \texttt{Idle}, which corresponds to the transition back to \texttt{Waiting}.
+
+% To handle the randomness between the outcomes (so both types of the data can be metered) 
 
 \begin{lstlisting}[caption=Environment code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 active proctype Env() {
 
-	Idle:  
-		if
-		:: atomic { 
-			envChan ? meter ->  
-				if
-				:: envChan ! bigData;
-				:: envChan ! smallData;
-				fi; 
-				goto Idle;
-		}
-		fi;
-}
+Idle:  
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle;
+        }
+      fi;
 \end{lstlisting}
 
-\subsection{Server}
 
-The server consists of two primary states, the first being the initial state, noted below as \texttt{Answering}, where data is assumed to be collected and the second state, noted as \texttt{Stopping} where the system starts requesting that the nodes stop collecting to prevent over-collection. The states beginning with "\texttt{Idle\_}" are just looping to check if a node is sending data.
+\subsection{Server} \label{serversection}
+
+The server consists of four states, where two of behaves the same. Initially the program remains in \texttt{Idle\_Answering} (which corresponds to \texttt{Idle\_a}). The model will listen to input from the different nodes in turn, when data is received it will transition to \texttt{Answering}. If smallData was received, the model would transition back to the previous state. If bigData ever was received by the server, the FSA should transition to \texttt{Idle\_Stopping/Idle\_S}. From here the FSA could only transition to \texttt{Hold}, which corresponds to the label \texttt{Stopping}. 
+
+%The first being the initial state, noted below as \texttt{Answering}, where data is assumed to be collected and the second state, noted as \texttt{Stopping} where the system starts requesting that the nodes stop collecting to prevent over-collection. 
+
+%The states beginning with "\texttt{Idle\_}" are just looping to check if a node is sending data.
 
 \begin{lstlisting}[caption={Server code},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 active proctype Server() {
@@ -129,7 +109,16 @@ Stopping:
 
 \subsection{Node}
 
-The node is initialized with a channel to communicate to the server with. It starts by attempting to meter the environment, then communicates it to the server and proceeds into \texttt{Waiting} to wait for an answer.  
+The node is initialized with the channel it communicates to the server with. It starts by metering the environment, then communicates it to the server and proceeds into \texttt{Waiting} to wait for an answer. 
+
+This corresponds the \texttt{Idle}-state of our FSA, as seen in Figure~\ref{fig:node_states}. The state \texttt{Data} is translated into the \texttt{if}-statement, where the same data is forwarded. The model then transitions to \texttt{Wait}, which translates to the jump to label \texttt{Waiting}. In the Waiting state the model either returns to \texttt{Idle} if it receives \texttt{continue} or transitions to \texttt{DoneColl} upon receiving \texttt{Stop}, which corresponds to \texttt{Done} in the FSA.
+
+%but a stricter version where e.g. a node could meter indefinitely or transition to \texttt{Wait} before metering. This restriction was motivated by that complete language of the FSA, specifically what our design didn't capture, wasn't relevant for this system (such as the examples mentioned) nor would it be verified by our properties (Section~\ref{specs}). 
+
+%The signal bigData/smallData is followed by the transition to \texttt{Wait/Waiting}, which  
+
+%The \texttt{Wait/Waiting} state is translated 
+
 
 \begin{lstlisting}[caption={Node code},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
 proctype Node(chan out) {
@@ -150,9 +139,172 @@ Waiting:
           :: out ? stop -> 
           fi;
         }
-DoneColl: // node will shutdown here.
+DoneColl: // node will no longer collect upon reaching this state
 }
 \end{lstlisting}
+
+%(3) what are the results of the verification (and how you verified it) and what you modified in your model when you discovered errors (show a particularly interesting and somewhat complicated case to show that this verification part actually helped you and that you know how to take profit from it), 
+
+\section{Revisions} \label{revisions}
+
+The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model. \\
+
+\textbf{The Atomic Requirement} \\
+
+% explain what, then when atomic statements in the models were introduced
+
+% cause & result
+A big concern when modeling concurrency is the uncertainty of interleaving statements. To address such issues, one can use a modelling tool called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). These should be used with careful consideration, to not change the nature of what is sought to model. Our project experienced a 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
+
+\begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+Waiting:
+        atomic {
+          if
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
+          fi;
+        }
+\end{lstlisting}
+
+This section also had problems with interleaving statements, it was the step where a node received the information to whether stop or continue collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel. So instead the project had to modify the models to use a unique channel between the server and each node. The atomic statement here handled the logic that a node that had received a message didn't wait, but instead immediately acted on the information. \\
+
+\textbf{Introduction of States} \\
+
+% explain the change from the ghost variables to states (since SPIN couldn't verify certain things).
+
+% cause
+As can be seen in the initial model, this version handled the verification by using global variables to monitor certain values. An example is the variable \texttt{nodesDone} which represented on how many nodes were currently actively collecting data. This approach worked initially, but made the models lack certain information. Specifically for the liveness property to know whether a specific node had received data or not. 
+
+% result
+This caused the introduction of states in the models instead. Which also made the models easier compare to their sought FSAs. This resulted in a large revision, as previously the procedures' statements were written to be computationaly efficient and easy to read. The largest change from this can be seen in \ref{server_states}, where polling was used instead of waiting. \\
+
+\textbf{The Network Actor} \\
+
+% explain the introduction of the network channel in the distributed case.
+
+% cause
+When the project began modelling what we called \textit{decentralized decision making}, meaning that we modelled e.g. a system where nodes had a processing unit and could process data rather than just forwarding it. We attempted solutions with intermediate channel between the nodes, but as we previously had explored when introducing \texttt{atomic}-statements, we were unable to verify it since the state space grew too large with increasing number of collection nodes (a state space explosion).
+
+% result
+Instead we decided to introduce an additional Actor in the system, called the \textit{Network Actor}. This Actor would listen on a channel \texttt{broadcast}, and upon reaching a \texttt{stop}-message it would broadcast to all nodes in the system to stop collecting. This was a simplification which abstracted our models from what we in reality tried to model. Therefore we introduced an \texttt{atomic}-statement here aswell, which made a "node's request to broadcast" logically the same as what we sought. 
+
+\begin{lstlisting}[caption={Network Actor},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+active proctype Network() {
+  int i=0;
+Idle: 
+  if 
+  :: atomic {
+      broadChan ? stop ->
+      for(i : 0 .. (NUM_NODES-1)) {
+        networkChan[i] ! stop;
+      }
+    }
+  fi;
+}
+\end{lstlisting}
+
+\textbf{The Liveness Relaxation} \\
+
+% explain when the liveness property was expanded to "bigData_metered" instead.
+
+The liveness property for the system demanded several revisions. As defined, a liveness property should express that \textit{eventually something good happens}. For this project this was it was initially stated as: 
+
+\[ \textit{eventually the server stops collecting or a stop-decision is never sent.} \]
+
+Intuitively this seemed correct we were unable to verify this property in SPIN, model checking yielded that there existed a case where this property didn't hold. So after revising this formula several times we instead sought a liveness property stating the following;
+
+\[ \textit{if over-collection is about to (or would) occur, nodes should stop collection.} \]
+
+In order to model this, we had to know when over-collection is occuring. For our system that meant when \texttt{bigData} was metered by a node, this lead to a relaxation of the FSA for the environment. If it was ever metered, the environment actor would enter a new state so that our verification could check this. This change abstracted our models, but the language of the automata still remained the same which was important to allow the change. 
+
+\begin{lstlisting}[caption=Environment code,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+active proctype Env() {
+
+Idle:  
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData; goto Idle_bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle;
+        }
+      fi;
+
+Idle_bigData:
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle_bigData;
+        }
+      fi;       
+}
+\end{lstlisting}
+
+%since our solution relied on a state for the system which possibly could never occur in a run. 
+% cause
+% result
+
+% (either here or in discussion) and finally (4) explain the limitations of the abstraction, what is not covered, what could be relaxed: take some perspective.
+
+
+% -----
+
+%namely \textbf{centralized decision making, disjunctive decision analysis} and \textbf{centralized communication}, as mentioned from Section~\ref{modelling}. This example should serve as an explanation into core part of the design, which several of the models has in common. The complete set of models can be seen in Appendix 1. 
+
+%This section covers the design aspect of the work, showing the final versions of the models discussed in the previous chapter as well as explaining how they work. 
+
+
+%\textit{introduction-text: I seek to use SPIN/Promela for my models and first I need to justify why I did so and compare it to other tools...} \\
+
+% -----
+% Uppaal
+
+% Shall i make an translation example to Uppaal's timed automata?
+
+%Analysis of UPPAAL vs. TLC for verifying the WS-AT Protocol. %\cite{uppaal_analysis} \\
+
+%-----
+% NuSVM
+
+%Survey regarding the NuSVM "symbolic" model checker.%\cite{NuSVM_modelchecker}
+
+%-----
+
+% comparison table between two/three choices?
+
+%this is all bs?
+%\textit{FSA models contain States, Conditions, Steps? ...} 
+%The translation to Promela from the FSA-models was made by the following steps:
+%\begin{itemize}
+%\item[] \textbf{States:} Were translated into \textit{labels} and and a move between two states were translated into \textit{GOTO}-statements \todo{explain GOTOs in promela?} and corresponding message sent became \textit{messages} sent in \textit{message channels} between the two actors\todo{are these the correct terms?}.  
+%\item[] \textbf{Conditions:} Were translated into \textit{if}-clauses.\todo{rewriting this part, stopped here since it only was a draft of how I could do it.}
+%\end{itemize}
+
+
+%\section{System Description}
+
+%\textit{first the proposed system will be described, with overlay of the architecture and how it's intended to work.}
+
+%The system that's intended to be modeled were a system 
+
+% explain the code design and the flow of the procedures
+
+%\section{System Description} 
+
+%\textit{Explain the systematic translation to promela models, motivate that I don't introduce errors} \\
+
+%The system consists of message channels between three different classes of procedures \textbf{Node}, \textbf{Server} and \textbf{Environment}. The node allows a dynamic number of instances to run at start-up and it's set by a predefined macro named \texttt{NUM\_NODES}. As an abstraction, the project considered the data sent in the network as a set of two possibilities. Either the sent data causes a system change, the system realizes it should stop collecting to prevent over-collection, or it doesn't and it continues as before. This were noted as \texttt{bigData} and \texttt{smallData}, where \texttt{bigData} causes the system change and \texttt{smallData} doesn't. \\
+
+
+
+
+
 
 %\subsection{Translation}
 

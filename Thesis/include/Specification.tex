@@ -1,6 +1,8 @@
-\chapter{Modeling \& Specification}
+\chapter{Modeling \& Specification} 
 
-In order to address the goals stated in the aim, the project first had to visualize and construct the models which would be investigated. To this end, Model Checking was used. The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first stating some basic concepts and then explaining the iterative process that led to the final results.
+In order to address the goals stated in the aim, the project first had to visualize and construct the models which would be investigated. To this end, the project first devised a terminology for the modeling to simplify the analysis the system.
+
+%To this end, Model Checking in SPIN was used. The first two steps in model checking is to translate the sought design into models that can be understood by the model checker and defining the properties specified on the system. This chapter covers the process of these two steps, by first stating some basic concepts and then explaining the iterative process that led to the final results.
 
 \section{Definitions}
 
@@ -32,7 +34,7 @@ These entities were chosen as the three pieces that our initial models would con
 
 %\subsection{Description of Actors}
 
-\section{Actors}
+\section{Actors} \label{actors}
 
 A \wsn is built up by several different entities that communicates data between each other. Generally a network consists of multiples of virtually the same entity, e.g. multiple collection nodes, where each of these are running the different instances of the same process. %Throughout the thesis these entities will be referred to as \textit{Actors}.
 
@@ -47,7 +49,7 @@ At this stage the project realized that to simplify the modeling process, the en
 
 % explain how i use them
 
-\subsection{Server Actor}
+\subsection{Server Actor} \label{serveractor}
 
 The server is an actor receiving messages from nodes and storing it for later usage. A server's behavior will vary depending on the structure of the system. If the decision is taken centrally the server will be the one checking for over-collection, otherwise it will be a node. Also if the communication is managed through the server, if the nodes doesn't communicate with each other, the server will act as a repeater for the decision. 
 
@@ -59,7 +61,7 @@ The server is an actor receiving messages from nodes and storing it for later us
 
 In Figure \ref{fig:node_server_behav} is the behavior for a system where server makes the decision and nodes doesn't communicate with each other. First, the node sends some data, the server checks for over-collection and replies accordingly. The response will either be a "stop" signaling that over-collection has occurred and the node should stop collecting or it tells it that it can continue collecting. 
 
-In addition to the behavior model, an Finite State Automaton(FSA) were designed for the server (Figure~\ref{fig:server_states}). The initial state being \texttt{Idle\_a}, which the server will stay in until some \texttt{data} is received. "Data" being either \texttt{bigData} or \texttt{smallData}; $ \texttt{data} \in \{ \texttt{smallData}, \texttt{bigData} \} $. The data is received in \texttt{Idle\_a} and \texttt{Idle\_s} and then checked in \texttt{Answ.} and \texttt{Hold}, meaning only the outgoing transitions from \texttt{Idle\_a} and \texttt{Idle\_s} is incoming data, the other are calculated internally. This also means the server will loop indefinetly between \texttt{Answ} and \texttt{Idle\_a} as long as only smallData is received. When \texttt{bigData} is received the server will enter the \texttt{Idle\_s}-\texttt{Hold} loop instead, which denotes the states where the server is requesting the nodes to stop collecting more data. 
+In addition to the behavior model, an Finite State Automaton(FSA) were designed for the server (Figure~\ref{fig:server_states}). The initial state being \texttt{Idle\_a}, which the server will stay in until some \texttt{data} is received. "Data" being either \texttt{bigData} or \texttt{smallData}; $ \texttt{data} \in \{ \texttt{smallData}, \texttt{bigData} \} $. This abstraction will be further discussed in Section~\ref{design}. The data is received in \texttt{Idle\_a} and \texttt{Idle\_s} and then checked in \texttt{Answ.} and \texttt{Hold}, meaning only the outgoing transitions from \texttt{Idle\_a} and \texttt{Idle\_s} is incoming data, the other are calculated internally. This also means the server will loop indefinetly between \texttt{Answ} and \texttt{Idle\_a} as long as only smallData is received. When \texttt{bigData} is received the server will enter the \texttt{Idle\_s}-\texttt{Hold} loop instead, which denotes the states where the server is requesting the nodes to stop collecting more data. 
 
 %This behavior can be described using states as well, as shown in Figure \ref{fig:server_states}. The same notations are used for the messages sent between the actors except "check" is noted as the state named "Waiting".
 
@@ -100,7 +102,7 @@ The corresponding FSA for the environment is seen in Figure~\ref{fig:env_states}
 
 \subsection{Node Actor}
 
-As seen in the behavior model for the node actor (Figure \ref{fig:node_behav_smallData}), it captures the majority of a typical scenario for the entire system. That is intuitive since the node communicates with both of the other actors of the system and is a intermediate\todo{is this the right word?} part of the system. The scenario is when a node collects data, that doesn't cause a system-change, and forwards it to the server.
+As seen in the behavior model for the node actor (Figure \ref{fig:node_behav_smallData}), it captures the majority of a typical scenario for the entire system. That is intuitive since the node communicates with both of the other actors of the system and is a intermediate part of the system. The scenario is when a node collects data, that doesn't cause a system-change, and forwards it to the server.
 
 \begin{figure}[ht]
     \includegraphics[scale=1]{include/figures/node_behav_smallData}
@@ -116,10 +118,10 @@ The alternative behavior for system is described in Figure \ref{fig:node_behav_b
     \label{fig:node_behav_bigData}
 \end{figure}
 
-This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}.\todo{argue why I've kept the states to a minimum here?} The node meters data from the environment and passes it forward to the system. There it waits (noted by the state \texttt{Wait}) for a response before returning to the \texttt{Idle} state.
+This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}. The node meters data from the environment and passes it forward to the system. There it waits (noted by the state \texttt{Wait}) for a response before returning to the \texttt{Idle} state.
 
 \begin{figure}[ht]
-    \includegraphics{include/figures/node_actor_fsm}
+    \includegraphics{include/figures/node_actor_fsm_2}
     \caption{FSA for the Node Actor}
     \label{fig:node_states}
 \end{figure}
@@ -140,14 +142,14 @@ This behavior can be described in a FSA, as seen in Figure~\ref{fig:node_states}
 
 %*explain what this model doesn't consider and possible variations for the decisions.*
 
-\section{Modeling}
+\section{Modeling} \label{modelling}
 
 With this defined, the project began to construct Promela models representing these actors' behaviour. This would be the initial example which then would be expanded step by step into a complex model. This section will describe how the modeling was carried out.
 
 %*what is a model?*
 \subsection{Initial Model}
 
-The first iteration consisted of a \wsn of three collection nodes, a server and an environment. The collection nodes would sent a request to the environment to receive data which would then be passed to the server for analysis. Each message being sent to the server could be the source of over-collection so to each message received, the server would respond to the nodes whether to continue collection or not. The promela representation of this can be seen in appendix \textit{centralized\_decision\_multiple\_nodes\_8jul}. \\
+The first iteration consisted of a \wsn of three collection nodes, a server and an environment. The collection nodes would sent a request to the environment to receive data which would then be passed to the server for analysis. Each message being sent to the server could be the source of over-collection so to each message received, the server would respond to the nodes whether to continue collection or not. The promela representation of this can be seen in Appendix 1.2. \\
 
 As can be seen in the example, the network passes the data between the actors and when the server triggers the decision to stop, the message is passed through the network and the system shuts down. To verify that this functionality was achieved, a correctness property was specified as \textit{When the decision to stop is taken, the system should shut down}. \\
 
@@ -168,7 +170,7 @@ This initial model were then analyzed, for how it could be expanded to represent
 
 %mention the change with ghost variables to states instead?
 
-\subsection{Variations}
+\subsection{Variations} \label{variations}
 
 %As a starting point for defining the models, first different architectural choices were considered. This was done to help define different cases of \wsn that could use decisions. The different variations considered were: \\
 
@@ -199,58 +201,6 @@ This meant that our already constructed model were a model with \textbf{centrali
 % More of this will be covered in the design chapter, where the final models are discussed. \\ 
 % During these modeling of these 
 
-\section{Revisions}
-
-The process of model checking is an iterative process, with many refinement steps before eventually reaching a final working model. As mentioned in the background, a refinement step for model checking can yield that either the models or the properties need to be changed. This section will show some examples which made refinements to the model, to give some context to the process. \\
-
-\textbf{The Atomic Requirement} \\
-
-% explain what, then when atomic statements in the models were introduced
-
-% cause & result
-A big concern when modeling concurrency is the uncertainty of interleaving statements. To address such issues, one can use a modelling concept called \textbf{atomic} statements, which specify that several statements should be executed "at once" (without interleaving). These should be used with careful consideration, to not change the nature of what is sought to model. Our project experienced a 'state space explosions' (mentioned in a previous chapter). To reduce the state space, we introduced atomic statements at two steps in our models. One example is shown below:
-
-\begin{lstlisting}[caption={Atomic statement},language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
-Waiting:
-        atomic {
-          if
-          :: out ? continue -> goto Idle;
-          :: out ? stop -> 
-          fi;
-        }
-\end{lstlisting}
-
-This section also had problems with interleaving statements, it was the step where a node received the information to whether stop or continue collecting data. This change was due to that Promela uses communication channels to handle message passing and previously a shared buffered channel had been used. Though from verification with model checking, the amount of states rapidly increased with a buffered channel(\textit{this can be referenced from the SPIN-book with the same example they had there}). So instead the project had to modify the models to use a unique channel between the server and each node. The atomic statement here handled the logic that a node that had received a message didn't wait, but instead immediately acted on the information. \\
-
-\textbf{Introduction of States} \\
-
-% explain the change from the ghost variables to states (since SPIN couldn't verify certain things).
-
-% cause
-As can be seen in the initial model, this version handled the verification by using global variables to monitor certain values. An example is the variable \texttt{nodesDone} which represented on how many nodes were currently actively collecting data. This approach worked initially, but made the models lack certain information. Specifically for the liveness property to know whether a specific node had received data or not. \\ 
-
-% result
-This caused the introduction of states in the models instead. Which also made the models easier compare to their sought FSAs. \\
-
-\textbf{The Network Channel} \\
-
-% explain the introduction of the network channel in the distributed case.
-
-% cause
-
-% result
-
-\textbf{The Liveness Relaxation} \\
-
-% explain when the liveness property was expanded to "bigData_metered" instead.
-
-The liveness property for the system demanded a lot of revisions. As defined, a liveness property should express that \textit{eventually something good happens}. For this project this was a difficult thing to define, %since MC sucks balls and if we never OC'd everything was fine.
-
-%since our solution relied on a state for the system which possibly could never occur in a run. 
-
-% cause
-
-% result
 
 
 
@@ -277,7 +227,7 @@ The liveness property for the system demanded a lot of revisions. As defined, a 
 
 %Furthermore, the project sought to define a model for the basic \wsn \todo{from 2.1 ref?}, so three actors were defined: \textit{Node}, \textit{Server} and \textit{Environment}.
 
-\section{Specification}
+\section{Specification} \label{specs}
 
 This section presents the properties used to verify the system. The process of defining the properties were an iterative approach and several versions were considered, this section only covers the final properties were the result of the previously explained process.
 
@@ -307,26 +257,39 @@ Where \textbf{O} and \textbf{D} corresponds to the state where the stop-decision
 
 %The second property was intuitive for the system since the initial models were constructed in such a way that when data is sent to the server, the first thing the server does it analyze it and respond accordingly depending on what data was sent.\todo{mention it was verified by design?}  
 
-The second property that was specified was liveness, which expresses that "eventually something good happens". For our system, this was defined as "eventually a node sends it's data to the server".
+The second property that was specified was liveness, which expresses that "eventually something good happens". For our system, this was defined as "a node should only stops collecting if over-collection would occur". 
 
 \begin{definition}{}{}
-Liveness (sending)
+Liveness 
 
-\textit{Eventually a node sends it's data to the server.} \\
+\textit{A node only stops collecting if over-collection would occur.} \\
 
-LTL: $\Diamond$ Node\_Send \\
+%ltl liveness { (not node_notify until bigData_metered) }
 
-Where Node\_Send denotes the state where the node sends the data to the server. \\
+LTL: $\neg$ (Node\_Done \textbf{U} Stop\_Coll) \\
+
+Where Node\_Done denotes the state where the node no longer collects data and Stop\_Coll denotes the state where the system takes the decision to stop collection. \textbf{U} denotes the \textbf{Until}-operator. \\
 \end{definition} 
 
-\begin{definition}{}{}
-Liveness (replying)
 
-\textit{If a node sends data to the server, eventually the server replies to the node.} \\
+%\begin{definition}{}{}
+%Liveness (sending)
 
-LTL: $\Box ($Node\_Send $\rightarrow \Diamond$ Server\_Reply$)$\todo{server\_reply doesnt exist atm.} \\
+%\textit{Eventually a node sends it's data to the server.} \\
 
-Where Node\_Send means the same as previously and Server\_Reply denotes the state where the server responds to the node.
-\end{definition}
+%LTL: $\Diamond$ Node\_Send \\
+
+%Where Node\_Send denotes the state where the node sends the data to the server. \\
+%\end{definition} 
+
+%\begin{definition}{}{}
+%Liveness (replying)
+
+%\textit{If a node sends data to the server, eventually the server replies to the node.} \\
+
+%LTL: $\Box ($Node\_Send $\rightarrow \Diamond$ Server\_Reply$)$ \\
+
+%Where Node\_Send means the same as previously and Server\_Reply denotes the state where the server responds to the node.
+%\end{definition}
 
 %Where \textbf{D} and \textbf{O} are the same events as described previously.

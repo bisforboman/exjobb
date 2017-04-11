@@ -1,0 +1,243 @@
+\chapter{Appendix - Model Designs}
+
+\section{Models} \label{modelDesigns}
+
+\begin{lstlisting}[caption=centralized\_conjunctive\_centralized.pml,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+#define NUM_NODES       
+#define node_send       Node@Waiting 
+#define server_dC       Server@Stopping
+#define node_done       Node@DoneColl
+#define server_ans      Server@Answering
+#define server_stop     Server@Stopping
+
+mtype = {meter, bigData, smallData, continue, stop, ack};
+
+ltl correctness { always (server_dC implies (eventually node_done)) }
+
+ltl liveness { (not node_notify until bigData_metered) }
+
+
+chan envChan = [0] of {mtype};
+chan servChan[NUM_NODES] = [1] of {mtype};
+
+init {
+  atomic {
+    int i;
+    for (i : 0  .. (NUM_NODES-1)) {
+      run Node(servChan[i]);
+    }
+  }
+}
+
+
+active proctype Env() {
+
+Idle:  
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData; goto Idle_bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle;
+        }
+      fi;
+
+Idle_bigData:
+      if
+      :: atomic { 
+          envChan ? meter ->  
+           if // random outcome 
+           :: envChan ! bigData;
+           :: envChan ! smallData;
+           fi; 
+          goto Idle_bigData;
+        }
+      fi;       
+}
+
+active proctype Server() {
+
+bool data[3];
+data[0]=false;
+data[1]=false;
+data[2]=false;
+int index=0; 
+int i=0,j=0;
+
+Idle_Answering: 
+        if
+        :: nempty(servChan[i]) -> 
+            j=i;
+            i=(i+1)%NUM_NODES;
+            goto Answering; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Answering;
+        fi;
+
+Answering: // updating index will only be relevant here
+        if
+        :: servChan[j] ? smallData -> 
+            data[index]=false;
+            index=index+1; // index++
+            servChan[j] ! continue; 
+            goto Idle_Answering;
+        :: servChan[j] ? bigData ->
+            if 
+            :: (data[0] || data[1] || data[2]) -> 
+              servChan ! stop;
+              goto Idle_Stopping;
+            :: else -> 
+              data[index]=true;
+              index=index+1; // index++
+            fi;
+
+        fi;
+        
+Idle_Stopping:
+        if
+        :: nempty(servChan[i]) -> 
+            j=i;
+            i=(i+1)%NUM_NODES;
+            goto Stopping; 
+        :: empty(servChan[i]) ->
+            i=(i+1)%NUM_NODES;
+            goto Idle_Stopping;
+        fi;
+
+Stopping:    
+        if
+        :: servChan[j] ? smallData -> 
+            servChan[j] ! stop; 
+            goto Idle_Stopping;
+        :: servChan[j] ? bigData ->
+            servChan[j] ! stop;
+            goto Idle_Stopping;
+        fi;
+}
+
+proctype Node(chan out) {
+Idle:   
+        envChan ! meter; 
+        if
+        :: envChan ? bigData -> 
+           out ! bigData; 
+           goto Waiting;
+        :: envChan ? smallData -> 
+           out ! smallData; 
+           goto Waiting;
+        fi;
+Waiting:
+        atomic {
+          if
+          :: out ? continue -> goto Idle;
+          :: out ? stop -> 
+          fi;
+        }
+DoneColl: 
+}
+\end{lstlisting}
+
+\section{Initial Model} \label{oldmodel}
+
+\begin{lstlisting}[caption=centralized\_decision\_multiple\_nodes\_8jul,language=Promela, numbers=left, basicstyle=\footnotesize, tabsize=2]
+
+#define N   3
+
+mtype = {ack, stop, collect, send};
+int nodesDone=0;
+
+chan ntoS = [2] of {mtype, int, int}; 
+chan stoN = [2] of {mtype, int}; 
+chan etoN = [2] of {mtype, int, int};
+chan ntoE = [2] of {mtype, int};
+
+proctype Environment(chan in, out) {
+  int r=0; // r is the data from the environment
+  int id;  
+  printf("Environment starting up.\n");
+  do 
+  :: (nodesDone == N) -> 
+     break;
+  :: (nodesDone<N) && (nempty(in)) -> 
+     do 
+     :: r=1;  break;
+     :: r=2;  break;
+     :: r=3;  break;
+     :: r=4;  break;
+     :: r=5;  break;
+     :: r=6;  break;
+     :: r=7;  break;
+     :: r=8;  break;
+     :: r=9;  break;
+     :: r=10; break;
+     :: r=11; break;
+     od;
+
+     in ? collect(id);
+
+     out ! ack(id, r);
+
+  od;
+  printf("Environment done, shutting down.\n");
+}
+
+/* inS = incoming from server
+   outS = output to server
+*/
+proctype Node(chan inS, outS, inE, outE) {
+  int data;
+  int id=_pid;
+  mtype msg;
+  int c = 1;
+
+  printf("Node %d starting up.\n", id);
+
+  do 
+  :: outE ! collect(id); // request info from environment
+     inE ? ack(id, data); // receive - || - 
+     outS ! send(id, data);
+     inS ? msg,id;
+     if 
+     :: (msg == stop) -> break;
+     :: (msg == ack) ->  c=c+1;
+     :: else -> 
+     fi;
+  od;
+
+  nodesDone = nodesDone+1; 
+  printf("Node %d done, shutting down. Did this %d times.\n", id, c);
+}
+
+
+proctype Server(chan in, out) {
+  int data;
+  int id;
+  printf("Server starting up.\n");
+  do 
+    :: (nodesDone == N) -> 
+        break;
+    :: (nodesDone<N) && (nempty(in)) -> 
+        in ? send(id, data); 
+        if 
+        :: (data > 9) -> 
+            out ! stop(id);
+        :: else ->
+            out ! ack(id);
+        fi;
+        printf("Collected %d from Node %d.\n", data, id);
+  od;
+  printf("Server done, shutting down.\n");
+} 
+
+init {
+  run Server(ntoS, stoN);
+  run Node(stoN, ntoS, etoN, ntoE);
+  run Node(stoN, ntoS, etoN, ntoE);
+  run Node(stoN, ntoS, etoN, ntoE);
+  run Environment(ntoE, etoN);
+}
+
+\end{lstlisting}

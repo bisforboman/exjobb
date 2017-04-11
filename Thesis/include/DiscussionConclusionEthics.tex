@@ -1,52 +1,146 @@
 \chapter{Discussion} 
 
-This section presents a discussion to the choices and limitations made to the thesis. Some ideas for further work is also presented.
+This section presents a discussion and suggestions for future work.
+%to the abstractions made and limitations to them. Also some  %Some ideas for further work is also presented.
+
+%\textit{in the analysis we found that, which lead to ... }
+%\textit{in an adjusted analysis we found that ... }
+
+
+%this and then applied Data Minimization to said models to prevent data over-collection in the systems. 
+
+%For modeling wireless sensor networks, a set of promela models were defined and correctness and liveness properties for the models were verified. 
+
+%Additional properties were discussed, such as fairness, but due to time constraints these weren't implemented. 
+
+% During the modeling of the different variations, many unseen obstacles were encountered. Specifically the verification of the properties, both correctness and liveness. Since the project kept these the same for all variations, when one property was changed a re-iteration of all the previous variations were also required. This resulted in a several delayed deadlines. 
+
+% and finally (4) explain the limitations of the abstraction, what is not covered, what could be relaxed: take some perspective.
+
+%\section{Discussion of the Design}
+
+%Most of the abstractions made to the models throughout the thesis were made during the Model Checking in SPIN/Promela, to verify the properties. These abstractions 
+
+%\begin{itemize}
+%\item discuss why I used formal verification \& model checking instead of traditional approaches
+%\item discuss why I didn't build all models from the start
+%\item discuss why I made simplifications to the initial models
+%\item discuss why I chosed to use SPIN/Promela as a tool
+%\item discuss the other concurrency tools in the background.
+%\item mention that the project should had sought quantifiable means to measure collection or something else to formulate a decision on.
+%\item mention the idea of a module that could be attached to 
+%\end{itemize}
+
+
+
+% quantative approach
+
+
+
+%Diskussion. 
+%1 diskutera resultatet (här kan du diskutera varför det du gjort är unikt och bra men också vad som begränsar det. Brukar kallas styrkor och begränsningar eller strenght & limitations). Du ska fortfarande inte tycka saker.  
+
+% The project approached the problem with a 
+
+% först diskutera dina resultat
+
+	% sen kan jag lägga till diskussion om mina verktyg eller brister i min approach
+
+	% styrka/svagheter i min approach.
+
+% MC
+% Model Checking is a powerful tool for developing models. 
+
+% Field of DM
+  % mention that we used a flat "stop collection now!"-approach. If modelling an extended version, one should 
+  % probably use a "sleep mode"-approach where the nodes could be told to "pause collection" rather than shutting down. (maybe 
+    % also can be mentioned in the design?)
+
+\section{Discussion of future work}
+
+During the theoretical work of the project we researched using decision procedures for defining Over-Collection in \wsns. As we didn't have time for the extended models, nor the implementation, the development of decision procedures didn't become relevant. A project could instead focus on chosing a good formal system and then developing decision procedures that decides if Over-Collection is occuring in a system. With a general solution or a clear method for reaching this aim, this could in turn help:
 
 \begin{itemize}
-\item discuss why I used formal verification \& model checking instead of traditional approaches
-\item discuss why I didn't build all models from the start
-\item discuss why I made simplifications to the initial models
-\item discuss why I chosed to use SPIN/Promela as a tool
-\item discuss the other concurrency tools in the background.
-\item mention that the project should had sought quantifiable means to measure collection or something else to formulate a decision on.
+\item Formulating a tool to be used for designing systems that collects data, to prevent Over-Collection.
+\item or, A solution that could be attached to existing networks, to prevent Over-Collection.
 \end{itemize}
+
+Which would in turn yield better privacy and Data Minimization.
+
+% sen diskutera dina resultat till någon annan forskning
+
+%2. diskutera resultatet i förhållande till annan forskning.. Det är bra om du då använder samma forskare som i din bakgrund och din teori-del. Helst ska du ju visa hur ditt arbete bygger till en ny, del kunskap. Du kan alltid ge implications for further research alltså tips om vad nästa steg skulle kunna vara. T.ex. den del som du inte gjort klar i ditt aim.
+
+% \section{Discussion of future work}
+
+
+% sen diskutera future work
+	% saker man inte han med.
+
+% mention the idea to get models differently
+
+%The project approached the problem from a theoretical approach, developing models from theoretical networks and then analysing them. One could instead chose a set of existing networks, used a tool to generate models from them - abstracting them if required - and then applying Data Minimization to them to analyze Over-Collection, one could reach a better analysis.
+
+% Also, as mentioned in the background, there are many different tools for modelling concurrency.
+
+
+% ---------------------
+
+
+
+
+% fråga cissi om jag kan skriva rekommendationer om projektet här
+%As a remark, to achieve this goal the project should had instead focused on an/several already existing system(s) to model and abstracted the models from this.  
+
+%This resulted in that the last goal, "Implement a solution from the models and analyze results", wasn't achieved. 
+
+
+% all this was made within 
+
+% inget hur, varför eller att. berätta bara summan, inte varför.
+% Due to lack of time, the project were unable to model a complex \wsn as sought in Phase 2. This led to the analysis of Over-Collection and it's definition were not finished. The analysis of the initial model gave some data, which is further discussed in the next section.
+
+
 
 %The thesis had a difficult and abstract goal, with not as much related work to it as was hoped. If a working solution would had been achieved, we had hoped to present an approach for constructing or adapting existing \wsns to achieve data minimization.
 
 %\textit{During the course of the thesis, an approach to a solution was to construct a module, not integrated into an entity in the system. Which simply could be installed and attached to the system, to prevent over-collection. This idea became an invisible goal to what would sought to be achieved. }
 
-\section{Model Checking}
-
-The thesis chosed to use SPIN/Promela due to prior knowledge, from this Model Checking came natural to use. 
-
-\textit{compare to a different approach and mention if any better results could'd perhaps had been achieved by doing so.}
-
-\textit{discuss the iterative constant rework of the properties and how time consuming such a task is. Initial planning estimated 2-3 weeks but in practice this took 1-2 months.}
-
-\section{Over-Collection}
-
-\textit{overcollection was a difficult task to specify, since it's occurence varied a lot in different systems.}
-
-The investigation into over-collection as a concept became delayed several steps on the way, due to that the modeling process took longer time than expected. This lead to that the conclusions sought to be drawn from how to prevent over-collection using data minimization became 
-
-\textit{quantiative approach would'd been useful, aim for a way to measure he result.}
-
-
-\section{Data Minimization}
-
-
+%\section{Model Checking}
+%The thesis chosed to use SPIN/Promela due to prior knowledge, from this Model Checking came natural to use. 
+%\textit{compare to a different approach and mention if any better results could'd perhaps had been achieved by doing so.}
+%\textit{discuss the iterative constant rework of the properties and how time consuming such a task is. Initial planning estimated 2-3 weeks but in practice this took 1-2 months.}
+%\section{Over-Collection}
+%\textit{overcollection was a difficult task to specify, since it's occurence varied a lot in different systems.}
+%The investigation into over-collection as a concept became delayed several steps on the way, due to that the modeling process took longer time than expected. This lead to that the conclusions sought to be drawn from how to prevent over-collection using data minimization became 
+%\textit{quantiative approach would'd been useful, aim for a way to measure he result.}
+%\section{Data Minimization}
+%\textit{dm is fun}
 
 \chapter{Conclusion}
 
+% vad mina resultat o allt mynnar ut till
 
-\textit{Conclude the results of the report, did it go as expected? What progress did you make and what didn't you achieve that you had hoped? Did you reach the aim stated and did you keep yourself in the scope \& limitations? }
+% vad jag kan säga när jag är klar
 
-In this thesis, we investigated over-collection in wireless sensor networks. As a tool we used promela to model this and then apply data minimization as a concept to said models to reduce, or in the best case prevent, data over-collection in the systems. For modeling wireless sensor networks, a set of promela models were defined and correctness and liveness properties for the models were verified. Additional properties were discussed, such as fairness, but due to time constraints these weren't implemented. During the modeling of the different variations, many unseen obstacles were encountered. Specifically the verification of the properties, both correctness and liveness. Since the project kept these the same for all variations, when one property was changed a re-iteration of all the previous variations were also required. This resulted in a several delayed deadlines. 
+% nämn att man projektet kan vara hjälpsamt för folk som också ska använda; formal verification, specifically spin/promela. 
 
-% fråga cissi om jag kan skriva rekommendationer om projektet här
-As a remark, to achieve this goal the project should had instead focused on an/several already existing system(s) to model and abstracted the models from this.  
+% \textit{Conclude the results of the report, did it go as expected? What progress did you make and what didn't you achieve that you had hoped? Did you reach the aim stated and did you keep yourself in the scope \& limitations? }
 
-This resulted in that the last goal, "Implement a solution from the models and analyze results", wasn't achieved. 
+In this thesis, we investigated over-collection in \wsn. We kept ourselves within the limitations and  We divised a terminology for our system, with e.g. \textit{Actors} and \textit{Behavior Models}, for our analysis of the different entities in a \wsn. With this terminology we described how each entity in the system should act upon received information. 
+
+We then constructed an abstract model from this, using Promela as a tool, of a \wsn collecting data and that used Data Minimization to prevent over-collection. We then specified safety correctness and liveness properties for our system in Linear Time Logic, using Model Checking in SPIN to verify that our system was working as intended. 
+
+In our analysis we found further variations for \wsns, as mentioned in Section~\ref{variations}, that introduced new aspects for our analysis into Data Minimization in \wsns. This analysis led to further modelling and refinement of our properties. The designs of said models can be seen in Appendix 1, also a more thorough description into one of the models can be found in the Design in Section~\ref{design}. 
+
+The project achieved a good set of models, to use as a foundation for developing the extended models sought in Phase 2. The modelling in Phase 1 took longer than expected which led to that Phase 2 were never reached. We believe that the analysis in Phase 2 would have yielded very interesting results into Data Minimization. Which could help addressing problems that arises with Over-Collection. 
+
+% mention extended models
+To summarize, modelling \wsns and using Model Checking to formally verifying their behaviour is a good approach. Modelling several systems behaving and acting differently and verifying them with the same properties was more challenging than expected. Even though this project did not implement a solution from the models, it's findings can still be useful for similar work into Model Checking and analysation of Data Minimization.
+
+% mention a conclusion
+
+% nämn inte 
 
 
 %\chapter{Ethics}

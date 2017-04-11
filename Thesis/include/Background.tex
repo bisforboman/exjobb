@@ -1,6 +1,6 @@
 \chapter{Background}
 
-In this chapter we introduce the basic concepts that are the focus of this thesis, such as \wsns and \textit{Data Minimization}. % we still start by giving some areas to the research into DM and reasons for it.
+In this chapter we introduce the basic concepts that are the focus of this thesis, such as \wsns and \textit{Data Minimization}. It should provide an explanation to the technologies and issues that serve as the motivation for the thesis. % we still start by giving some areas to the research into DM and reasons for it.
 
 %\textit{This section should cover some background information to give the reader some background knowledge to what the project has been about that is required knowledge before moving forward.}
 
@@ -10,7 +10,9 @@ In this chapter we introduce the basic concepts that are the focus of this thesi
 
 % how it's built up (components)
 
-A \wsn is an improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. 
+\wsns are a growing interest in the research community \cite{wsnsurvey, akyildiz2007survey, min2001low}. The attention drawn to them can be motivated by new applications that are enabled from these large-scale networks of small devices that can collect information from a physical environment.
+
+A \wsn is an improvement from the traditional sensor networks, made possible by advances in micro-electro-mechanical systems (MEMS) technology\cite{sohrabi2000protocols, min2001low} making sensor nodes that are smaller, multifunction and cheaper in comparison to previous sensors. 
 
 \begin{figure}[ht]
     \includegraphics{include/figures/WSN_illu}
@@ -18,20 +20,25 @@ A \wsn is an improvement from the traditional sensor networks, made possible by 
     \label{fig:wsn_illustration}
 \end{figure}
 
-Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined.\cite{wsnsurvey} 
+Traditional sensors have two ways of being deployed; 1) They were positioned far away from the actual \textit{phenomenon} (e.g. something known by sense perception) which required large sensors using complex techniques to distinguish the targets from surrounding noise. 2) Several sensors were deployed that only performed sensing and their communication topology had to be carefully engineered and they transmitted time series of the data to the central nodes which performed the communication.\wsns on the other hand, is constructed by deploying a large number of sensor nodes close to the phenomenon and their position doesn't need to be engineered or predetermined\cite{wsnsurvey}. 
 
-% add some examples of practical WSN applications
+% add some examples of practical WSN applications % add from wsnsurvey? % http://www.chicagotribune.com/bluesky/originals/ct-array-of-things-privacy-policy-bsi-20160610-story.html - wsn example
 
-% add from wsnsurvey?
+Sensor networks can be built up by many different types of sensors such as acoustic, seismic, infrared, thermal, radar or visual, which can monitor an assortment of environmental conditions\cite{estrin1999next}, e.g. temperature, humidity, pressure, noise levels. 
 
-% http://www.chicagotribune.com/bluesky/originals/ct-array-of-things-privacy-policy-bsi-20160610-story.html - wsn example
-The features that \wsn has supports has a wide range of usages. For example, the city of Chicago plans to install\todo{present in another way?} \wsn for tracking information on urban conditions. The sensors are planned to be low-resolution cameras, infrared cameras and microphones for analyzing urban areas and sending the information back to a secure\todo{ref?} remote server. The article stresses that even though the sensors would have a low-resolution cameras, the video could still be used to identify individuals. Which could cause a privacy concern.\todo{mention this in motivation} To prevent this, the project will also define privacy policy before installing the sensors, through public hearings and also informing the public what kind of information and how the information would be gathered.
+These features that \wsns supports, makes them available for a wide range of usages. For example, the city of Chicago began a project\cite{chicago2016} to install \wsn for tracking information on urban conditions. The sensors are planned to be low-resolution cameras, infrared cameras and microphones for analyzing urban areas and sending the information back to a secure remote server. The article stresses that even though the sensors would have a low-resolution cameras, the video could still be used to identify individuals. Which could cause a privacy concern. To prevent this, that project will also define a privacy policy before installing the sensors, through public hearings and also informing the public what kind of information and how the information would be gathered.
+
+There are many other practical applications for \wsns some examples include environmental applications; for tracking small animals and birds, monitoring air pollution and precision agriculture\cite{baggio2005wireless,collier2010acoustic, khedo2010wireless}. In military applications for mission and flight systems in situ sensing and self-adapting mine-fields\cite{vardhan2000wireless, merrill2003collaborative}. Also in health-care applications for drug administration and large-scale monitoring of stress in the field\cite{darwish2011wearable, ertin2011autosense}.
+
+% Other examples of 
 
 % privacy policy
 
 % https://pdfs.semanticscholar.org/2644/b8c7f4e488f3ce4c56382c4affda2e5e98fa.pdf
 
 %% does this need more information? it's just a network of sensor nodes?
+
+%\section{Privacy} The justification and importance of privacy is done in different ways. For example, Bloustein claims privacy as a neccessity for human dignity\cite{bloustein1964privacy}. Gavison 
 
 \section{Privacy Issues in WSNs}
 
@@ -41,13 +48,19 @@ The features that \wsn has supports has a wide range of usages. For example, the
 
 When adversaries can access to sensitive information in \wsn, it's a privacy issue. This can either be achieved by accessing sensor data or eavesdropping on communications in the network. For example, if an adversary gains access to data from sensors monitoring a home on both the inside and the outside, they could derive information regarding the inhabitants' behaviours or private activities. 
 
-Furthermore, there are many issues related to privacy. In a paper by Haowen and Perrig\cite{chan2003security}, they state that the main problem related to privacy is that the information from sensor nodes are aggrevated and can be accessed remotely. This makes it easier for adversaries to access information in a low-risk and anonymous manner. Also making it possible for just one adversary to monitor multiple sites at once. 
+% In order to prevent this, different security protocols are used. But previously proposed security mechanisms but due to the inherent properties of sensor networks these protocols are rendered impractical. 
+
+% security in wsns 
+
+Furthermore, there are many other issues related to privacy. In a paper by Haowen and Perrig\cite{chan2003security}, they state that the main problem related to privacy is that the information from sensor nodes are aggrevated and can be accessed remotely. This makes it easier for adversaries to access information in a low-risk and anonymous manner. Also making it possible for just one adversary to monitor multiple sites at once. 
 
 % https://pdfs.semanticscholar.org/2644/b8c7f4e488f3ce4c56382c4affda2e5e98fa.pdf
 
 %In another paper, by Slijepcevic, Wong and Potkonjak, list four major challenges\ref{slijepcevic2004security} in regards to \wsn. Firstly \textit{hostile environment}, regarding \wsns deployed by the military upon battlefields. In those cases the nodes can't be protected from physical attacks. 
 
-Finally, a major issues was mentioned in an paper by Al Ameen, Liu and Kwak\cite{al2012security}, as privacy is a major concern in healthcare applications. They said that if the privacy issues aren't honestly debated, there is a risk for public backlash that will result in mistrust and might make available technology not used. This can happen either if the data is obtained with or without the consent of the person, since the damage can happen either way.
+Finally, a major issue was mentioned in an paper by Al Ameen, Liu and Kwak\cite{al2012security}, as privacy is a major concern in healthcare applications. They claimed that if the privacy issues aren't honestly debated, there is a risk for public backlash that will result in mistrust and might make available technology not used. This can happen either if the data is obtained with or without the consent of the person, since the damage can happen either way.
+
+
 
 %Another issue regarding \wsn privacy was mentioned in a paper by Slijepcevic, Wong and Potkonjak\ref{slijepcevic2004security}. Applications strives to collect as much data with a precision of the sensing data as possible, except in some special cases, to have the best performance possible. Although this is in duality to privacy protection, which strives for the minimum amount of data for a single individual. 
 
@@ -73,7 +86,9 @@ With the world becoming more and more digitalized, the collection of personal da
 
 % maybe this is a too general paragraph that is too short, should be converted to a more arguing paragraph leading up to the more precise definitions.
 
-In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}.\cite{pfitzmann2010} These definitions will help broaden the explanation of data minimization for the sake of this thesis and therefore we will go through them more thoroughly. To give these definition some context, we will use the same terminology as in the paper, where the two most important ones are \textit{subjects} and \textit{Items of Interest} (IOI). For privacy reasons, being that we wish to maximize it for human beings, subjects are mainly users in a system. But in the generalizations that follows, it can be a legal person or even be a computer. An Item of Interest is a generalization of what can be seen as information, e.g. the contents of a message, the name or the pseudonym of a user or even the action of a user sending a message. All of these can be an Item of Interest, in the following list are some definitions to expand the meaning of Data Minimization: \\
+In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology for the aspects of Data Minimization was defined. The main definitions they used were: \textit{Anonymity}, \textit{Unlinkability}, \textit{Undetectability} and \textit{Unobservability}\cite{pfitzmann2010z}. These definitions sought to explain data minimization. To explain these definitions, we will use the same terminology as in the paper, where the two most important ones are \textit{subjects} and \textit{Items of Interest} (IOI). 
+
+For privacy reasons, being that we wish to maximize it for human beings, subjects are mainly users in a system. But in the definitions that follow, it can be a legal person or even be a computer. An Item of Interest is a generalization of what can be seen as information, e.g. the contents of a message, the name or the pseudonym of a user or even the action of a user sending a message. All of these can be an Item of Interest, and the definitions are stated in the following list: \\
 
 % persons communicating in the system are \textit{subjects} and the information is regarded as \textit{Items of interest} (IOI). % is this obvious? Should IOIs be better defined?
 
@@ -82,6 +97,7 @@ In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology fo
 %It should be noted that the definitions are written with regards to an attacker's perspective. 
 
 \begin{itemize}
+\setlength\itemsep{1em}
 \item[] \textbf{Anonymity} means that for a subject to have anonymity, it has to be indistinguisable in a set of subjects. Meaning that if a subject has a set of attributes defining the subject, there always has to exist an appropriate set of subjects with potentially the same attributes, in other words: "Anonymity of a subject means that the subject is not identifiable within a set of subjects, the \textit{anonymity set}.", where the anonymity set is the set of all possible subjects. The opposite of anonymity is called \textit{Identifiability}. 
 
 \item[] \textbf{Unlinkability} is the relation between IOIs in the system. If several IOIs become compromised, an attacker should not be able to distinguish whether these IOIs are related or not. The opposite of unlinkability is called \textit{Linkability}.
@@ -94,6 +110,10 @@ In a paper by Pfitzmann, Andreas and Hansen and Marit, a combined terminology fo
 % discuss these definitions in a setting? todo on this from prev paragraph
 
 %TBR: This covers two important aspects of data minimization, the first being that data should only be kept for as long as it is useful for an application and the second being that they should only collect "relevant" data. The latter is more interesting to the project, since the project's aim is to solve part of this problem. %why is this a good a good definition for me?
+
+\subsection{Over-Collection}
+
+In contrast to Data Minimization, there is a term called Data Over-Collection. In a paper by Yibin Li et al\ref{li2016privacy}, they adressed issues of data over-collection and presented a privacy protection framework to solve them. Their focus was the "smart city", an urban development vision with social facilities being connected wirelessly with information and communication technology and IoT-technology in a secure fashion to improve the efficiency of services. The system would help identify users in a smart fashion to relieve the need of ID- or credit cards. This requires that smart cities have a system that contains a lot of different users' information, which puts the users at a potential privacy leakage when accessing these features. They also sought to prevent over-collection of data, but though a privacy protection. Their definition of data over-collection was; "Collecting data more than enough on it's original function while within the permission scope". This definition is related to that their target, for which they sought to minimize over-collection, was smartphones. An example they used for explaining this definition was the following: "I take a picture and want to share it with my friends via some SNS app in my smartphone. For sharing this photo to my friends, I have to agree the permission request from this app. After authorize the access permission to this SNS app, all my photos are available to this app, but I only want this app to access one specific photo. As a result, this app may collect data more than enough on my original requirement while within the permission scope which I authorize." 
 
 
 \section{Modelling Concurrency}
@@ -114,12 +134,13 @@ In 1962, Carl Adam Petri disserted his work on a more graphical way of modelling
     \label{fig:petri_net}
 \end{figure}
 
-The primary rule for Petri Net theory is the rule for transition enabling and firing. It derives from the idea that many systems can be described as system states and their changes. So to simulate the behavior of a system, each state or marking are allowed to change according to the following rule:
+The primary rule for Petri Net theory is the rule for transition enabling and firing. It derives from the idea that many systems can be described as system states and their changes. So to simulate the behavior of a system, each state or marking are allowed to change according to the following rule:\\
 
 \begin{itemize}
+	\setlength\itemsep{1em}
 	\item A transition is enabled iff each of its input places has atleast one token
 	\item A transition can only fire if it is enabled.
-	\item When a transition fires it removes a token from each of its input places and a token is deposited into each of its output places.
+	\item When a transition fires it removes a token from each of its input places and a token is deposited into each of its output places.\\
 \end{itemize}
 
 %\begin{itemize} alt. description
@@ -137,28 +158,33 @@ By analyzing different properties of a Petri net model of a system, such as live
 \subsection{Process Calculi}
 
 \textit{Process Calculi} is a family of related approaches for formal modelling of concurrent systems. It allows for a high-level description of the interaction, communication and the synchronization between processes and agents. %wikiwiki
-Some examples of different Process Calculi are CSP, LOTOS and $\pi$-calculus\todo{referencez}. Their focus vary, for they are specialized on modelling different systems, but some features they (and other Process Calculi) share are:
+Some examples of different Process Calculi are CSP, LOTOS and $\pi$-calculus\cite{baeten2005brief}. Their focus vary, for they are specialized on modelling different systems, but some features they (and other Process Calculi) share are: \\
 
 \begin{itemize}
+	\setlength\itemsep{1em}
+
 \item Interaction between processes are represented as communication(message-passing), rather than manipulation of shared variables. %interactions 
 \item Processes are described as a collection of primitives and operators for those primitives. %processes
-\item Algebraic laws are defined for the process operators, which allows them to be analyzed by \textit{equational reasoning}\todo{find ref}.%algebraic laws
+\item Algebraic laws are defined for the process operators, which allows them to be analyzed by \textit{equational reasoning}. \\ %algebraic laws
 \end{itemize}
 
-Initially, to define a \textit{process calculus}, you start with a set of channels as a means of communication. The internal structure of channels are rich and are constructed to improve efficiency, but when explained theoretically these improvements are usually abstracted away. Also, a way to form new processes from old ones is required, this also varies from the different implementations but what they have in common can be summarized the following: %durr?
+Initially, to define a \textit{process calculus}, you start with a set of channels as a means of communication. The internal structure of channels are rich and are constructed to improve efficiency, but when explained theoretically these improvements are usually abstracted away. Also, a way to form new processes from old ones is required, this also varies from the different implementations but what they have in common can be summarized the following: \\ %durr?
 
 \begin{itemize}
+	\setlength\itemsep{1em}
 \item A way of expressing parallell composition of processes
 \item A way of specifying which channels are used for sending and receiving data
 \item A way to sequentialize interactions
 \item A way to hide interaction points
-\item Recursion or a way to process replication
+\item Recursion or a way to process replication \\
 \end{itemize}
 
 % show an example of a language described in PC
 Furthermore, an example of constructing a process calculus model can be seen in the CRC Handbook of Computer Science and Engineering\cite{pierce1997foundational}, written in $\pi$-calculus and compared to $\lambda$-calculus. % mention it's not relevant to present?
 
 \section{Related Work}
+
+This section will present some related work into also ensuring privacy for users, where other approaches than the one in this thesis were used.
 
 \subsection{Data Erasure and Declassification}
 
